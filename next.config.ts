@@ -1,8 +1,7 @@
-// next.config.ts
 import type { NextConfig } from "next";
 
 function withProtocol(url?: string) {
-  if (!url) return "https://muchik-api-production.up.railway.app";
+  if (!url) return "https://api-production-2748.up.railway.app";
   return url.startsWith("http://") || url.startsWith("https://")
     ? url
     : `https://${url}`;
@@ -22,7 +21,7 @@ const nextConfig: NextConfig = {
         destination: `${apiBase}/api/auth/:path*`,
       },
       {
-        // todo lo de /api menos /api/auth
+
         source: "/api/((?!auth).+)",
         destination: `${apiBase}/$1`,
       },
