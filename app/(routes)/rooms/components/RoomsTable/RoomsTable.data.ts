@@ -1,0 +1,22 @@
+export const rooms = [
+    { roomNumber: "101", roomType: "Single", status: "available", price: 100.00, isClean: true },
+    { roomNumber: "102", roomType: "Double", status: "occupied", price: 150.00, isClean: false },
+    { roomNumber: "103", roomType: "Suite", status: "available", price: 200.00, isClean: true },
+    { roomNumber: "104", roomType: "Single", status: "maintenance", price: 90.00, isClean: false },
+    { roomNumber: "105", roomType: "Double", status: "available", price: 140.00, isClean: true },
+    { roomNumber: "106", roomType: "Suite", status: "occupied", price: 210.00, isClean: false },
+    { roomNumber: "107", roomType: "Single", status: "available", price: 105.00, isClean: true },
+    { roomNumber: "108", roomType: "Double", status: "available", price: 155.00, isClean: true },
+    { roomNumber: "109", roomType: "Suite", status: "maintenance", price: 220.00, isClean: false },
+    { roomNumber: "110", roomType: "Single", status: "occupied", price: 95.00, isClean: false },
+    { roomNumber: "111", roomType: "Double", status: "available", price: 145.00, isClean: true },
+    { roomNumber: "112", roomType: "Suite", status: "available", price: 205.00, isClean: true },
+    { roomNumber: "113", roomType: "Single", status: "maintenance", price: 100.00, isClean: false },
+    { roomNumber: "114", roomType: "Double", status: "occupied", price: 150.00, isClean: false },
+    { roomNumber: "115", roomType: "Suite", status: "available", price: 215.00, isClean: true },
+    { roomNumber: "116", roomType: "Single", status: "available", price: 110.00, isClean: true },
+    { roomNumber: "117", roomType: "Double", status: "maintenance", price: 160.00, isClean: false },
+    { roomNumber: "118", roomType: "Suite", status: "occupied", price: 225.00, isClean: false },
+    { roomNumber: "119", roomType: "Single", status: "available", price: 120.00, isClean: true },
+    { roomNumber: "120", roomType: "Double", status: "available", price: 170.00, isClean: true }
+];
