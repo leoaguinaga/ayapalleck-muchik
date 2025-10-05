@@ -2,14 +2,16 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   async rewrites() {
+    const apiUrl = process.env.API_URL || 'https://muchik-api-production.up.railway.app';
+
     return [
       {
         source: "/api/auth/:path*",
-        destination: `${process.env.API_URL}/api/auth/:path*`
+        destination: `${apiUrl}/api/auth/:path*`
       },
       {
         source: "/api/((?!auth).+)",
-        destination: `${process.env.API_URL}/$1`
+        destination: `${apiUrl}/$1`
       }
     ];
   },
