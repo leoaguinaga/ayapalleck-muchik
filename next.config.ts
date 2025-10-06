@@ -1,15 +1,5 @@
 import type { NextConfig } from "next";
-
-function withProtocol(url?: string) {
-  if (!url) return "https://api-production-2748.up.railway.app";
-  return url.startsWith("http://") || url.startsWith("https://")
-    ? url
-    : `https://${url}`;
-}
-
-function trimEndSlash(url: string) {
-  return url.endsWith("/") ? url.slice(0, -1) : url;
-}
+import { trimEndSlash, withProtocol } from "./lib/handle-url";
 
 const apiBase = trimEndSlash(withProtocol(process.env.API_URL));
 
