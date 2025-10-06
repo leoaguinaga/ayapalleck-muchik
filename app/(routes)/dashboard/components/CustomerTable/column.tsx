@@ -27,9 +27,9 @@ export const columns: ColumnDef<CustomerTableProps>[] = [
         cell: ({ row }) => {
             const status = row.getValue("status") as string
             if (status === "late") {
-                return <Tag text="Con retraso" color="red" />
-            } else {
                 return <Tag text="En horario" color="green" />
+            } else {
+                return <Tag text="Con retraso" color="red" />
             }
         }
     },
