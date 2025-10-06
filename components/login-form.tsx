@@ -18,8 +18,9 @@ import {
 import { authClient } from "@/lib/auth-client"
 import { toast } from "react-hot-toast"
 import { useState } from "react"
-import { LoaderCircle } from "lucide-react"
+import { Eye, EyeClosed, LoaderCircle } from "lucide-react"
 import { redirect } from "next/navigation"
+import ForgotPasswordButton from "./ForgotPasswordButton"
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -28,6 +29,7 @@ const formSchema = z.object({
 
 export function LoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -85,7 +87,22 @@ export function LoginForm() {
               <FormItem className="grid gap-3">
                 <FormLabel>Contraseña</FormLabel>
                 <FormControl>
-                  <Input placeholder="********" type="password" id="password" {...field} />
+                  <div className="relative">
+                    <Input
+                      placeholder="********"
+                      type={showPassword ? "text" : "password"}
+                      id="password"
+                      {...field}
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="absolute top-1/2 right-3 -translate-y-1/2 p-0 h-auto"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <EyeClosed className="size-5" /> : <Eye className="size-5" />}
+                    </Button>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -95,13 +112,10 @@ export function LoginForm() {
             {isSubmitting ? <LoaderCircle className="animate-spin size-5" /> : "Iniciar sesión"}
           </Button>
         </div>
-        <div className="text-right text-sm">
-          <a
-            href="#"
-            className="ml-auto text-sm underline-offset-4 hover:underline"
-          >
-            Olvidaste tu contraseña?
-          </a>
+        <div className="w-full flex justify-end text-sm">
+          <div onClick={(e) => e.stopPropagation()}>
+            <ForgotPasswordButton />
+          </div>
         </div>
       </form>
     </Form>

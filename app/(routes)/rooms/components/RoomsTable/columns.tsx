@@ -5,6 +5,8 @@ import { RoomsTableProps } from "./RoomsTable.types"
 import { BadgeCheck, EllipsisVertical, Pencil } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { Button } from "@/components/ui/button"
+import Tag from "@/components/Tag/Tag"
+import Link from "next/link"
 
 export const columns: ColumnDef<RoomsTableProps>[] = [
     {
@@ -32,9 +34,9 @@ export const columns: ColumnDef<RoomsTableProps>[] = [
             const status = row.getValue("status") as string;
             switch (status) {
                 case "occupied":
-                    return <span className="font-semibold py-1 px-2 rounded-lg bg-orange-300 text-orange-700 w-fit dark:bg-orange-700/30 dark:text-orange-500">Ocupada</span>;
+                    return <Tag text="Ocupada" color="orange" />;
                 default:
-                    return <span className="font-semibold py-1 px-2 rounded-lg bg-green-300 text-green-700 w-fit dark:bg-green-700/30 dark:text-green-500">Disponible</span>;
+                    return <Tag text="Disponible" color="green" />;
             }
         }
     },
@@ -44,9 +46,9 @@ export const columns: ColumnDef<RoomsTableProps>[] = [
         cell: ({ row }) => {
             const isClean = row.getValue("isClean") as boolean;
             return isClean ? (
-                <span className="font-semibold py-1 px-2 rounded-lg bg-blue-300 text-blue-700 w-fit dark:bg-blue-700/30 dark:text-blue-500">Limpia</span>
+                <Tag text="Limpio" color="blue" />
             ) : (
-                <span className="font-semibold py-1 px-2 rounded-lg bg-yellow-300 text-yellow-700 w-fit dark:bg-yellow-700/30 dark:text-yellow-500">Sucio</span>
+                <Tag text="Sucio" color="yellow" />
             )
         }
     },
@@ -54,6 +56,7 @@ export const columns: ColumnDef<RoomsTableProps>[] = [
         accessorKey: "actions",
         header: "",
         cell: ({ row }) => {
+            const roomNumber = row.getValue("roomNumber");
 
             return (
                 <div className="justify-self-end">
@@ -65,9 +68,10 @@ export const columns: ColumnDef<RoomsTableProps>[] = [
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem className="flex items-center gap-2 p-2 px-3 border bg-card rounded-lg cursor-pointer">
-                                Editar
-                                <Pencil className="size-4" />
+                            <DropdownMenuItem>
+                                <Link href={`/rooms/${roomNumber}`} className="flex p-2 px-3 border bg-card rounded-lg cursor-pointer hover:outline-none">
+                                    Gestionar
+                                </Link>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>

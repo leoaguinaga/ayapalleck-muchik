@@ -38,18 +38,21 @@ export function Breadcrumb() {
     const segments = pathname.split("/").filter(Boolean)
 
     return (
-
         <nav className="flex items-center text-xl md:text-2xl font-bold text-muted-foreground">
             {segments.map((segment, index) => {
-                const href = "/" + segments.slice(0, index + 1).join("/")
-                return (
-                    <Link href={decodeURIComponent(segment)} key={index} className="hover:text-black ">
-                        {translate(decodeURIComponent(segment))}
-                    </Link>
-                )
+            const href = "/" + segments.slice(0, index + 1).join("/")
+            const isLast = index === segments.length - 1
+            return (
+                <div key={index} className="flex items-center">
+                <Link href={href} className="hover:text-black dark:hover:text-white">
+                    {translate(decodeURIComponent(segment))}
+                </Link>
+                {!isLast && (
+                    <ChevronRight className="mx-1 size-5 md:size-6" strokeWidth={2} />
+                )}
+                </div>
+            )
             })}
-            <ChevronRight className="mx-1 md:mx-2 size-5 md:size-6" strokeWidth={2.2} />
-            <p>72166620</p>
         </nav>
     )
 }

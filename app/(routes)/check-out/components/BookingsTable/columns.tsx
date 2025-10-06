@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { formatPrice } from "@/lib/formatPrice"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { Button } from "@/components/ui/button"
+import Tag from "@/components/Tag/Tag"
 
 export const columns: ColumnDef<BookingsTablePops>[] = [
     {
@@ -31,9 +32,9 @@ export const columns: ColumnDef<BookingsTablePops>[] = [
         cell: ({ row }) => {
             const status = row.getValue("status") as string
             if (status === "late") {
-                return <span className="font-semibold py-1 px-2 rounded-lg bg-orange-300 text-orange-700 w-fit dark:bg-orange-700/30 dark:text-orange-500">Tarde</span>
+                return <Tag text="Con retraso" color="red" />
             } else if (status === "punctual") {
-                return <span className="font-semibold py-1 px-2 rounded-lg bg-cyan-300 text-cyan-700 w-fit dark:bg-cyan-700/30 dark:text-cyan-500">A tiempo</span>
+                return <Tag text="En horario" color="green" />
             } else {
                 return <Badge variant="secondary">Desconocido</Badge>
             }
