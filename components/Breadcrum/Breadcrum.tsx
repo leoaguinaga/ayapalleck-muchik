@@ -9,7 +9,7 @@ function translate(route: string) {
         case "dashboard":
             return "Panel"
         case "customers":
-            return "Clientes"
+            return "Huéspedes"
         case "check-in":
             return "Ingresos"
         case "check-out":
@@ -20,14 +20,12 @@ function translate(route: string) {
             return "Habitaciones"
         case "bookings":
             return "Reservas"
-        case "inventary":
-            return "Inventario"
-        case "products":
-            return "Productos"
-        case "categories":
-            return "Categorías"
+        case "history":
+            return "Historial"
         case "settings":
             return "Ajustes"
+        case "users":
+            return "Usuarios"
         default:
             return route
     }
@@ -48,7 +46,7 @@ export function Breadcrumb() {
                     {translate(decodeURIComponent(segment))}
                 </Link>
                 {!isLast && (
-                    <ChevronRight className="mx-1 size-5 md:size-6" strokeWidth={2} />
+                    <ChevronRight className="mx-1 size-5 md:size-6" strokeWidth={1.9} />
                 )}
                 </div>
             )

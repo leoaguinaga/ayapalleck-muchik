@@ -7,10 +7,10 @@ import Navbar from '@/components/Navbar/Navbar'
 export default function LayoutDashboard({ children }: { children: React.ReactNode }) {
     return (
         <div className='flex w-full h-full'>
-            <div className='hidden xl:block w-75 h-full xl:fixed'>
+            <div className='hidden xl:block w-70 h-full xl:fixed'>
                 <Sidebar />
             </div>
-            <div className="w-full xl:ml-75">
+            <div className="w-full xl:ml-70">
                 <Navbar />
                 <div className='p-5 bg-background '>
                     {children}

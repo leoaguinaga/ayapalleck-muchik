@@ -6,16 +6,26 @@ import {
     BedDouble,
     Users,
     History,
-    LayoutDashboard
+    LayoutDashboard,
+    ShieldUser,
+    BookMarked
     
 } from 'lucide-react';
 
-export const dataGeneralSidebar = [
+export const dataAdminSidebar = [
     {
         icon: LayoutDashboard,
         label: "Panel",
         href: "/dashboard"
     },
+    {
+        icon: ShieldUser,
+        label: "Usuarios",
+        href: "/users"
+    },
+]
+
+export const dataGeneralSidebar = [
     {
         icon: DoorOpen,
         label: "Ingresos",
@@ -26,6 +36,15 @@ export const dataGeneralSidebar = [
         label: "Salidas",
         href: "/check-out"
     },
+]
+
+export const dataToolsSidebar = [
+    {
+        icon: BookMarked,
+        label: "Reservas",
+        href: "/bookings"
+    },
+    
     {
         icon: ClipboardList,
         label: "Solicitudes",
@@ -41,20 +60,8 @@ export const dataSupportSidebar = [
     },
     {
         icon: Users,
-        label: "Clientes",
+        label: "Huéspedes",
         href: "/customers"
     },
 ]
 
-export const dataToolsSidebar = [
-    {
-        icon: History,
-        label: "Reservas",
-        href: "/bookings"
-    },
-    // {
-    //     icon: Boxes,
-    //     label: "Inventario",
-    //     href: "/inventary"
-    // },
-]

@@ -22,6 +22,7 @@ import {
 } from "@tanstack/react-table"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import CreateCustomerButton from '../CreateCustomerButton'
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -32,7 +33,7 @@ export default function DataTable<TData, TValue>({
     columns,
     data
 }: DataTableProps<TData, TValue>) {
-    const [sorting, setSorting] = React.useState<SortingState>([])
+    const [sorting, setSorting] = React.useState<SortingState>([{ id: 'visits', desc: true }])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     const [isMounted, setIsMounted] = React.useState(false)
 
@@ -55,24 +56,20 @@ export default function DataTable<TData, TValue>({
         },
         initialState: {
             pagination: {
-                pageSize: 15,
+                pageSize: 10,
             },
+            sorting: [
+                {
+                    id: 'visits',
+                    desc: true
+                }
+            ],
         },
     })
 
     if (!isMounted) { return null }
     return (
         <div className='w-full flex flex-col gap-5'>
-            <div className='flex flex-col sm:flex-row gap-2.5 sm:items-center justify-between'>
-                <Input
-                    placeholder="Buscar por cliente..."
-                    value={(table.getColumn("customer")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) =>
-                        table.getColumn("customer")?.setFilterValue(event.target.value)
-                    }
-                    className="w-full"
-                />
-            </div>
             <div className='rounded-md border px-2'>
                 <Table>
                     <TableHeader>
@@ -123,7 +120,7 @@ export default function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-            <div className='flex items-center justify-end space-x-2 py-4'>
+            <div className='flex items-center justify-end space-x-2'>
                 <Button variant="outline" size='sm' onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>Previo</Button>
                 <Button variant="outline" size='sm' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>Siguiente</Button>
             </div>

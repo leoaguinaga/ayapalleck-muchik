@@ -15,15 +15,17 @@ export default function RoomDetails(props: RoomDetailsProps) {
     }
 
     return (
-        <div className='bg-card w-fit flex flex-col p-5 rounded-lg border gap-2.5'>
-            <h2 className='text-lg font-bold'>Detalles de la habitación</h2>
-            <img src="/room-simple.webp" className='rounded-lg max-w-[320px]' alt="" />
-            <p className=''>Número de habitación: <strong>{roomNumber}</strong></p>
-            <p className=''>Tipo de habitación: <strong>{roomType}</strong></p>
-            <p className=''>Precio por noche: <strong>${pricePerNight}</strong></p>
-            <div className='flex flex-col gap-2 w-full max-w-[320px]'>
+        <div className='bg-card w-full sm:grid sm:grid-cols-2 md:w-fit xl:w-full flex flex-col md:flex md:flex-col p-5 rounded-lg border gap-2.5'>
+            <h2 className='text-lg font-bold col-span-2'>Detalles de la habitación</h2>
+            <img src="/room-simple.webp" className='rounded-lg max-w-[320px] sm:max-w-[290px] md:max-w-[270px]' alt="" />
+            <div className='flex flex-col gap-2 w-full sm:pl-4 md:pl-0'>
+                <p className='w-full'>Número de habitación: <strong>{roomNumber}</strong></p>
+                <p className='w-full'>Tipo de habitación: <strong>{roomType}</strong></p>
+                <p className='w-full text-left'>Precio por noche: <strong>${pricePerNight}</strong></p>
+            </div>
+            <div className='flex flex-col gap-2 w-full col-span-2 md:max-w-[270px]'>
                 <p>Detalles:</p>
-                <Textarea className='w-full h-20 max-h-20' value="Habitación con el aire acondicionado fuera de servicio con vista a la calle" readOnly />
+                <Textarea className='w-full h-20 sm:h-10 md:h-20 max-h-20' value="Habitación con el aire acondicionado fuera de servicio con vista a la calle" readOnly />
                 <Button className='w-fit place-self-end' onClick={onSave}>
                     <Save className='size-5' />
                     Guardar

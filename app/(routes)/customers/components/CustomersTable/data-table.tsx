@@ -56,7 +56,7 @@ export default function DataTable<TData, TValue>({
         },
         initialState: {
             pagination: {
-                pageSize: 15,
+                pageSize: 11,
             },
         },
     })
@@ -66,10 +66,10 @@ export default function DataTable<TData, TValue>({
         <div className='w-full flex flex-col gap-5'>
             <div className='flex flex-col sm:flex-row gap-2.5 sm:items-center justify-between'>
                 <Input
-                    placeholder="Buscar por número de documento..."
-                    value={(table.getColumn("documentNumber")?.getFilterValue() as string) ?? ""}
+                    placeholder="Buscar por nombre..."
+                    value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
-                        table.getColumn("documentNumber")?.setFilterValue(event.target.value)
+                        table.getColumn("name")?.setFilterValue(event.target.value)
                     }
                     className="w-full"
                 />
@@ -125,7 +125,7 @@ export default function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-            <div className='flex items-center justify-end space-x-2 py-4'>
+            <div className='flex items-center justify-end space-x-2'>
                 <Button variant="outline" size='sm' onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>Previo</Button>
                 <Button variant="outline" size='sm' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>Siguiente</Button>
             </div>

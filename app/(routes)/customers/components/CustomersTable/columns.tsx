@@ -5,6 +5,8 @@ import { CustomersTableProps } from "./CustomersTable.types"
 import { EllipsisVertical, Pencil } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import Tag from "@/components/Tag/Tag"
 
 export const columns: ColumnDef<CustomersTableProps>[] = [
     {
@@ -12,33 +14,31 @@ export const columns: ColumnDef<CustomersTableProps>[] = [
         header: "Nombre",
     },
     {
-        accessorKey: "documentType",
-        header: "Tipo de documento",
-    },
-    {
-        accessorKey: "documentNumber",
-        header: "Número de documento",
-    }, 
-    {
-        accessorKey: "email",
-        header: "Correo",
-    },
+        accessorKey: "document",
+        header: "Documento",
+        cell: ({ row }) => {
+            const { documentType, documentNumber } = row.original
+
+            return <span>{`${documentType} - ${documentNumber}`}</span>
+        }
+    },  
     {
         accessorKey: "phone",
-        header: "Teléfono",
+        header: "Contacto"
     },
     {
-        accessorKey: "birthDate",
-        header: "Fecha de nacimiento",
+        accessorKey: "state",
+        header: "Estado",
         cell: ({ row }) => {
-            const date = new Date(row.getValue("birthDate"))
-            return date.toLocaleDateString("es-PE")
-        }   
+            return <Tag text="Activo" color="green" />
+        }
     },
     {
         accessorKey: "actions",
         header: "",
         cell: ({ row }) => {
+
+            const { documentNumber } = row.original
 
             return (
                 <div className="justify-self-end">
@@ -50,10 +50,12 @@ export const columns: ColumnDef<CustomersTableProps>[] = [
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem className="flex items-center gap-2 p-2 px-3 border bg-card rounded-lg cursor-pointer">
-                                Editar
-                                <Pencil className="size-4" />
-                            </DropdownMenuItem>
+                            <Link href={`/customers/${documentNumber}`}>
+                                <DropdownMenuItem className="flex items-center gap-2 p-2 px-3 border bg-card rounded-lg cursor-pointer">
+                                    Editar
+                                    <Pencil className="size-4" />
+                                </DropdownMenuItem>
+                            </Link>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>

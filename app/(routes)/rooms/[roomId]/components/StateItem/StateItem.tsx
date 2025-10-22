@@ -57,7 +57,7 @@ export default function StateItem(props: StateItemProps) {
   }
 
   return (
-    <div className='flex flex-col gap-2 w-[180px]'>
+    <div className='flex flex-col gap-2 w-full md:w-[180px]'>
       <div className='flex flex-row w-full justify-between items-center'>
         <p className='font-medium'>{type === "availability" ? "Disponibilidad" : "Limpieza"}:</p>
         <StateToolTip state={getState()} />

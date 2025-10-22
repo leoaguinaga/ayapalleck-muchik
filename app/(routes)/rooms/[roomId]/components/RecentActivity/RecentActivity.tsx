@@ -4,7 +4,7 @@ import TableRecentActivity from '../TableRecentActivity'
 
 export default function RecentActivity() {
   return (
-    <div className='flex flex-col gap-2 p-5 border rounded-lg bg-card'>
+    <div className='flex flex-col gap-2 p-5 border rounded-lg bg-card w-full 2xl:w-fit'>
         <h2 className='text-lg font-semibold'>Actividad reciente</h2>
         <States />
         <TableRecentActivity />
