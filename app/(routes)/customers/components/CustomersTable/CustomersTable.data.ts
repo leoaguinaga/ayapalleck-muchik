@@ -1,4 +1,4 @@
-export const customers = [
+export const customersData = [
     {
         name: "Juan Pérez",
         documentType: "DNI",
