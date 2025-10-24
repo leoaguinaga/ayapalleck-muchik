@@ -8,8 +8,9 @@ import {
     History,
     LayoutDashboard,
     ShieldUser,
-    BookMarked
-    
+    BookMarked,
+    Boxes
+
 } from 'lucide-react';
 
 export const dataAdminSidebar = [
@@ -44,11 +45,16 @@ export const dataToolsSidebar = [
         label: "Reservas",
         href: "/bookings"
     },
-    
+
     {
         icon: ClipboardList,
         label: "Solicitudes",
         href: "/requests"
+    },
+    {
+        icon: Boxes,
+        label: "Inventario",
+        href: "/inventary"
     },
 ]
 

@@ -25,7 +25,7 @@ export default function ConfigurationsTabs(props: ConfigurationTabsProps) {
           <p className="hidden xs:block">Obtener ayuda</p>
         </TabsTrigger>
       </TabsList>
-      <div className="border sm:min-h-full min-w-full sm:min-w-fit"></div>
+      <div className="border-0 border-r-1 sm:min-h-full min-w-full sm:min-w-fit"></div>
       <TabsContent value="profile" className="text-sm min-h-[497px] h-full w-full">
         <ProfileTab />
       </TabsContent>

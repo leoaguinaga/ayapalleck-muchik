@@ -26,6 +26,8 @@ function translate(route: string) {
             return "Ajustes"
         case "users":
             return "Usuarios"
+        case "inventary":
+            return "Inventario"
         default:
             return route
     }

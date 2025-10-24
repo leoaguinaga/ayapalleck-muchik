@@ -10,7 +10,7 @@ export default function SettingsTab() {
     return (
         <div>
             <h2 className="text-lg p-2.5 font-semibold">Configuración</h2>
-            <Separator className="border" />
+            <Separator className="border-1 border-b-0" />
             <div className="flex items-center justify-between w-full p-2.5">
                 <p className="font-medium">Nombre</p>
                 <div className="flex items-center gap-2">
@@ -18,7 +18,7 @@ export default function SettingsTab() {
                     <Pencil className="size-3.5 cursor-pointer" />
                 </div>
             </div>
-            <Separator className="border" />
+            <Separator className="border-1 border-b-0" />
             <div className="flex items-center justify-between w-full p-2.5">
                 <p className="font-medium">Número</p>
                 <div className="flex items-center gap-2">
@@ -26,7 +26,7 @@ export default function SettingsTab() {
                     <Pencil className="size-3.5 cursor-pointer" />
                 </div>
             </div>
-            <Separator className="border" />
+            <Separator className="border-1 border-b-0" />
             <div className="flex items-center justify-between w-full p-2.5">
                 <p className="font-medium">Correo</p>
                 <div className="flex items-center gap-2">
@@ -34,7 +34,7 @@ export default function SettingsTab() {
                     <Pencil className="size-3.5 cursor-pointer" />
                 </div>
             </div>
-            <Separator className="border" />
+            <Separator className="border-1 border-b-0" />
             <div className="flex items-center justify-between w-full p-2.5">
                 <p className="font-medium">Dirección</p>
                 <div className="flex items-center gap-2">
@@ -42,7 +42,7 @@ export default function SettingsTab() {
                     <Pencil className="size-3.5 cursor-pointer" />
                 </div>
             </div>
-            <Separator className="border" />
+            <Separator className="border-1 border-b-0" />
             <div className="flex flex-col gap-2.5 p-2.5">
                 <div className="flex items-center justify-between w-full">
                     <p className="font-medium">Tipos de habitaciones</p>

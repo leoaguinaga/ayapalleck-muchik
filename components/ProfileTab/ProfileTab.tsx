@@ -71,9 +71,9 @@ export default function ProfileTab() {
                 <h2 className="text-lg p-2.5 font-semibold">Mi perfil</h2>
                 {isEditingEmail || isEditingName ? (
                     <Button onClick={() => handleCancel()} className="h-8 p-2.5 mr-2.5 motion-preset-slide-left-sm motion-preset-slide-right-sm-exit">Cancelar</Button>
-                ) : null }
+                ) : null}
             </div>
-            <Separator className="border" />
+            <Separator className="border-1 border-b-0" />
             <div className="flex items-center justify-between w-full p-2.5">
                 <p className="font-medium">Nombre</p>
                 {isEditingName ? (
@@ -96,7 +96,7 @@ export default function ProfileTab() {
 
                 )}
             </div>
-            <Separator className="border" />
+            <Separator className="border-1 border-b-0" />
             <div className="flex flex-col gap-2.5 p-2.5">
                 <div className="flex items-center justify-between w-full">
                     <p className="font-medium">Correo</p>
@@ -121,7 +121,7 @@ export default function ProfileTab() {
                     )}
                 </div>
             </div>
-            <Separator className="border" />
+            <Separator className="border-1 border-b-0" />
             <div className="flex items-start justify-between w-full p-2.5">
                 <p className="font-medium">Contraseña</p>
                 <Button className="w-fit h-8 p-2.5 cursor-pointer">Cambiar contraseña</Button>
