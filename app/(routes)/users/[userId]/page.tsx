@@ -7,7 +7,6 @@ import DangerZone from './components/DangerZone'
 export default async function UserIdPage({ params }: { params: { userId: string } }) {
   const { userId } = await params
 
-  // Aquí normalmente harías fetch de la data del usuario
   const user = {
     userId: userId,
     name: "María López García",
@@ -26,7 +25,7 @@ export default async function UserIdPage({ params }: { params: { userId: string 
         <UserDetails {...user} />
         <UserActivity />
       </div>
-      <DangerZone userId={userId} userName={user.name} />
+      <DangerZone userId={userId} userName={user.name} userData={user} />
     </div>
   )
 }
