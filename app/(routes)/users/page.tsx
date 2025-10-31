@@ -1,7 +1,7 @@
-import Tag from "@/components/Tag/Tag";
 import UsersInfo from "./components/UsersInfo";
 import UsersTable from "./components/UsersTable";
 import UsersOnShiftTable from "./components/UsersOnShiftTable";
+import ActualShiftTag from "./components/ActualShiftTag";
 
 export default function UsersPage() {
   return (
@@ -12,10 +12,7 @@ export default function UsersPage() {
           <UsersTable />
         </div>
         <div className='border rounded-lg p-5 min-h-full bg-card col-span-2 flex flex-col gap-2.5'>
-            <div className="flex w-full items-center justify-between">
-              <h2 className="text-lg font-semibold">Trabajadores en turno</h2>
-              <Tag color="orange" text="Tarde" />
-            </div>
+            <ActualShiftTag />
             <UsersOnShiftTable />
         </div>
       </div>

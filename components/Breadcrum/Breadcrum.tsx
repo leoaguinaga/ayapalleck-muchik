@@ -13,7 +13,7 @@ function translate(route: string) {
         case "check-in":
             return "Ingresos"
         case "check-out":
-            return "Salidas"
+            return "Estadías"
         case "requests":
             return "Solicitudes"
         case "rooms":

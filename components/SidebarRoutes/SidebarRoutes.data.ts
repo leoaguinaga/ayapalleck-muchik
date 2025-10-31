@@ -34,7 +34,7 @@ export const dataGeneralSidebar = [
     },
     {
         icon: CalendarClock,
-        label: "Salidas",
+        label: "Estadías",
         href: "/check-out"
     },
 ]

@@ -28,7 +28,7 @@ export default function CreateRoomTypeButton() {
             <DialogContent className="sm:max-w-[420px]">
                 <DialogHeader>
                     <DialogTitle>
-                        <p>Registrar tipo de habitación</p>
+                        <p className="text-left">Registrar tipo de habitación</p>
                     </DialogTitle>
                     <DialogDescription className="text-left">
                         Aquí podrás agregar un nuevo tipo de habitación a la plataforma.

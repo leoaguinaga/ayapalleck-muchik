@@ -26,6 +26,16 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Calendar } from "@/components/ui/calendar"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import { CalendarIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { format } from "date-fns"
+import { es } from "date-fns/locale"
 
 export default function FormCreateCustomer(props: FormCreateCustomerProps) {
     const { setOpenModalCreateCustomer } = props;
@@ -39,6 +49,7 @@ export default function FormCreateCustomer(props: FormCreateCustomerProps) {
         defaultValues: {
             name: '',
             email: '',
+            ruc: '',
             phoneNumber: '',
             documentType: 'DNI',
             documentNumber: '',
@@ -73,13 +84,47 @@ export default function FormCreateCustomer(props: FormCreateCustomerProps) {
                     />
                     <FormField
                         control={form.control}
-                        name="email"
+                        name="birthDate"
                         render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Correo electrónico</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Ej. ayapalleck.muchik@gmail.com" {...field} type="email" id="email" />
-                                </FormControl>
+                            <FormItem className="flex flex-col">
+                                <FormLabel>Fecha de nacimiento</FormLabel>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <FormControl>
+                                            <Button
+                                                variant="outline"
+                                                className={cn(
+                                                    "w-full pl-3 text-left font-normal",
+                                                    !field.value && "text-muted-foreground"
+                                                )}
+                                            >
+                                                {field.value ? (
+                                                    format(field.value, "PPP", { locale: es })
+                                                ) : (
+                                                    <span>Selecciona una fecha</span>
+                                                )}
+                                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                            </Button>
+                                        </FormControl>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-auto p-0" align="start">
+                                        <Calendar
+                                            mode="single"
+                                            selected={field.value}
+                                            onSelect={field.onChange}
+                                            disabled={(date) => {
+                                                const eighteenYearsAgo = new Date();
+                                                eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
+                                                return date > eighteenYearsAgo || date < new Date("1900-01-01");
+                                            }}
+                                            defaultMonth={defaultBirthDate}
+                                            initialFocus
+                                            captionLayout="dropdown"
+                                            fromYear={1900}
+                                            toYear={new Date().getFullYear() - 18}
+                                        />
+                                    </PopoverContent>
+                                </Popover>
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -121,12 +166,12 @@ export default function FormCreateCustomer(props: FormCreateCustomerProps) {
                     />
                     <FormField
                         control={form.control}
-                        name="phoneNumber"
+                        name="email"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Número de teléfono</FormLabel>
+                                <FormLabel>Correo electrónico (Opcional)</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Ej. 987123234" {...field} type="number" id="phoneNumber" />
+                                    <Input placeholder="Ej. ayapalleck.muchik@gmail.com" {...field} type="email" id="email" />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -134,21 +179,25 @@ export default function FormCreateCustomer(props: FormCreateCustomerProps) {
                     />
                     <FormField
                         control={form.control}
-                        name="birthDate"
+                        name="ruc"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Fecha de nacimiento</FormLabel>
+                                <FormLabel>Número de RUC (Opcional)</FormLabel>
                                 <FormControl>
-                                    <Input
-                                        placeholder="Ej. 987123234"
-                                        type="date"
-                                        id="birthDate"
-                                        value={field.value instanceof Date ? field.value.toISOString().split('T')[0] : ''}
-                                        onChange={(e) => field.onChange(new Date(e.target.value))}
-                                        onBlur={field.onBlur}
-                                        name={field.name}
-                                        ref={field.ref}
-                                    />
+                                    <Input placeholder="Ej. 20123456789" {...field} type="text" id="ruc" />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="phoneNumber"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Número de teléfono</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="Ej. 987123234" {...field} type="number" id="phoneNumber" />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

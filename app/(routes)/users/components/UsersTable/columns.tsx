@@ -1,11 +1,12 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowRight, EllipsisVertical, Link, Pencil } from "lucide-react"
+import { EllipsisVertical, Pencil } from "lucide-react"
 import Tag from "@/components/Tag/Tag"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { UsersTableProps } from "./UsersTable.types"
+import Link from "next/link"
 
 export const columns: ColumnDef<UsersTableProps>[] = [
     {
@@ -65,27 +66,24 @@ export const columns: ColumnDef<UsersTableProps>[] = [
         id: "actions",
         header: "",
         cell: ({ row }) => {
+            const { email } = row.original;
+
             return (
                 <div className="justify-self-end">
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon">
-                                <EllipsisVertical className="w-4 h-4" />
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                                <span className="sr-only">Open menu</span>
+                                <EllipsisVertical className="size-5 justify-self-end" />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem>
-                                <Pencil className="w-4 h-4 mr-2" />
-                                Edit User
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <Link className="w-4 h-4 mr-2" />
-                                View Details
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <ArrowRight className="w-4 h-4 mr-2" />
-                                Manage Permissions
-                            </DropdownMenuItem>
+                            <Link href={`/users/${email}`}>
+                                <DropdownMenuItem className="flex items-center gap-2 p-2 px-3 border bg-card rounded-lg cursor-pointer">
+                                    Editar
+                                    <Pencil className="size-4" />
+                                </DropdownMenuItem>
+                            </Link>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>

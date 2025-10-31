@@ -6,6 +6,11 @@ import { useForm } from "react-hook-form";
 import { formAddBookingSchema } from "./FormAddBooking.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import { CalendarIcon } from "lucide-react";
+import { useState, useMemo } from "react";
+import { customersData } from "./FormAddBooking.data";
 
 import {
     Select,
@@ -14,7 +19,14 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import { Calendar } from "@/components/ui/calendar"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
 import toast from 'react-hot-toast';
+import { cn } from "@/lib/utils"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -27,19 +39,27 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-export default function FormCreateCustomer(props: FormAddBookingProps) {
+export default function FormCreateBooking(props: FormAddBookingProps) {
     const { setOpenModalAddBooking } = props;
     const router = useRouter();
+    const [customerSearch, setCustomerSearch] = useState("")
 
-    const defaultBirthDate = new Date();
-    defaultBirthDate.setFullYear(defaultBirthDate.getFullYear() - 18);
+    const filteredCustomers = useMemo(() => {
+        return customersData.filter((customer) => {
+            const searchLower = customerSearch.toLowerCase()
+            return (
+                customer.name.toLowerCase().includes(searchLower) ||
+                customer.document.toLowerCase().includes(searchLower)
+            )
+        })
+    }, [customerSearch])
 
     const form = useForm<z.infer<typeof formAddBookingSchema>>({
         resolver: zodResolver(formAddBookingSchema),
         defaultValues: {
             customer: '',
-            dateStart: '',
-            dateEnd: '',
+            dateStart: undefined,
+            dateEnd: undefined,
             paymentMethod: '',
             taxiCharges: 0
         }
@@ -63,19 +83,35 @@ export default function FormCreateCustomer(props: FormAddBookingProps) {
                         name="customer"
                         render={({ field }) => (
                             <FormItem className="w-full">
-                                <FormLabel>Selecciona el cliente</FormLabel>
+                                <FormLabel>Selecciona el huésped</FormLabel>
                                 <FormControl>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value} >
+                                    <Select onValueChange={field.onChange} value={field.value}>
                                         <SelectTrigger className="w-full">
                                             <SelectValue placeholder="Selecciona el cliente" />
                                         </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="juanperez">Juna Peres</SelectItem>
-                                            <SelectItem value="mariagarcia">Maria Garcia</SelectItem>
-                                            <SelectItem value="carlossanchez">Carlos Sanchez</SelectItem>
-                                            <SelectItem value="anafernandez">Ana Fernandez</SelectItem>
-                                            <SelectItem value="luisrodriguez">Luis Rodriguez</SelectItem>
-                                            <SelectItem value="sofiagonzalez">Sofia Gonzalez</SelectItem>
+                                        <SelectContent className="max-h-80">
+                                            <div className="px-2 pb-2" onPointerDown={(e) => e.stopPropagation()}>
+                                                <Input
+                                                    placeholder="Buscar por nombre o documento..."
+                                                    value={customerSearch}
+                                                    onChange={(e) => setCustomerSearch(e.target.value)}
+                                                    onClick={(e) => e.stopPropagation()}
+                                                    onKeyDown={(e) => e.stopPropagation()}
+                                                    className="h-8"
+                                                    autoComplete="off"
+                                                />
+                                            </div>
+                                            {filteredCustomers.length > 0 ? (
+                                                filteredCustomers.map((customer) => (
+                                                    <SelectItem key={customer.id} value={customer.id}>
+                                                        {customer.name} - {customer.document}
+                                                    </SelectItem>
+                                                ))
+                                            ) : (
+                                                <div className="px-2 py-6 text-center text-sm text-muted-foreground">
+                                                    No se encontraron clientes
+                                                </div>
+                                            )}
                                         </SelectContent>
                                     </Select>
                                 </FormControl>
@@ -87,11 +123,41 @@ export default function FormCreateCustomer(props: FormAddBookingProps) {
                         control={form.control}
                         name="dateStart"
                         render={({ field }) => (
-                            <FormItem className="w-full">
+                            <FormItem className="w-full flex flex-col">
                                 <FormLabel>Fecha de entrada</FormLabel>
-                                <FormControl>
-                                    <Input type="date" placeholder="Fecha de inicio" {...field} />
-                                </FormControl>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <FormControl>
+                                            <Button
+                                                variant={"outline"}
+                                                className={cn(
+                                                    "w-full pl-3 text-left font-normal",
+                                                    !field.value && "text-muted-foreground"
+                                                )}
+                                            >
+                                                {field.value ? (
+                                                    format(field.value, "PPP", { locale: es })
+                                                ) : (
+                                                    <span>Selecciona la fecha</span>
+                                                )}
+                                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                            </Button>
+                                        </FormControl>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-auto p-0" align="start">
+                                        <Calendar
+                                            mode="single"
+                                            selected={field.value}
+                                            onSelect={field.onChange}
+                                            disabled={(date) => {
+                                                const today = new Date();
+                                                today.setHours(0, 0, 0, 0);
+                                                return date < today;
+                                            }}
+                                            initialFocus
+                                        />
+                                    </PopoverContent>
+                                </Popover>
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -100,11 +166,45 @@ export default function FormCreateCustomer(props: FormAddBookingProps) {
                         control={form.control}
                         name="dateEnd"
                         render={({ field }) => (
-                            <FormItem className="w-full">
+                            <FormItem className="w-full flex flex-col">
                                 <FormLabel>Fecha de salida</FormLabel>
-                                <FormControl>
-                                    <Input type="date" placeholder="Fecha de fin" {...field} />
-                                </FormControl>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <FormControl>
+                                            <Button
+                                                variant={"outline"}
+                                                className={cn(
+                                                    "w-full pl-3 text-left font-normal",
+                                                    !field.value && "text-muted-foreground"
+                                                )}
+                                            >
+                                                {field.value ? (
+                                                    format(field.value, "PPP", { locale: es })
+                                                ) : (
+                                                    <span>Selecciona la fecha</span>
+                                                )}
+                                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                            </Button>
+                                        </FormControl>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-auto p-0" align="start">
+                                        <Calendar
+                                            mode="single"
+                                            selected={field.value}
+                                            onSelect={field.onChange}
+                                            disabled={(date) => {
+                                                const startDate = form.getValues("dateStart");
+                                                if (startDate) {
+                                                    return date <= startDate;
+                                                }
+                                                const today = new Date();
+                                                today.setHours(0, 0, 0, 0);
+                                                return date < today;
+                                            }}
+                                            initialFocus
+                                        />
+                                    </PopoverContent>
+                                </Popover>
                                 <FormMessage />
                             </FormItem>
                         )}

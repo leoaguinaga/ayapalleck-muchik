@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { RoomsTableProps } from "./RoomsTable.types"
-import { BadgeCheck, EllipsisVertical, Pencil } from "lucide-react"
+import { ArrowRight, BadgeCheck, EllipsisVertical, Pencil } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { Button } from "@/components/ui/button"
 import Tag from "@/components/Tag/Tag"
@@ -69,8 +69,9 @@ export const columns: ColumnDef<RoomsTableProps>[] = [
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuItem>
-                                <Link href={`/rooms/${roomNumber}`} className="flex p-2 px-3 border bg-card rounded-lg cursor-pointer hover:outline-none">
+                                <Link href={`/rooms/${roomNumber}`} className="flex p-2 px-3 border bg-card rounded-lg cursor-pointer hover:outline-none gap-2 items-center">
                                     Gestionar
+                                    <ArrowRight className="size-5" />
                                 </Link>
                             </DropdownMenuItem>
                         </DropdownMenuContent>

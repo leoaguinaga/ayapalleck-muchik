@@ -3,6 +3,7 @@ import { RoomCardProps } from './RoomCard.types'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { ArrowRight, BadgeCheck, Bed, BookMarked, BrushCleaning, Stars } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import CreateBookingButton from '../CreateBookingButton'
 
 export default function RoomCard(props: RoomCardProps) {
   const { room_type, number, available, status } = props;
@@ -46,10 +47,7 @@ export default function RoomCard(props: RoomCardProps) {
   const getActionButton = () => {
     if (available) {
       return (
-        <Button className='w-full flex flex-row gap-2'>
-          Reservar
-          <ArrowRight className='size-5' />
-        </Button>
+        <CreateBookingButton  />
       )
     } else {
       return (

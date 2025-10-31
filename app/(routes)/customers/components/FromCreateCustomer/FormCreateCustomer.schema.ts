@@ -13,7 +13,8 @@ export const formCreateCustomerSchema = z.object({
     }),
     email: z.string().email({
         message: "El correo electrónico no es válido.",
-    }),
+    }).optional().or(z.literal('')),
+    ruc: z.string().optional(),
     birthDate: z.date().refine((date) => {
         const today = new Date();
         const age = today.getFullYear() - date.getFullYear();

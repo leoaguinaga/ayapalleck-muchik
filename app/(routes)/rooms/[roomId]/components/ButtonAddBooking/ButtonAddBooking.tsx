@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import { ChevronRight, NotebookText} from "lucide-react"
 import { useState } from "react"
-import FormAddBooking from "../FormAddBooking"
+import FormCreateBooking from "../FormAddBooking"
 
 export default function ButtonAddBooking() {
     const [openModalCreate, setOpenModalCreate] = useState(false)
@@ -34,7 +34,7 @@ export default function ButtonAddBooking() {
                     <DialogDescription className="text-left">
                         Aquí podrás agregar una nueva reserva para esta habitación.
                     </DialogDescription>
-                    <FormAddBooking setOpenModalAddBooking={setOpenModalCreate} />
+                    <FormCreateBooking setOpenModalAddBooking={setOpenModalCreate} />
                 </DialogHeader>
             </DialogContent>
         </Dialog>
