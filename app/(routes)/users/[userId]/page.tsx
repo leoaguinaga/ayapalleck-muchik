@@ -21,7 +21,7 @@ export default async function UserIdPage({ params }: { params: { userId: string 
   return (
     <div className='flex flex-col gap-5'>
       <UserInfo />
-      <div className='grid grid-cols-1 xl:grid-cols-2 gap-5'>
+      <div className='flex flex-col gap-5'>
         <UserDetails {...user} />
         <UserActivity />
       </div>

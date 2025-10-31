@@ -33,7 +33,7 @@ export default function UserDetails(props: UserDetailsProps) {
                 </div>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                 <div className='flex items-center gap-3'>
                     <User className='size-5 text-muted-foreground' />
                     <div className='flex-1'>
