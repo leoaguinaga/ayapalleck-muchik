@@ -17,10 +17,10 @@ interface RequestStatsProps {
 export function RequestStats({ requests }: RequestStatsProps) {
   const stats = {
     total: requests.length,
-    pending: requests.filter(r => r.status === 'pending').length,
+    inReview: requests.filter(r => r.status === 'in-review').length,
     approved: requests.filter(r => r.status === 'approved' || r.status === 'confirmed').length,
     rejected: requests.filter(r => r.status === 'rejected').length,
-    inReview: requests.filter(r => r.status === 'in-review').length,
+    expired: requests.filter(r => r.status === 'expired').length,
   };
 
   const statCards = [
@@ -32,18 +32,11 @@ export function RequestStats({ requests }: RequestStatsProps) {
       bgColor: 'bg-blue-500/10',
     },
     {
-      title: 'Pendientes',
-      value: stats.pending,
+      title: 'En Revisión',
+      value: stats.inReview,
       icon: Clock,
       color: 'text-yellow-500',
       bgColor: 'bg-yellow-500/10',
-    },
-    {
-      title: 'En Revisión',
-      value: stats.inReview,
-      icon: TrendingUp,
-      color: 'text-orange-500',
-      bgColor: 'bg-orange-500/10',
     },
     {
       title: 'Aprobadas',
@@ -58,6 +51,13 @@ export function RequestStats({ requests }: RequestStatsProps) {
       icon: XCircle,
       color: 'text-red-500',
       bgColor: 'bg-red-500/10',
+    },
+    {
+      title: 'Expiradas',
+      value: stats.expired,
+      icon: TrendingUp,
+      color: 'text-gray-500',
+      bgColor: 'bg-gray-500/10',
     },
   ];
 
