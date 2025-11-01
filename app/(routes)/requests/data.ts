@@ -1,0 +1,68 @@
+import { Request } from './types';
+
+// Datos de ejemplo para las solicitudes
+export const mockRequests: Request[] = [
+  {
+    id: '1',
+    customerName: 'Leonardo Aguinaga Paredes',
+    roomType: 'Suite',
+    checkIn: new Date('2024-11-23'),
+    checkOut: new Date('2024-11-24'),
+    status: 'in-review',
+    createdAt: new Date('2024-11-13'),
+  },
+  {
+    id: '2',
+    customerName: 'Paul Alexis Flores',
+    roomType: 'Suite',
+    checkIn: new Date('2024-11-23'),
+    checkOut: new Date('2024-11-24'),
+    status: 'in-review',
+    createdAt: new Date('2024-11-23'),
+  },
+  {
+    id: '3',
+    customerName: 'María González',
+    roomType: 'Doble',
+    checkIn: new Date('2024-11-15'),
+    checkOut: new Date('2024-11-18'),
+    status: 'in-review',
+    createdAt: new Date('2024-11-20'),
+  },
+  {
+    id: '4',
+    customerName: 'Carlos Mendoza',
+    roomType: 'Individual',
+    checkIn: new Date('2024-11-20'),
+    checkOut: new Date('2024-11-22'),
+    status: 'approved',
+    createdAt: new Date('2024-11-18'),
+  },
+  {
+    id: '5',
+    customerName: 'Ana Torres',
+    roomType: 'Suite',
+    checkIn: new Date('2024-11-25'),
+    checkOut: new Date('2024-11-30'),
+    status: 'confirmed',
+    createdAt: new Date('2024-11-15'),
+  },
+  {
+    id: '6',
+    customerName: 'Luis Ramírez',
+    roomType: 'Doble',
+    checkIn: new Date('2024-11-28'),
+    checkOut: new Date('2024-11-30'),
+    status: 'rejected',
+    createdAt: new Date('2024-11-10'),
+  },
+  {
+    id: '7',
+    customerName: 'Sofia Castro',
+    roomType: 'Individual',
+    checkIn: new Date('2024-11-15'),
+    checkOut: new Date('2024-11-17'),
+    status: 'expired',
+    createdAt: new Date('2024-11-05'),
+  },
+];
