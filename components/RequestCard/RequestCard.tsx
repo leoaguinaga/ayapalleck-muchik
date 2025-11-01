@@ -5,7 +5,6 @@ import { Card } from '@/components/ui/card';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Calendar, Clock, Bed, CheckCircle, XCircle, AlertCircle, Ban } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
 interface RequestCardProps {
@@ -131,18 +130,6 @@ export function RequestCard({ request, onClick, status }: RequestCardProps) {
             <Clock className="w-3.5 h-3.5 flex-shrink-0" />
             <span>{getTimeDifference(request.createdAt)}</span>
           </div>
-          
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className="h-7 text-xs px-2 hover:bg-primary hover:text-primary-foreground"
-            onClick={(e) => {
-              e.stopPropagation();
-              onClick();
-            }}
-          >
-            Ver
-          </Button>
         </div>
       </div>
     </Card>

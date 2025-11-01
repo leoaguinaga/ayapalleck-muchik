@@ -6,13 +6,13 @@ import Navbar from '@/components/Navbar/Navbar'
 
 export default function LayoutDashboard({ children }: { children: React.ReactNode }) {
     return (
-        <div className='flex w-full h-screen overflow-hidden'>
+        <div className='flex w-full h-screen overflow-x-hidden'>
             <div className='hidden xl:block w-70 h-full xl:fixed'>
                 <Sidebar />
             </div>
-            <div className="w-full xl:ml-70 h-full flex flex-col overflow-hidden">
+            <div className="w-full xl:ml-70 h-full flex flex-col overflow-x-hidden">
                 <Navbar />
-                <div className='flex-1 p-5 bg-background overflow-hidden'>
+                <div className='flex-1 p-5 bg-background overflow-x-hidden'>
                     {children}
                 </div>
             </div>
