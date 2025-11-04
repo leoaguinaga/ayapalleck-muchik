@@ -7,8 +7,6 @@ import { formCheckInSchema } from "./FormCheckIn.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import toast from 'react-hot-toast'
-
-import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -27,9 +25,10 @@ import {
 } from "@/components/ui/select"
 import { FormCheckInProps, Guest, Product } from "./FormCheckIn.types"
 import ProductsTable from '../ProductsTable/ProductsTable'
-import { formatPrice } from '@/lib/formatPrice'
+import { CustomerSelector } from '@/components/CustomerSelector'
+import { CustomOpenModalButton } from '@/components/CustomOpenModalButton'
+import FormCreateCustomer from '@/app/(routes)/customers/components/FromCreateCustomer/FormCreateCustomer'
 
-// Mock data - reemplazar con datos reales
 const mockGuests: Guest[] = [
   { id: "1", name: "Leonardo Aguinaga Paredes" },
   { id: "2", name: "María López García" },
@@ -44,8 +43,10 @@ const mockProducts: Product[] = [
 
 export default function FormCheckIn({ roomId, onSummaryChange }: FormCheckInProps) {
   const router = useRouter()
-  const [selectedProducts, setSelectedProducts] = useState<Array<{productId: string, productName: string, price: number, quantity: number}>>([])
-
+  const [selectedProducts, setSelectedProducts] = useState<Array<{ productId: string, productName: string, price: number, quantity: number }>>([])
+  const [openCreateGuestModal, setOpenCreateGuestModal] = useState(false)
+  const [changeType, setChangeType] = useState("Por noche")
+  
   const form = useForm<z.infer<typeof formCheckInSchema>>({
     resolver: zodResolver(formCheckInSchema),
     defaultValues: {
@@ -65,13 +66,11 @@ export default function FormCheckIn({ roomId, onSummaryChange }: FormCheckInProp
   const advance = form.watch("advance") || 0
   const duration = form.watch("duration") || ""
 
-  // Calcular totales
   const basePrice = reservationType === "Por noche" ? 120 : 60
   const productsTotal = selectedProducts.reduce((sum, p) => sum + (p.price * p.quantity), 0)
   const subtotal = basePrice + productsTotal
   const total = subtotal - discount + taxiFee - advance
 
-  // Actualizar el resumen cuando cambien los valores
   useEffect(() => {
     onSummaryChange({
       reservationType,
@@ -100,8 +99,8 @@ export default function FormCheckIn({ roomId, onSummaryChange }: FormCheckInProp
     setSelectedProducts(prev => {
       const existing = prev.find(p => p.productId === productId)
       if (existing) {
-        return prev.map(p => 
-          p.productId === productId 
+        return prev.map(p =>
+          p.productId === productId
             ? { ...p, quantity: p.quantity + quantity }
             : p
         )
@@ -114,29 +113,66 @@ export default function FormCheckIn({ roomId, onSummaryChange }: FormCheckInProp
     <div className="flex flex-col gap-5">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          {/* Registrar ingreso */}
-          <div className='bg-card rounded-lg border p-5'>
-            <h2 className='text-lg font-semibold mb-4'>Registrar ingreso</h2>
-            
+          <div className='bg-card rounded-lg border p-5 grid grid-cols-1 md:grid-cols-2 gap-5'>
+            <h2 className='text-xl font-bold col-span-2'>Registrar ingreso</h2>
+
             <FormField
               control={form.control}
               name="guestId"
               render={({ field }) => (
-                <FormItem className='mb-4'>
+                <FormItem>
                   <FormLabel>Selecciona el huésped</FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <CustomerSelector
+                      value={field.value}
+                      onChange={(value) => field.onChange(value)}
+                      customers={mockGuests.map(g => ({ id: g.id, name: g.name, document: "" }))}
+                      placeholder="Selecciona el huésped"
+                      searchPlaceholder="Buscar por nombre..."
+                      className="w-full"
+                    />
+                  </FormControl>
+                  <p className='text-sm text-muted-foreground'>
+                    o{' '}
+                    <CustomOpenModalButton
+                      triggerLabel="Crea uno nuevo"
+                      buttonVariant="underline"
+                      buttonClassName="text-sm"
+                      title="Nuevo Huésped"
+                      description="Completa el formulario para registrar un nuevo huésped"
+                      breadcrumb={["Huéspedes", "Agregar huésped"]}
+                      open={openCreateGuestModal}
+                      onOpenChange={setOpenCreateGuestModal}
+                    >
+                      <FormCreateCustomer setOpenModalCreateCustomer={setOpenCreateGuestModal} />
+                    </CustomOpenModalButton>
+                  </p>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="reservationType"
+              render={({ field }) => (
+                <FormItem className='mb-4 flex flex-col items-start w-full'>
+                  <FormLabel>¿En qué modalidad hará la reserva?</FormLabel>
+                  <Select
+                    onValueChange={(value) => {
+                      field.onChange(value)
+                      setChangeType(value)
+                      form.setValue("duration", value === "Por noche" ? "12" : "1")
+                    }}
+                    value={field.value}
+                  >
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecciona un huésped" />
+                      <SelectTrigger className='w-full'>
+                        <SelectValue />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
-                      {mockGuests.map((guest) => (
-                        <SelectItem key={guest.id} value={guest.id}>
-                          {guest.name}
-                        </SelectItem>
-                      ))}
-                      <SelectItem value="new">○ Crea uno nuevo</SelectItem>
+                    <SelectContent className='w-full'>
+                      <SelectItem value="Por noche">Por noche</SelectItem>
+                      <SelectItem value="Por horas">Por horas</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -148,67 +184,31 @@ export default function FormCheckIn({ roomId, onSummaryChange }: FormCheckInProp
               control={form.control}
               name="duration"
               render={({ field }) => (
-                <FormItem className='mb-4'>
+                <FormItem>
                   <FormLabel>¿Cuánto tiempo se hospedará?</FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecciona la duración" />
+                      <SelectTrigger className='w-full'>
+                        <SelectValue placeholder="Selecciona la duración"/>
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
-                      <SelectItem value="12">12 horas</SelectItem>
-                      <SelectItem value="1">1 día</SelectItem>
-                      <SelectItem value="2">2 días</SelectItem>
-                      <SelectItem value="3">3 días</SelectItem>
-                      <SelectItem value="7">1 semana</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="discount"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>¿Se realizó un descuento? (Opcional)</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      step="0.01"
-                      placeholder="S/ 10.00"
-                      {...field}
-                      onChange={(e) => field.onChange(e.target.valueAsNumber || 0)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-
-          {/* Detalles de la reserva */}
-          <div className='bg-card rounded-lg border p-5'>
-            <h2 className='text-lg font-semibold mb-4'>Detalles de la reserva</h2>
-
-            <FormField
-              control={form.control}
-              name="reservationType"
-              render={({ field }) => (
-                <FormItem className='mb-4'>
-                  <FormLabel>¿En qué modalidad hará la reserva?</FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="Por noche">Por noche</SelectItem>
-                      <SelectItem value="Por horas">Por horas</SelectItem>
+                    <SelectContent className='w-full'>
+                      {changeType === "Por noche" ? (
+                        <>
+                          <SelectItem value="12">12 horas</SelectItem>
+                          <SelectItem value="24">1 día</SelectItem>
+                          <SelectItem value="36">1 día y medio</SelectItem>
+                          <SelectItem value="48">2 días</SelectItem>
+                          <SelectItem value="72">3 días</SelectItem>
+                        </>
+                      ) : (
+                        <>
+                          <SelectItem value="1">1 hora</SelectItem>
+                          <SelectItem value="2">2 horas</SelectItem>
+                          <SelectItem value="3">3 horas</SelectItem>
+                          <SelectItem value="4">4 horas</SelectItem>
+                        </>
+                      )}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -227,6 +227,26 @@ export default function FormCheckIn({ roomId, onSummaryChange }: FormCheckInProp
                       type="number"
                       step="0.01"
                       placeholder="S/ 30.00"
+                      {...field}
+                      onChange={(e) => field.onChange(e.target.valueAsNumber || 0)}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="discount"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>¿Se realizó un descuento? (Opcional)</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      step="0.01"
+                      placeholder="S/ 10.00"
                       {...field}
                       onChange={(e) => field.onChange(e.target.valueAsNumber || 0)}
                     />
@@ -260,20 +280,10 @@ export default function FormCheckIn({ roomId, onSummaryChange }: FormCheckInProp
           {/* Productos extras */}
           <div className='bg-card rounded-lg border p-5'>
             <h2 className='text-lg font-semibold mb-4'>¿Desea añadir algún extra?</h2>
-            <ProductsTable 
-              products={mockProducts} 
+            <ProductsTable
+              products={mockProducts}
               onAddProduct={handleAddProduct}
             />
-          </div>
-
-          {/* Botones de acción */}
-          <div className='flex gap-3 justify-end'>
-            <Button type="button" variant="outline" onClick={() => router.back()}>
-              Previo
-            </Button>
-            <Button type="submit">
-              Registrar ingreso
-            </Button>
           </div>
         </form>
       </Form>

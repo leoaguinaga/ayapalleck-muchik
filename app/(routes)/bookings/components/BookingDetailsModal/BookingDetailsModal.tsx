@@ -63,7 +63,7 @@ export default function BookingDetailsModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl max-h-[90vh] overflow-hidden p-4 sm:p-6" showCloseButton={false}>
+      <DialogContent className="max-w-5xl max-h-[70vh] overflow-y-scroll scrollbar-hide p-4" showCloseButton={false}>
         <DialogHeader>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <DialogTitle className="text-lg sm:text-xl">Detalles de la Reserva</DialogTitle>
@@ -74,7 +74,7 @@ export default function BookingDetailsModal({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 py-2 sm:py-4">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6">
           {/* Columna izquierda */}
           <div className="space-y-4 sm:space-y-6">
             {/* Información del huésped */}
@@ -87,9 +87,7 @@ export default function BookingDetailsModal({
                 <p className="font-medium text-base sm:text-lg">{booking.guestName}</p>
                 <p className="text-xs sm:text-sm text-muted-foreground mt-1">DNI: 12345678</p>
                 <p className="text-xs sm:text-sm text-muted-foreground">Tel: +51 987 654 321</p>
-                <p className="text-xs sm:text-sm text-muted-foreground truncate" title={`${booking.guestName.toLowerCase().replace(/\s+/g, '.')}@email.com`}>
-                  Email: {truncateEmail(`${booking.guestName.toLowerCase().replace(/\s+/g, '.')}@email.com`)}
-                </p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Email: leo.aguinaga@outlook.com</p>
               </div>
             </div>
 

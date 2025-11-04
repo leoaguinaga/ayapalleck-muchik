@@ -9,7 +9,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { ChevronRight, User, UserPlus } from "lucide-react"
+import { ChevronRight, UserPlus } from "lucide-react"
 import { useState } from "react"
 import FormCreateCustomer from "../FromCreateCustomer/FormCreateCustomer"
 
@@ -32,7 +32,7 @@ export default function CreateCustomerButton() {
                         <p>Agregar Cliente</p>
                     </DialogTitle>
                     <DialogDescription className="text-left">
-                        Aquí podrás agregar un nuevo cliente a la plataforma. {/*  Ten en cuenta que el DNI es un parámetro único para cada cliente. */}
+                        Aquí podrás agregar un nuevo cliente a la plataforma.
                     </DialogDescription>
                     <FormCreateCustomer setOpenModalCreateCustomer={setOpenModalCreate} />
                 </DialogHeader>

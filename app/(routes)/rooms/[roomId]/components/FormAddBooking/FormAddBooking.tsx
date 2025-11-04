@@ -9,8 +9,8 @@ import z from "zod";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
-import { useState, useMemo } from "react";
 import { customersData } from "./FormAddBooking.data";
+import { CustomerSelector } from "@/components/CustomerSelector";
 
 import {
     Select,
@@ -42,17 +42,6 @@ import { Input } from "@/components/ui/input"
 export default function FormCreateBooking(props: FormAddBookingProps) {
     const { setOpenModalAddBooking } = props;
     const router = useRouter();
-    const [customerSearch, setCustomerSearch] = useState("")
-
-    const filteredCustomers = useMemo(() => {
-        return customersData.filter((customer) => {
-            const searchLower = customerSearch.toLowerCase()
-            return (
-                customer.name.toLowerCase().includes(searchLower) ||
-                customer.document.toLowerCase().includes(searchLower)
-            )
-        })
-    }, [customerSearch])
 
     const form = useForm<z.infer<typeof formAddBookingSchema>>({
         resolver: zodResolver(formAddBookingSchema),
@@ -85,35 +74,13 @@ export default function FormCreateBooking(props: FormAddBookingProps) {
                             <FormItem className="w-full">
                                 <FormLabel>Selecciona el huésped</FormLabel>
                                 <FormControl>
-                                    <Select onValueChange={field.onChange} value={field.value}>
-                                        <SelectTrigger className="w-full">
-                                            <SelectValue placeholder="Selecciona el cliente" />
-                                        </SelectTrigger>
-                                        <SelectContent className="max-h-80">
-                                            <div className="px-2 pb-2" onPointerDown={(e) => e.stopPropagation()}>
-                                                <Input
-                                                    placeholder="Buscar por nombre o documento..."
-                                                    value={customerSearch}
-                                                    onChange={(e) => setCustomerSearch(e.target.value)}
-                                                    onClick={(e) => e.stopPropagation()}
-                                                    onKeyDown={(e) => e.stopPropagation()}
-                                                    className="h-8"
-                                                    autoComplete="off"
-                                                />
-                                            </div>
-                                            {filteredCustomers.length > 0 ? (
-                                                filteredCustomers.map((customer) => (
-                                                    <SelectItem key={customer.id} value={customer.id}>
-                                                        {customer.name} - {customer.document}
-                                                    </SelectItem>
-                                                ))
-                                            ) : (
-                                                <div className="px-2 py-6 text-center text-sm text-muted-foreground">
-                                                    No se encontraron clientes
-                                                </div>
-                                            )}
-                                        </SelectContent>
-                                    </Select>
+                                    <CustomerSelector
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                        customers={customersData}
+                                        placeholder="Selecciona el cliente"
+                                        searchPlaceholder="Buscar por nombre o documento..."
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

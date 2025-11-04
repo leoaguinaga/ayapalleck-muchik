@@ -57,7 +57,7 @@ export default function RoomCard(props: RoomCardProps) {
       )
     } else {
       return (
-        <Button className='w-full flex flex-row gap-2'>
+        <Button className='w-full flex flex-row gap-2 bg-orange-500 hover:bg-orange-600'>
           Administrar
           <BookMarked className='size-4.5' />
         </Button>

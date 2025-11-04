@@ -1,6 +1,7 @@
 import React from 'react'
 import { BookingSummaryProps } from './BookingSummary.types'
 import { formatPrice } from '@/lib/formatPrice'
+import { Button } from '@/components/ui/button'
 
 export default function BookingSummary({
   reservationType,
@@ -15,7 +16,7 @@ export default function BookingSummary({
   const durationText = duration ? `${duration} ${duration === "1" ? "día" : duration === "12" ? "horas" : "días"}` : ""
   
   return (
-    <div className='bg-card rounded-lg border p-5 sticky top-5'>
+    <div className='bg-card rounded-lg border p-5'>
       <h2 className='text-xl font-bold mb-4'>Resumen</h2>
       
       <div className='space-y-3 mb-6'>
@@ -64,6 +65,9 @@ export default function BookingSummary({
         <span className='font-semibold'>Total a cobrar:</span>
         <span className='text-xl font-bold'>{formatPrice(total)}</span>
       </div>
+      <Button className='mt-2 w-full'>
+        Registrar ingreso
+      </Button>
     </div>
   )
 }

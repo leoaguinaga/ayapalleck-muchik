@@ -67,10 +67,10 @@ export function RequestDetailsModal({
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between">
             <span>Detalles de la Solicitud</span>
-            {getStatusBadge(request.status)}
           </DialogTitle>
-          <DialogDescription>
-            Solicitud #{request.id}
+          <DialogDescription className='flex items-center gap-2'>
+            <span>Solicitud #{request.id}</span>
+            {getStatusBadge(request.status)}
           </DialogDescription>
         </DialogHeader>
 
@@ -152,7 +152,7 @@ export function RequestDetailsModal({
               </Button>
             </>
           )}
-          
+
           {request.status === 'approved' && (
             <>
               <Button
@@ -178,7 +178,7 @@ export function RequestDetailsModal({
               </Button>
             </>
           )}
-          
+
           {request.status === 'confirmed' && (
             <Button
               variant="destructive"
@@ -192,7 +192,7 @@ export function RequestDetailsModal({
               Cancelar Reserva
             </Button>
           )}
-          
+
           <Button variant="outline" onClick={onClose}>
             Cerrar
           </Button>
