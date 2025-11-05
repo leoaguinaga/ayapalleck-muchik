@@ -63,7 +63,7 @@ export default function BookingDetailsModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-3xl max-h-[80vh] overflow-y-scroll scrollbar-hide p-4">
+      <DialogContent className="w-3xl max-h-[85vh] overflow-y-scroll scrollbar-hide p-4">
         <DialogHeader>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <DialogTitle className="text-lg sm:text-xl">Detalles de la Reserva</DialogTitle>

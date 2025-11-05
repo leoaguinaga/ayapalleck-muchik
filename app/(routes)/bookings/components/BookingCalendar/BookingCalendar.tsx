@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { getNext7Days, formatDateSpanish, formatDateKey, isSameDay } from '@/lib/date-utils'
+import { formatDateSpanish, formatDateKey, isSameDay } from '@/lib/date-utils'
 import { mockBookings, mockRooms } from './BookingCalendar.data'
 import { Booking } from './BookingCalendar.types'
 import CreateBookingModal from '../CreateBookingModal'
@@ -117,7 +117,7 @@ export default function BookingCalendar() {
     }
 
     return (
-        <div className='flex flex-col gap-5'>
+        <div className='flex flex-col gap-5 pb-5'>
             {/* Calendario */}
             <div className='bg-card rounded-lg border overflow-hidden'>
                 <div className='overflow-x-auto'>
