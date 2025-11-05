@@ -29,16 +29,11 @@ export const rooms: Room[] = [
   { roomNumber: "205", roomType: "Doble", status: "available", price: 165.00, isClean: true },
 ];
 
-/**
- * Verifica la disponibilidad de habitaciones para un tipo y fechas específicas
- * En una implementación real, esto consultaría la base de datos considerando las reservas existentes
- */
 export function checkRoomAvailability(
   roomType: string,
   checkIn: Date,
   checkOut: Date
 ): { available: Room[]; total: number } {
-  // Filtrar habitaciones por tipo y disponibles
   const availableRooms = rooms.filter(
     (room) => room.roomType === roomType && room.status === 'available' && room.isClean
   );

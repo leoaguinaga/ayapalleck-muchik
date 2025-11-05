@@ -101,15 +101,15 @@ export default function CreateBookingModal({
                 control={form.control}
                 name="guestId"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className='w-full'>
                     <FormLabel className="text-xs sm:text-sm">Huésped</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl>
+                      <FormControl className='w-full  max-w-[223px]'>
                         <SelectTrigger className="text-xs sm:text-sm">
                           <SelectValue placeholder="Selecciona un huésped" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
+                      <SelectContent className='w-full'>
                         {mockGuests.map((guest) => (
                           <SelectItem key={guest.id} value={guest.id} className="text-xs sm:text-sm">
                             {guest.name}
@@ -169,15 +169,15 @@ export default function CreateBookingModal({
                 control={form.control}
                 name="reservationType"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className='w-full'>
                     <FormLabel className="text-xs sm:text-sm">Tipo de reserva</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl>
+                      <FormControl className='w-full'>
                         <SelectTrigger className="text-xs sm:text-sm">
                           <SelectValue />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
+                      <SelectContent className='w-full'>
                         <SelectItem value="Por noche" className="text-xs sm:text-sm">Por noche</SelectItem>
                         <SelectItem value="Por horas" className="text-xs sm:text-sm">Por horas</SelectItem>
                       </SelectContent>
@@ -191,15 +191,15 @@ export default function CreateBookingModal({
                 control={form.control}
                 name="duration"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className='w-full'>
                     <FormLabel className="text-xs sm:text-sm">Duración (opcional)</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl>
+                      <FormControl className='w-full'>
                         <SelectTrigger className="text-xs sm:text-sm">
                           <SelectValue placeholder="Selecciona duración" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
+                      <SelectContent className='w-full'>
                         <SelectItem value="12" className="text-xs sm:text-sm">12 horas</SelectItem>
                         <SelectItem value="1" className="text-xs sm:text-sm">1 día</SelectItem>
                         <SelectItem value="2" className="text-xs sm:text-sm">2 días</SelectItem>

@@ -107,7 +107,9 @@ export default function BookingCalendar() {
     }
 
     const handlePrevWeek = () => {
-        setWeekOffset(prev => prev - 1)
+        if (weekOffset > 0) {
+            setWeekOffset(prev => prev - 1)
+        }
     }
 
     const handleNextWeek = () => {
@@ -116,9 +118,6 @@ export default function BookingCalendar() {
 
     return (
         <div className='flex flex-col gap-5'>
-            {/* Header con navegación */}
-
-
             {/* Calendario */}
             <div className='bg-card rounded-lg border overflow-hidden'>
                 <div className='overflow-x-auto'>
@@ -126,9 +125,17 @@ export default function BookingCalendar() {
                         {/* Header de fechas */}
                         <div className='grid grid-cols-8 border-b bg-muted/50'>
                             <div className='p-3 border-r flex items-center justify-center gap-2'>
-                                <Button variant="outline" className='bg-none' size="icon" onClick={handlePrevWeek}>
-                                    <ChevronLeft className='size-4' />
-                                </Button>
+                                {
+                                    weekOffset < 1 ? (
+                                        <Button variant="outline" size="icon" className='bg-none' disabled>
+                                            <ChevronLeft className='size-4' />
+                                        </Button>
+                                    ) : (
+                                        <Button variant="outline" className='bg-none' size="icon" onClick={handlePrevWeek}>
+                                            <ChevronLeft className='size-4' />
+                                        </Button>
+                                    )
+                                }
                                 <Button variant="outline" size="icon" onClick={handleNextWeek}>
                                     <ChevronRight className='size-4' />
                                 </Button>

@@ -4,7 +4,7 @@ import { Request, RequestStatus } from '@/app/(routes)/requests/types';
 import { Card } from '@/components/ui/card';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { Calendar, Clock, Bed, CheckCircle, XCircle, AlertCircle, Ban } from 'lucide-react';
+import { Calendar, Clock, Bed, CheckCircle, XCircle, AlertCircle, Ban, ClockFading, ClockAlert } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 interface RequestCardProps {
@@ -48,7 +48,7 @@ export function RequestCard({ request, onClick, status }: RequestCardProps) {
       case 'approved':
         return {
           borderColor: 'border-l-blue-500',
-          icon: <CheckCircle className="w-4 h-4 text-blue-500" />,
+          icon: <ClockFading className="w-4 h-4 text-blue-500" />,
           badge: <Badge variant="outline" className="text-xs border-blue-500 text-blue-600">Por confirmar</Badge>,
           highlight: 'dates', // Resaltar fechas
         };
@@ -69,7 +69,7 @@ export function RequestCard({ request, onClick, status }: RequestCardProps) {
       case 'expired':
         return {
           borderColor: 'border-l-gray-500',
-          icon: <Clock className="w-4 h-4 text-gray-500" />,
+          icon: <ClockAlert className="w-4 h-4 text-gray-500" />,
           badge: <Badge variant="secondary" className="text-xs">Expirada</Badge>,
           highlight: 'none',
         };

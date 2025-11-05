@@ -156,25 +156,14 @@ export function RequestDetailsModal({
           {request.status === 'approved' && (
             <>
               <Button
-                variant="outline"
+                variant="destructive"
                 onClick={() => {
                   onCancel?.(request);
                   onClose();
                 }}
-                className="flex-1"
+                className='cursor-pointer'
               >
-                <XCircle className="w-4 h-4 mr-2" />
                 Cancelar
-              </Button>
-              <Button
-                onClick={() => {
-                  onConfirm?.(request);
-                  onClose();
-                }}
-                className="flex-1"
-              >
-                <CheckCircle className="w-4 h-4 mr-2" />
-                Confirmar
               </Button>
             </>
           )}
@@ -186,10 +175,9 @@ export function RequestDetailsModal({
                 onCancel?.(request);
                 onClose();
               }}
-              className="flex-1"
+              className='cursor-pointer'
             >
-              <XCircle className="w-4 h-4 mr-2" />
-              Cancelar Reserva
+              Cancelar
             </Button>
           )}
 
