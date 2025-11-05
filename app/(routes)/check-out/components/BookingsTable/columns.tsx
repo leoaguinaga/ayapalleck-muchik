@@ -2,11 +2,12 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { BookingsTablePops } from "./BookingsTable.types"
-import { ArrowRight, EllipsisVertical, Link, Pencil } from "lucide-react"
+import { ArrowRight, EllipsisVertical, Pencil } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { formatPrice } from "@/lib/formatPrice"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import Tag from "@/components/Tag/Tag"
 
 export const columns: ColumnDef<BookingsTablePops>[] = [
@@ -70,10 +71,12 @@ export const columns: ColumnDef<BookingsTablePops>[] = [
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem className="flex items-center gap-2 p-2 border bg-card rounded-lg cursor-pointer">
-                                Gestionar
-                                <ArrowRight className="size-4" />
-                            </DropdownMenuItem>
+                            <Link href={`check-out/${customer}`} className="no-underline">
+                                <DropdownMenuItem className="flex items-center gap-2 p-2 border bg-card rounded-lg cursor-pointer">
+                                    Gestionar
+                                    <ArrowRight className="size-4" />
+                                </DropdownMenuItem>
+                            </Link>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>

@@ -30,9 +30,9 @@ import { CustomOpenModalButton } from '@/components/CustomOpenModalButton'
 import FormCreateCustomer from '@/app/(routes)/customers/components/FromCreateCustomer/FormCreateCustomer'
 
 const mockGuests: Guest[] = [
-  { id: "1", name: "Leonardo Aguinaga Paredes" },
-  { id: "2", name: "María López García" },
-  { id: "3", name: "Carlos Pérez Sánchez" }
+  { id: "1", name: "Leonardo Aguinaga Paredes", document: "45236789" },
+  { id: "2", name: "María López García", document: "47896532" },
+  { id: "3", name: "Carlos Pérez Sánchez", document: "41234567" }
 ]
 
 const mockProducts: Product[] = [
@@ -126,7 +126,7 @@ export default function FormCheckIn({ roomId, onSummaryChange }: FormCheckInProp
                     <CustomerSelector
                       value={field.value}
                       onChange={(value) => field.onChange(value)}
-                      customers={mockGuests.map(g => ({ id: g.id, name: g.name, document: "" }))}
+                      customers={mockGuests.map(g => ({ id: g.id, name: g.name, document: g.document }))}
                       placeholder="Selecciona el huésped"
                       searchPlaceholder="Buscar por nombre..."
                       className="w-full"

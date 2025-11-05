@@ -128,7 +128,7 @@ export function RoomAvailabilityModal({
             </div>
           </div>
 
-          <div className="mt-3 pt-3 border-t">
+          <div className="pt-3.5 -mt-1 border-t">
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-muted-foreground" />
               <p className="text-sm">
@@ -200,7 +200,7 @@ export function RoomAvailabilityModal({
                   </div>
 
                   {selectedRoom?.roomNumber === room.roomNumber && (
-                    <div className="mt-2 pt-2 border-t">
+                    <div className="-mt-2.5 pt-2 border-t">
                       <div className="flex items-center gap-2 text-sm text-primary">
                         <CheckCircle className="w-4 h-4" />
                         <span className="font-medium">Seleccionada</span>

@@ -1,12 +1,15 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { createBookingSchema } from "./CreateBookingModal.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import toast from 'react-hot-toast'
+import { format } from "date-fns"
+import { es } from "date-fns/locale"
+import { CalendarIcon } from "lucide-react"
 
 import {
   Dialog,
@@ -33,14 +36,24 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
 import { CreateBookingModalProps, Guest } from "./CreateBookingModal.types"
+import { CustomerSelector } from '@/components/CustomerSelector'
+import { CustomOpenModalButton } from '@/components/CustomOpenModalButton'
+import FormCreateCustomer from '@/app/(routes)/customers/components/FromCreateCustomer/FormCreateCustomer'
 
 // Mock data - reemplazar con datos reales
 const mockGuests: Guest[] = [
-  { id: "1", name: "Leonardo Aguinaga Paredes" },
-  { id: "2", name: "Juan Pérez García" },
-  { id: "3", name: "María López Sánchez" },
-  { id: "4", name: "Carlos Ramírez Torres" }
+  { id: "1", name: "Leonardo Aguinaga Paredes", document: "12345678" },
+  { id: "2", name: "Juan Pérez García", document: "87654321" },
+  { id: "3", name: "María López Sánchez", document: "11223344" },
+  { id: "4", name: "Carlos Ramírez Torres", document: "44332211" }
 ]
 
 export default function CreateBookingModal({ 
@@ -50,6 +63,8 @@ export default function CreateBookingModal({
   selectedDate = "" 
 }: CreateBookingModalProps) {
   const router = useRouter()
+  const [changeType, setChangeType] = useState("Por noche")
+  const [openCreateGuestModal, setOpenCreateGuestModal] = useState(false)
 
   const form = useForm<z.infer<typeof createBookingSchema>>({
     resolver: zodResolver(createBookingSchema),
@@ -59,7 +74,7 @@ export default function CreateBookingModal({
       checkIn: selectedDate,
       checkOut: "",
       reservationType: "Por noche",
-      duration: "",
+      duration: "12",
       discount: 0,
       taxiFee: 0,
       advance: 0,
@@ -75,6 +90,30 @@ export default function CreateBookingModal({
       form.setValue('checkIn', selectedDate)
     }
   }, [roomNumber, selectedDate, form])
+
+  // Calcular la fecha de salida automáticamente
+  React.useEffect(() => {
+    const checkIn = form.watch('checkIn')
+    const duration = form.watch('duration')
+    const reservationType = form.watch('reservationType')
+
+    if (checkIn && duration) {
+      const checkInDate = new Date(checkIn)
+      let checkOutDate = new Date(checkInDate)
+
+      if (reservationType === 'Por noche') {
+        // Duración en horas
+        const hours = parseInt(duration)
+        checkOutDate.setHours(checkOutDate.getHours() + hours)
+      } else {
+        // Por horas
+        const hours = parseInt(duration)
+        checkOutDate.setHours(checkOutDate.getHours() + hours)
+      }
+
+      form.setValue('checkOut', checkOutDate.toISOString())
+    }
+  }, [form.watch('checkIn'), form.watch('duration'), form.watch('reservationType')])
 
   const onSubmit = async (values: z.infer<typeof createBookingSchema>) => {
     console.log('Nueva reserva:', values)
@@ -102,22 +141,32 @@ export default function CreateBookingModal({
                 name="guestId"
                 render={({ field }) => (
                   <FormItem className='w-full'>
-                    <FormLabel className="text-xs sm:text-sm">Huésped</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl className='w-full  max-w-[223px]'>
-                        <SelectTrigger className="text-xs sm:text-sm">
-                          <SelectValue placeholder="Selecciona un huésped" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent className='w-full'>
-                        {mockGuests.map((guest) => (
-                          <SelectItem key={guest.id} value={guest.id} className="text-xs sm:text-sm">
-                            {guest.name}
-                          </SelectItem>
-                        ))}
-                        <SelectItem value="new" className="text-xs sm:text-sm">+ Crear nuevo huésped</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <FormLabel className="text-xs sm:text-sm">Selecciona el huésped</FormLabel>
+                    <FormControl>
+                      <CustomerSelector
+                        value={field.value}
+                        onChange={(value) => field.onChange(value)}
+                        customers={mockGuests.map(g => ({ id: g.id, name: g.name, document: g.document }))}
+                        placeholder="Selecciona el huésped"
+                        searchPlaceholder="Buscar por nombre o documento..."
+                        className="w-full"
+                      />
+                    </FormControl>
+                    <p className='text-xs text-muted-foreground'>
+                      o{' '}
+                      <CustomOpenModalButton
+                        triggerLabel="Crea uno nuevo"
+                        buttonVariant="underline"
+                        buttonClassName="text-xs"
+                        title="Nuevo Huésped"
+                        description="Completa el formulario para registrar un nuevo huésped"
+                        breadcrumb={["Huéspedes", "Agregar huésped"]}
+                        open={openCreateGuestModal}
+                        onOpenChange={setOpenCreateGuestModal}
+                      >
+                        <FormCreateCustomer setOpenModalCreateCustomer={setOpenCreateGuestModal} />
+                      </CustomOpenModalButton>
+                    </p>
                     <FormMessage className="text-xs" />
                   </FormItem>
                 )}
@@ -127,8 +176,8 @@ export default function CreateBookingModal({
                 control={form.control}
                 name="roomNumber"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-xs sm:text-sm">Habitación</FormLabel>
+                  <FormItem className='place-self-start'>
+                    <FormLabel className="text-xs sm:text-sm">Elige la habitación</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder="101" className="text-xs sm:text-sm" />
                     </FormControl>
@@ -141,25 +190,37 @@ export default function CreateBookingModal({
                 control={form.control}
                 name="checkIn"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex flex-col">
                     <FormLabel className="text-xs sm:text-sm">Fecha de entrada</FormLabel>
-                    <FormControl>
-                      <Input type="date" {...field} className="text-xs sm:text-sm" />
-                    </FormControl>
-                    <FormMessage className="text-xs" />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="checkOut"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-xs sm:text-sm">Fecha de salida</FormLabel>
-                    <FormControl>
-                      <Input type="date" {...field} className="text-xs sm:text-sm" />
-                    </FormControl>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            className={cn(
+                              "w-full pl-3 text-left font-normal text-xs sm:text-sm",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(new Date(field.value), "PPP", { locale: es })
+                            ) : (
+                              <span>Selecciona la fecha</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value ? new Date(field.value) : undefined}
+                          onSelect={(date) => field.onChange(date?.toISOString())}
+                          disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
                     <FormMessage className="text-xs" />
                   </FormItem>
                 )}
@@ -171,7 +232,14 @@ export default function CreateBookingModal({
                 render={({ field }) => (
                   <FormItem className='w-full'>
                     <FormLabel className="text-xs sm:text-sm">Tipo de reserva</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
+                    <Select 
+                      onValueChange={(value) => {
+                        field.onChange(value)
+                        setChangeType(value)
+                        form.setValue("duration", value === "Por noche" ? "12" : "1")
+                      }} 
+                      value={field.value}
+                    >
                       <FormControl className='w-full'>
                         <SelectTrigger className="text-xs sm:text-sm">
                           <SelectValue />
@@ -192,7 +260,7 @@ export default function CreateBookingModal({
                 name="duration"
                 render={({ field }) => (
                   <FormItem className='w-full'>
-                    <FormLabel className="text-xs sm:text-sm">Duración (opcional)</FormLabel>
+                    <FormLabel className="text-xs sm:text-sm">Duración</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl className='w-full'>
                         <SelectTrigger className="text-xs sm:text-sm">
@@ -200,11 +268,22 @@ export default function CreateBookingModal({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className='w-full'>
-                        <SelectItem value="12" className="text-xs sm:text-sm">12 horas</SelectItem>
-                        <SelectItem value="1" className="text-xs sm:text-sm">1 día</SelectItem>
-                        <SelectItem value="2" className="text-xs sm:text-sm">2 días</SelectItem>
-                        <SelectItem value="3" className="text-xs sm:text-sm">3 días</SelectItem>
-                        <SelectItem value="7" className="text-xs sm:text-sm">1 semana</SelectItem>
+                        {changeType === "Por noche" ? (
+                          <>
+                            <SelectItem value="12" className="text-xs sm:text-sm">12 horas</SelectItem>
+                            <SelectItem value="24" className="text-xs sm:text-sm">1 día</SelectItem>
+                            <SelectItem value="36" className="text-xs sm:text-sm">1 día y medio</SelectItem>
+                            <SelectItem value="48" className="text-xs sm:text-sm">2 días</SelectItem>
+                            <SelectItem value="72" className="text-xs sm:text-sm">3 días</SelectItem>
+                          </>
+                        ) : (
+                          <>
+                            <SelectItem value="1" className="text-xs sm:text-sm">1 hora</SelectItem>
+                            <SelectItem value="2" className="text-xs sm:text-sm">2 horas</SelectItem>
+                            <SelectItem value="3" className="text-xs sm:text-sm">3 horas</SelectItem>
+                            <SelectItem value="4" className="text-xs sm:text-sm">4 horas</SelectItem>
+                          </>
+                        )}
                       </SelectContent>
                     </Select>
                     <FormMessage className="text-xs" />

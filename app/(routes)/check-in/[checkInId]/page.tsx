@@ -19,7 +19,6 @@ export default function CheckInPage({ params }: { params: { checkInId: string } 
         total: 120
     })
 
-    // Mock data - reemplazar con datos reales
     const roomData = {
         roomNumber: checkInId,
         roomType: "Matrimonial",

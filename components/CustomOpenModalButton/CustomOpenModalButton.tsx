@@ -39,7 +39,7 @@ export default function CustomOpenModalButton({
             case 'text':
                 return "bg-transparent hover:bg-transparent text-primary p-0 h-auto font-normal"
             case 'underline':
-                return "bg-transparent hover:bg-transparent text-primary p-0 h-auto font-normal underline underline-offset-4 hover:underline-offset-2 transition-all"
+                return "bg-transparent hover:bg-transparent text-primary p-0 h-auto font-normal underline underline-offset-4 transition-all"
             default:
                 return "flex items-center gap-2"
         }
@@ -48,7 +48,7 @@ export default function CustomOpenModalButton({
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button className={cn(getButtonStyles(buttonVariant), buttonClassName)}>
+                <Button className={cn(getButtonStyles(buttonVariant), buttonClassName, " cursor-pointer")}>
                     {triggerIcon && buttonVariant !== 'text' && buttonVariant !== 'underline' && (
                         <span className="size-4.5">{triggerIcon}</span>
                     )}

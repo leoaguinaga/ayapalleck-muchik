@@ -15,6 +15,7 @@ export interface FormCheckInProps {
 export interface Guest {
   id: string
   name: string
+  document: string
 }
 
 export interface Product {

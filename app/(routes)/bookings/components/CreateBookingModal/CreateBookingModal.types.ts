@@ -8,4 +8,5 @@ export interface CreateBookingModalProps {
 export interface Guest {
   id: string
   name: string
+  document: string
 }

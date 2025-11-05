@@ -75,9 +75,9 @@ export default function BookingDetailsModal({
         </DialogHeader>
 
         <div className="grid grid-cols-1 gap-4">
-          <div className="space-y-4 sm:space-y-6">
+          <div className="space-y-4">
             {/* Información del huésped */}
-            <div className="space-y-2 sm:space-y-3">
+            <div className="space-y-2">
               <h3 className="text-base sm:text-lg font-semibold flex items-center gap-2">
                 <User className="size-4.5" />
                 Información del huésped
@@ -100,7 +100,7 @@ export default function BookingDetailsModal({
             </div>
 
             {/* Detalles de la habitación */}
-            <div className="space-y-2 sm:space-y-3">
+            <div className="space-y-2">
               <h3 className="text-base sm:text-lg font-semibold flex items-center gap-2">
                 <Home className="size-4.5" />
                 Habitación
@@ -118,70 +118,65 @@ export default function BookingDetailsModal({
               </div>
             </div>
 
-            {/* Fechas */}
-            <div className="space-y-3 sm:space-y-4">
-              <div className="space-y-2">
-                <h3 className="text-base sm:text-lg font-semibold flex items-center gap-2">
-                  <CalendarRange className="size-4.5" />
-                  Estadía
-                </h3>
-                <div className="bg-muted/50 rounded-lg p-3 sm:p-4">
-                  <p className="font-medium text-sm sm:text-base break-words">{formatDate(booking.checkIn)}</p>
-                  <p className="text-xs sm:text-sm text-muted-foreground">14:00 hrs</p>
-                  <div className='border-r-2 h-5 ml-3 place-self-start my-1'></div>
-                  <p className="font-medium text-sm sm:text-base break-words">{formatDate(booking.checkOut)}</p>
-                  <p className="text-xs sm:text-sm text-muted-foreground">12:00 hrs</p>
-                </div>
+            <div className="space-y-2">
+              <h3 className="text-base sm:text-lg font-semibold flex items-center gap-2">
+                <CalendarRange className="size-4.5" />
+                Estadía
+              </h3>
+              <div className="bg-muted/50 rounded-lg p-3 sm:p-4">
+                <p className="font-medium text-sm sm:text-base break-words">{formatDate(booking.checkIn)}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">14:00 hrs</p>
+                <div className='border-r-2 h-5 ml-3 place-self-start my-1'></div>
+                <p className="font-medium text-sm sm:text-base break-words">{formatDate(booking.checkOut)}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">12:00 hrs</p>
               </div>
             </div>
           </div>
 
-          <div className="space-y-4 sm:space-y-6">
-            {/* Duración y precio */}
-            <div className="space-y-2 sm:space-y-3">
-              <h3 className="text-base sm:text-lg font-semibold flex items-center gap-2">
-                <Receipt className="size-4.5" />
-                Resumen
-              </h3>
-              <div className="bg-muted/50 rounded-lg p-3 sm:p-4 space-y-2">
-                <div className="flex justify-between items-center gap-2">
-                  <span className="text-xs sm:text-sm text-muted-foreground">Duración:</span>
-                  <span className="font-medium text-sm sm:text-base">{nights} {nights === 1 ? 'noche' : 'noches'}</span>
-                </div>
-                <div className="flex justify-between items-center gap-2">
-                  <span className="text-xs sm:text-sm text-muted-foreground">Precio por noche:</span>
-                  <span className="text-sm sm:text-base">{formatPrice(pricePerNight)}</span>
-                </div>
-                <div className="flex justify-between items-center gap-2">
-                  <span className="text-xs sm:text-sm text-muted-foreground">Subtotal:</span>
-                  <span className="text-sm sm:text-base">{formatPrice(totalPrice)}</span>
-                </div>
-                <div className="flex justify-between items-center gap-2">
-                  <span className="text-xs sm:text-sm text-muted-foreground">Descuento:</span>
-                  <span className="text-sm sm:text-base text-green-600">-{formatPrice(20)}</span>
-                </div>
-                <div className="flex justify-between items-center gap-2">
-                  <span className="text-xs sm:text-sm text-muted-foreground">Adelanto:</span>
-                  <span className="text-sm sm:text-base">{formatPrice(100)}</span>
-                </div>
-                <div className="border-t pt-2 flex justify-between items-center gap-2">
-                  <span className="font-semibold text-sm sm:text-base">Pendiente:</span>
-                  <span className="text-lg font-bold">{formatPrice(totalPrice - 20)}</span>
-                </div>
+          {/* Resumen de la reserva */}
+          <div className="space-y-2">
+            <h3 className="text-base sm:text-lg font-semibold flex items-center gap-2">
+              <Receipt className="size-4.5" />
+              Resumen
+            </h3>
+            <div className="bg-muted/50 rounded-lg p-3 sm:p-4 space-y-2">
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-xs sm:text-sm text-muted-foreground">Duración:</span>
+                <span className="font-medium text-sm sm:text-base">{nights} {nights === 1 ? 'noche' : 'noches'}</span>
+              </div>
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-xs sm:text-sm text-muted-foreground">Precio por noche:</span>
+                <span className="text-sm sm:text-base">{formatPrice(pricePerNight)}</span>
+              </div>
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-xs sm:text-sm text-muted-foreground">Subtotal:</span>
+                <span className="text-sm sm:text-base">{formatPrice(totalPrice)}</span>
+              </div>
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-xs sm:text-sm text-muted-foreground">Descuento:</span>
+                <span className="text-sm sm:text-base text-green-600">-{formatPrice(20)}</span>
+              </div>
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-xs sm:text-sm text-muted-foreground">Adelanto:</span>
+                <span className="text-sm sm:text-base">{formatPrice(100)}</span>
+              </div>
+              <div className="border-t pt-2 flex justify-between items-center gap-2">
+                <span className="font-semibold text-sm sm:text-base">Pendiente:</span>
+                <span className="text-lg font-bold">{formatPrice(totalPrice - 20)}</span>
               </div>
             </div>
+          </div>
 
-            {/* Notas adicionales */}
-            <div className="space-y-2 sm:space-y-3">
-              <h3 className="text-base sm:text-lg font-semibold flex items-center gap-2">
-                <FileText className="size-4.5" />
-                Notas Adicionales
-              </h3>
-              <div className="bg-muted/50 rounded-lg p-3 sm:p-4">
-                <p className="text-xs sm:text-sm text-muted-foreground">
-                  Cliente habitual. Prefiere habitación con vista al jardín. Llegada estimada: 15:30 hrs.
-                </p>
-              </div>
+          {/* Notas adicionales */}
+          <div className="space-y-2">
+            <h3 className="text-base sm:text-lg font-semibold flex items-center gap-2">
+              <FileText className="size-4.5" />
+              Notas Adicionales
+            </h3>
+            <div className="bg-muted/50 rounded-lg p-3 sm:p-4">
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                Cliente habitual. Prefiere habitación con vista al jardín. Llegada estimada: 15:30 hrs.
+              </p>
             </div>
           </div>
         </div>
