@@ -1,0 +1,131 @@
+
+import { Stay } from './types'
+
+export const mockStays: Stay[] = [
+  {
+    id: '1',
+    folio: 'F-2025-001',
+    guest: {
+      id: 'g1',
+      name: 'Leonardo Aguinaga Paredes',
+      email: 'leo@example.com',
+      phone: '+51 987 654 321',
+    },
+    room: {
+      code: '101',
+      type: 'Matrimonial',
+      floor: 1,
+      capacity: 2,
+      isClean: true,
+    },
+    checkIn: new Date('2025-11-04T14:00:00'),
+    checkOut: new Date('2025-11-06T12:00:00'),
+    nights: 2,
+    total: 1000,
+    paid: 820,
+    stayState: 'delayed',
+    paymentState: 'partial',
+    dueDelta: -85, // 1h 25min de retraso
+  },
+  {
+    id: '2',
+    folio: 'F-2025-002',
+    guest: {
+      id: 'g2',
+      name: 'María López García',
+      email: 'maria@example.com',
+      phone: '+51 912 345 678',
+    },
+    room: {
+      code: '203',
+      type: 'Doble',
+      floor: 2,
+      capacity: 2,
+      isClean: false,
+    },
+    checkIn: new Date('2025-11-05T15:00:00'),
+    checkOut: new Date('2025-11-06T12:00:00'),
+    nights: 1,
+    total: 500,
+    paid: 500,
+    stayState: 'on-time',
+    paymentState: 'paid',
+    dueDelta: 120, // Vence en 2 horas
+  },
+  {
+    id: '3',
+    folio: 'F-2025-003',
+    guest: {
+      id: 'g3',
+      name: 'Carlos Ramírez Torres',
+      email: 'carlos@example.com',
+      phone: '+51 923 456 789',
+    },
+    room: {
+      code: '305',
+      type: 'Suite',
+      floor: 3,
+      capacity: 4,
+      isClean: true,
+    },
+    checkIn: new Date('2025-11-03T14:00:00'),
+    checkOut: new Date('2025-11-07T12:00:00'),
+    nights: 4,
+    total: 2400,
+    paid: 1200,
+    stayState: 'on-time',
+    paymentState: 'partial',
+    dueDelta: 1560, // Vence mañana
+  },
+  {
+    id: '4',
+    folio: 'F-2025-004',
+    guest: {
+      id: 'g4',
+      name: 'Ana Martínez Sánchez',
+      email: 'ana@example.com',
+      phone: '+51 934 567 890',
+    },
+    room: {
+      code: '102',
+      type: 'Simple',
+      floor: 1,
+      capacity: 1,
+      isClean: true,
+    },
+    checkIn: new Date('2025-11-01T14:00:00'),
+    checkOut: new Date('2025-11-08T12:00:00'),
+    nights: 7,
+    total: 2100,
+    paid: 2100,
+    stayState: 'extended',
+    paymentState: 'paid',
+    dueDelta: 2880, // Extendida
+    extendedFrom: new Date('2025-11-05T12:00:00'),
+  },
+  {
+    id: '5',
+    folio: 'F-2025-005',
+    guest: {
+      id: 'g5',
+      name: 'Jorge Pérez Díaz',
+      email: 'jorge@example.com',
+      phone: '+51 945 678 901',
+    },
+    room: {
+      code: '201',
+      type: 'Matrimonial',
+      floor: 2,
+      capacity: 2,
+      isClean: true,
+    },
+    checkIn: new Date('2025-11-04T14:00:00'),
+    checkOut: new Date('2025-11-06T12:00:00'),
+    nights: 2,
+    total: 1000,
+    paid: 0,
+    stayState: 'delayed',
+    paymentState: 'pending',
+    dueDelta: -360, // 6 horas de retraso
+  },
+]
