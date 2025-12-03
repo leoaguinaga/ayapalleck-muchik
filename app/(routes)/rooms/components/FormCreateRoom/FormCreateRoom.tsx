@@ -41,7 +41,7 @@ export default function FormCreateCustomer(props: FormCreateRoomProps) {
         resolver: zodResolver(formCreateRoomSchema),
         mode: 'onChange',
         defaultValues: {
-            number: '',
+            roomNumber: '',
             roomType: '',
         }
     })
@@ -51,7 +51,7 @@ export default function FormCreateCustomer(props: FormCreateRoomProps) {
     const onSubmit = async (values: z.infer<typeof formCreateRoomSchema>) => {
         createRoom(
             {
-                number: values.number,
+                roomNumber: values.roomNumber,
                 roomTypeId: values.roomType,
                 status: 'AVAILABLE',
             },
@@ -59,6 +59,7 @@ export default function FormCreateCustomer(props: FormCreateRoomProps) {
                 onSuccess: () => {
                     toast.success('Habitación creada con éxito');
                     setOpenModalCreateCustomer(false);
+                    form.reset();
                     router.refresh();
                 },
                 onError: (error) => {
@@ -75,12 +76,12 @@ export default function FormCreateCustomer(props: FormCreateRoomProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <FormField
                         control={form.control}
-                        name="number"
+                        name="roomNumber"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Número de habitación</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Ej. 101" {...field} id="number" />
+                                    <Input placeholder="Ej. 101" {...field} id="roomNumber" />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
