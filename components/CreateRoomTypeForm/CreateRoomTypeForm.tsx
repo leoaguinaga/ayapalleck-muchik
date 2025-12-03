@@ -6,16 +6,7 @@ import { formCreateRoomType } from "./CreateRoomTypeForm.schema";
 import { CreateRoomTypeFormProps } from "./CreateRoomTypeForm.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
 import toast from 'react-hot-toast';
-
 import { Button } from "@/components/ui/button"
 import {
     Form,
@@ -27,19 +18,22 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "../ui/textarea";
+import { useCreateRoomType } from "@/hooks/room-types/useCreateRoomType";
 
 export default function CreateRoomTypeForm(props: CreateRoomTypeFormProps) {
     const { setOpenModalCreateCustomer } = props;
     const router = useRouter();
+    const { mutate: createRoomType, isPending } = useCreateRoomType();
 
     const defaultBirthDate = new Date();
     defaultBirthDate.setFullYear(defaultBirthDate.getFullYear() - 18);
 
     const form = useForm<z.infer<typeof formCreateRoomType>>({
         resolver: zodResolver(formCreateRoomType),
+        mode: 'onChange',
         defaultValues: {
             name: '',
-            price: 0,
+            price: 1,
             description: '',
         }
     })
@@ -47,10 +41,17 @@ export default function CreateRoomTypeForm(props: CreateRoomTypeFormProps) {
     const { isValid } = form.formState;
 
     const onSubmit = async (values: z.infer<typeof formCreateRoomType>) => {
-        console.log(values);
-        toast.success('Habitación creada con éxito');
-        setOpenModalCreateCustomer(false);
-        router.refresh();
+        createRoomType(values, {
+            onSuccess: () => {
+                toast.success('Habitación creada con éxito');
+                setOpenModalCreateCustomer(false);
+                router.refresh();
+            },
+            onError: (error) => {
+                toast.error('Error al crear la habitación');
+                console.error(error);
+            }
+        });
     }
 
     return (
@@ -64,7 +65,21 @@ export default function CreateRoomTypeForm(props: CreateRoomTypeFormProps) {
                             <FormItem>
                                 <FormLabel>Nombre</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Ej: Suite" {...field} />
+                                    <Input
+                                        placeholder="Ej: Suite"
+                                        maxLength={12}
+                                        value={field.value}
+                                        onChange={(e) => {
+                                            let value = e.target.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+                                            if (value.length > 0) {
+                                                value = value.charAt(0).toUpperCase() + value.slice(1);
+                                            }
+                                            field.onChange(value);
+                                        }}
+                                        onBlur={field.onBlur}
+                                        name={field.name}
+                                        ref={field.ref}
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -79,7 +94,16 @@ export default function CreateRoomTypeForm(props: CreateRoomTypeFormProps) {
                                 <FormControl>
                                     <div className="relative">
                                         <p className="absolute top-[8.5px] left-2 text-sm">S/</p>
-                                        <Input type="number" placeholder="Precio por noche" {...field} className="pl-5.5" />
+                                        <Input 
+                                            type="number" 
+                                            placeholder="Precio por noche" 
+                                            className="pl-5.5"
+                                            value={field.value}
+                                            onChange={(e) => field.onChange(e.target.valueAsNumber || 0)}
+                                            onBlur={field.onBlur}
+                                            name={field.name}
+                                            ref={field.ref}
+                                        />
                                     </div>
                                 </FormControl>
                                 <FormMessage />
@@ -95,14 +119,21 @@ export default function CreateRoomTypeForm(props: CreateRoomTypeFormProps) {
                             <FormItem>
                                 <FormLabel>Descripción</FormLabel>
                                 <FormControl>
-                                    <Textarea placeholder="Ej: Habitación con cama de dos plazas King Size" {...field} />
+                                    <Textarea
+                                        placeholder="Ej: Habitación con cama de dos plazas King Size"
+                                        maxLength={65}
+                                        {...field}
+                                        className="max-h-20"
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
                 </div>
-                <Button type="submit" disabled={!isValid} className="w-full">Registrar</Button>
+                <Button type="submit" disabled={!isValid || isPending} className="w-full">
+                    {isPending ? 'Registrando...' : 'Registrar'}
+                </Button>
             </form>
         </Form>
     )

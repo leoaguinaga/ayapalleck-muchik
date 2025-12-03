@@ -20,7 +20,9 @@ import {
   LogOut, 
   Wallet,
   Receipt,
-  Printer
+  Printer,
+  Trash,
+  Trash2
 } from 'lucide-react'
 import {
   AlertDialog,
@@ -160,7 +162,7 @@ export default function CheckOutIdPage({ params }: { params: { checkOutId: strin
                 disabled={pendingAmount > 0 || stay.status === 'checked-out'}
                 className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700"
               >
-                <LogOut className="h-4 w-4 mr-2" />
+                <LogOut className="h-4 w-4" />
                 Realizar Check-out
               </Button>
             </AlertDialogTrigger>
@@ -270,6 +272,9 @@ export default function CheckOutIdPage({ params }: { params: { checkOutId: strin
           /> */}
         </div>
       </div>
+      <Button variant="destructive" className='flex items-center -space-x-1 place-self-end'>
+        <Trash2 className='size-4.5' /> Cancelar reserva
+      </Button>
     </div>
   )
 }

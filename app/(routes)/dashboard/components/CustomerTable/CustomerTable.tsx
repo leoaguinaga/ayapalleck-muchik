@@ -10,7 +10,7 @@ export async function CustomersTable() {
             <CardHeader>
                 <h2 className="text-xl font-semibold">Reservas recientes</h2>
             </CardHeader>
-            <CardContent data-slot="card-content">
+            <CardContent>
                 <DataTable columns={columns} data={bookings} />
             </CardContent>
         </Card>

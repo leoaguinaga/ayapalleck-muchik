@@ -18,7 +18,6 @@ export default function BookingCalendar() {
     const [selectedDate, setSelectedDate] = useState<string>('')
     const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null)
 
-    // Calcular las fechas de la semana actual
     const getDates = () => {
         const today = new Date()
         today.setDate(today.getDate() + (weekOffset * 7))
@@ -185,7 +184,7 @@ export default function BookingCalendar() {
                                         >
                                             {mainBooking && isFirst && (
                                                 <div
-                                                    className='absolute inset-y-1 left-1 rounded px-2 py-1 text-xs font-medium text-white overflow-hidden whitespace-nowrap text-ellipsis z-10 cursor-pointer hover:opacity-90 transition-opacity'
+                                                    className='absolute inset-y-1 left-1 rounded px-2 py-1 text-sm font-semibold text-white overflow-hidden whitespace-nowrap text-ellipsis z-10 cursor-pointer hover:opacity-90 transition-opacity'
                                                     style={{
                                                         backgroundColor: mainBooking.color || '#3b82f6',
                                                         width: `calc(${width * 100}% + ${(width - 1) * 8}px)`,

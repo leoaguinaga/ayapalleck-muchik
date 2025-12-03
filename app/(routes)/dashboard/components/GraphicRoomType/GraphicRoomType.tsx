@@ -60,6 +60,7 @@ export function GraphicRoomType() {
       </CardHeader>
       <CardContent className="flex-1 p-0 mt-2">
         <ChartContainer
+          id="room-type-chart"
           config={chartConfig}
           className="mx-auto aspect-square max-h-[320px]"
         >
