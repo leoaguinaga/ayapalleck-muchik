@@ -1,6 +1,3 @@
-export type RoomTypeTableProps = {
-    id?: string
-    name: string
-    price: number
-    description?: string
-}
+import { RoomType } from '@/lib/api/room-types/room-types.types';
+
+export type RoomTypeTableProps = RoomType;

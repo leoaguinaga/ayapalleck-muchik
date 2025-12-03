@@ -2,18 +2,34 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { RoomTypeTableProps } from "./RoomTypeTable.types"
-import { ArrowRight, EllipsisVertical, Pencil } from "lucide-react"
+import { EllipsisVertical, Pencil } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { Button } from "@/components/ui/button"
+
+// Helper para extraer valores que pueden venir envueltos en {value: ...}
+const extractValue = (field: any): any => {
+    if (field && typeof field === 'object' && 'value' in field) {
+        return field.value;
+    }
+    return field;
+};
 
 export const columns: ColumnDef<RoomTypeTableProps>[] = [
     {
         accessorKey: "name",
         header: "Nombre",
+        cell: ({ row }) => {
+            const name = extractValue(row.original.name);
+            return name ?? "N/A";
+        }
     },
     {
         accessorKey: "price",
         header: "Precio",
+        cell: ({ row }) => {
+            const price = extractValue(row.original.price);
+            return price ? `S/${Number(price).toFixed(2)}` : "N/A";
+        }
     },
     {
         accessorKey: "actions",
