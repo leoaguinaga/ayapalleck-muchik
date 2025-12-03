@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 import { trimEndSlash, withProtocol } from "./lib/handle-url";
 
-const apiBase = trimEndSlash(withProtocol(process.env.API_URL));
+const apiBase = trimEndSlash(withProtocol(process.env.NEXT_PUBLIC_API_BASE_URL));
 
 const nextConfig: NextConfig = {
   async rewrites() {
