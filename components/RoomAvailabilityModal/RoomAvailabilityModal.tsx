@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { Request } from '@/app/(routes)/requests/types';
-import { Room } from '@/app/(routes)/requests/room-types';
-import { checkRoomAvailability } from '@/app/(routes)/requests/room-availability';
+import { Request } from "@/app/(routes)/requests/types";
+import { Room } from "@/app/(routes)/requests/room-types";
+import { checkRoomAvailability } from "@/app/(routes)/requests/room-availability";
 import {
   Dialog,
   DialogContent,
@@ -10,23 +10,24 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { 
-  Bed, 
-  Calendar, 
-  DollarSign, 
-  CheckCircle, 
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import {
+  Bed,
+  Calendar,
+  DollarSign,
+  CheckCircle,
   Sparkles,
   User,
-  Clock
-} from 'lucide-react';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
-import { useState, useEffect } from 'react';
+  Clock,
+  ChevronRight,
+} from "lucide-react";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import { useState, useEffect } from "react";
 
 interface RoomAvailabilityModalProps {
   request: Request | null;
@@ -81,73 +82,57 @@ export function RoomAvailabilityModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[700px] max-h-[85vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Bed className="w-5 h-5" />
-            Disponibilidad de Habitaciones
+      <DialogContent className="sm:max-w-105 max-h-[90vh] overflow-y-auto gap-0">
+        <DialogHeader className="mb-0 pb-0">
+          <DialogTitle className="flex items-center gap-1 font-bold">
+            Solicitudes
+            <ChevronRight className="size-4.5" />
+            Verificar disponibilidad
           </DialogTitle>
           <DialogDescription>
             Revisa y asigna una habitación disponible para esta solicitud
           </DialogDescription>
         </DialogHeader>
 
-        {/* Información de la solicitud */}
-        <Card className="p-4 bg-muted/50">
-          <div className="grid grid-cols-2 gap-4">
+        <Card className="bg-muted/50 pt-2">
+          <div className="grid grid-cols-1 gap-2">
             <div className="flex items-start gap-2">
               <User className="w-4 h-4 text-muted-foreground mt-0.5" />
-              <div>
-                <p className="text-xs text-muted-foreground">Cliente</p>
-                <p className="font-semibold text-sm">{request.customerName}</p>
-              </div>
+              <p className="font-semibold text-sm">{request.customerName}</p>
             </div>
 
             <div className="flex items-start gap-2">
               <Bed className="w-4 h-4 text-muted-foreground mt-0.5" />
-              <div>
-                <p className="text-xs text-muted-foreground">Tipo solicitado</p>
-                <p className="font-semibold text-sm">{request.roomType}</p>
-              </div>
+              <p className="font-semibold text-sm">{request.roomType}</p>
             </div>
 
             <div className="flex items-start gap-2">
               <Calendar className="w-4 h-4 text-muted-foreground mt-0.5" />
-              <div>
-                <p className="text-xs text-muted-foreground">Check-in</p>
-                <p className="font-semibold text-sm">{formatDate(request.checkIn)}</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-2">
-              <Calendar className="w-4 h-4 text-muted-foreground mt-0.5" />
-              <div>
-                <p className="text-xs text-muted-foreground">Check-out</p>
-                <p className="font-semibold text-sm">{formatDate(request.checkOut)}</p>
-              </div>
+              <p className="font-semibold text-sm">
+                {formatDate(request.checkIn)} {" - "}
+                {formatDate(request.checkOut)} 
+              </p>
             </div>
           </div>
 
-          <div className="pt-3.5 -mt-1 border-t">
+          <div className="py-2 -my-2 border-y">
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-muted-foreground" />
               <p className="text-sm">
-                <span className="font-semibold">{nights}</span> {nights === 1 ? 'noche' : 'noches'}
+                <span className="font-semibold">{nights}</span>{" "}
+                {nights === 1 ? "noche" : "noches"}
               </p>
             </div>
           </div>
         </Card>
 
-        <Separator />
-
         {/* Lista de habitaciones disponibles */}
         <div>
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold text-sm">
-              Habitaciones Disponibles
-            </h3>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-medium">Habitaciones Disponibles</h3>
             <Badge variant="outline">
-              {availableRooms.length} {availableRooms.length === 1 ? 'disponible' : 'disponibles'}
+              {availableRooms.length}{" "}
+              {availableRooms.length === 1 ? "disponible" : "disponibles"}
             </Badge>
           </div>
 
@@ -157,36 +142,38 @@ export function RoomAvailabilityModal({
                 <Bed className="w-12 h-12 opacity-50" />
                 <p className="font-medium">No hay habitaciones disponibles</p>
                 <p className="text-sm">
-                  No hay habitaciones tipo "{request.roomType}" disponibles para las fechas seleccionadas
+                  No hay habitaciones tipo "{request.roomType}" disponibles para
+                  las fechas seleccionadas
                 </p>
               </div>
             </Card>
           ) : (
-            <div className="grid gap-2 max-h-[300px] overflow-y-auto pr-2">
+            <div className="grid gap-2 max-h-70 overflow-y-scroll pr-4 pb-2">
               {availableRooms.map((room) => (
                 <Card
                   key={room.roomNumber}
-                  className={`p-3 cursor-pointer transition-all hover:shadow-md ${
+                  className={`p-3 cursor-pointer transition-all shadow-sm hover:shadow-md group ${
                     selectedRoom?.roomNumber === room.roomNumber
-                      ? 'border-2 border-primary bg-primary/5'
-                      : 'hover:border-primary/50'
+                      ? "border-2 border-primary"
+                      : "hover:border-primary/50"
                   }`}
                   onClick={() => setSelectedRoom(room)}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10">
-                        <Bed className="w-6 h-6 text-primary" />
+                      <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-black">
+                        <Bed className="size-6 group-hover:size-7 transition-all duration-300 text-white " />
                       </div>
-                      
+
                       <div>
                         <div className="flex items-center gap-2">
-                          <p className="font-bold text-lg">#{room.roomNumber}</p>
-                          {room.isClean && (
-                            <Sparkles className="w-4 h-4 text-blue-500" />
-                          )}
+                          <p className="font-bold text-lg">
+                            {room.roomNumber}
+                          </p>
                         </div>
-                        <p className="text-sm text-muted-foreground">{room.roomType}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {room.roomType}
+                        </p>
                       </div>
                     </div>
 
@@ -201,7 +188,7 @@ export function RoomAvailabilityModal({
 
                   {selectedRoom?.roomNumber === room.roomNumber && (
                     <div className="-mt-2.5 pt-2 border-t">
-                      <div className="flex items-center gap-2 text-sm text-primary">
+                      <div className="flex items-center gap-2 text-sm text-blue-500">
                         <CheckCircle className="w-4 h-4" />
                         <span className="font-medium">Seleccionada</span>
                       </div>
@@ -213,7 +200,7 @@ export function RoomAvailabilityModal({
           )}
         </div>
 
-        <DialogFooter className="flex gap-2 sm:gap-2">
+        <DialogFooter className="flex gap-2 sm:gap-2 mt-4">
           <Button
             variant="outline"
             onClick={() => {
@@ -229,7 +216,7 @@ export function RoomAvailabilityModal({
             disabled={!selectedRoom}
             className="flex-1"
           >
-            {selectedRoom ? 'Asignar Habitación' : 'Selecciona una habitación'}
+            {selectedRoom ? "Asignar Habitación" : "Selecciona una habitación"}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -54,7 +54,7 @@ export default function DataTable<TData, TValue>({
         },
         initialState: {
             pagination: {
-                pageSize: 5,
+                pageSize: 7,
             },
         },
     })
@@ -62,14 +62,14 @@ export default function DataTable<TData, TValue>({
     if (!isMounted) { return null }
     return (
         <div className='w-full'>
-            <div className='rounded-md border px-2'>
+            <div className='rounded-xl bg-white overflow-hidden'>
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id}>
+                                        <TableHead key={header.id} className='px-3 bg-gray-200/80'>
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -90,7 +90,7 @@ export default function DataTable<TData, TValue>({
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell key={cell.id} className='px-3 py-2'>
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext()

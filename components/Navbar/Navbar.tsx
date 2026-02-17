@@ -1,11 +1,20 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { PanelLeftOpen } from "lucide-react"
-import SidebarRoutes from "../SidebarRoutes"
-import { ToggleTheme } from "@/components/ToggleTheme"
-import { Breadcrumb } from "../Breadcrum"
+import { useEffect, useState } from "react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { PanelLeftOpen } from "lucide-react";
+import { ToggleTheme } from "@/components/ToggleTheme";
+import { Breadcrumb } from "../Breadcrum";
+import UserButton from "../UserButton";
+import Sidebar from "../Sidebar";
+import NavbarContent from "../NavbarContent/NavbarContent";
+import SearchInput from "../SearchInput/SearchInput";
 
 export default function Navbar() {
   const [isMounted, setIsMounted] = useState(false);
@@ -15,32 +24,33 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="flex items-center px-2 gap-x-4 md:px-4 justify-between w-full bg-background py-4 border-b">
-      <div className="flex gap-x-4 items-center">
-        <div className="block xl:hidden">
-          {isMounted ? (
-            <Sheet>
-              <SheetTrigger className="flex items-center" >
-                <PanelLeftOpen />
-              </SheetTrigger>
-              <SheetContent side="left" className="w-70 p-0 m-0" showCloseButton={false}>
-                <SheetHeader >
-                  <SheetTitle></SheetTitle>
-                </SheetHeader>
-                <SidebarRoutes />
-              </SheetContent>
-            </Sheet>
-          ) : (
-            <button className="flex items-center">
-              <PanelLeftOpen />
-            </button>
-          )}
-        </div>
+    <nav className="w-full bg-white rounded-xl p-1.5 flex flex-row justify-between items-center z-10 h-13.5">
+      <div className="flex flex-row items-center gap-2 text-lg font-semibold pl-1">
+        {isMounted ? (
+          <Sheet>
+            <SheetTrigger>
+              <PanelLeftOpen className="size-9 rounded-full bg-gray-100 lg:hidden p-2 overflow-visible" />
+            </SheetTrigger>
+            <SheetContent
+              side="left"
+              className="w-60 p-0 m-0"
+              showCloseButton={false}
+            >
+              <SheetHeader>
+                <SheetTitle></SheetTitle>
+              </SheetHeader>
+              <NavbarContent />
+            </SheetContent>
+          </Sheet>
+        ) : (
+          <PanelLeftOpen className="size-9 rounded-full bg-gray-100 lg:hidden p-2" />
+        )}
         <Breadcrumb />
       </div>
-      <div className="flex gap-x-2 items-center flex-row">
-        <ToggleTheme />
+      <div className="flex flex-row gap-11 md:gap-2 lg:gap-0 items-center">
+        <SearchInput />
+        <UserButton />
       </div>
     </nav>
-  )
+  );
 }

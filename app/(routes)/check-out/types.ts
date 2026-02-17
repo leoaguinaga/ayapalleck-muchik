@@ -46,4 +46,4 @@ export interface StayFilters {
   roomType?: string[]
 }
 
-export type TabFilter = 'today' | 'overdue' | 'tomorrow' | 'all'
+export type TabFilter = 'all' | 'overdue' | 'tomorrow' | 'today'

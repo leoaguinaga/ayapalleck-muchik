@@ -1,38 +1,37 @@
-
-import { Room } from '../../types'
-import { Badge } from '@/components/ui/badge'
+import Tag from "@/components/Tag/Tag";
+import { Room } from "../../types";
+import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { BrushCleaning, Sparkles } from 'lucide-react'
+} from "@/components/ui/tooltip";
+import { BrushCleaning, Sparkles } from "lucide-react";
 
 interface RoomCellProps {
-  room: Room
+  room: Room;
 }
 
 export function RoomCell({ room }: RoomCellProps) {
   const tooltipContent = [
-    room.isClean !== undefined && (room.isClean ? 'Limpio' : 'Sucio'),
-  ].filter(Boolean).join(' · ')
+    room.isClean !== undefined && (room.isClean ? "Limpio" : "Sucio"),
+  ]
+    .filter(Boolean)
+    .join(" · ");
 
   return (
-    <div className="flex flex-col gap-1">
-      <div className="flex items-center gap-1.5">
-        <Badge variant="secondary" className="font-mono font-semibold">
-          {room.code}
-        </Badge>
+    <div className="flex flex-col gap-1 w-full">
+      <div className="flex flex-col gap-1.25 justify-start font-medium">
+        <p className="text-sm">{room.code} <span className="text-gray-600">(Suite)</span></p>
+        {room.isClean ? (
+          <Tag text="Limpio" color="green"/>
+        ) : (
+          <Tag text="Sucio" color="amber"/>
+        )}
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger asChild>
-              {room.isClean ? (
-                <Sparkles className="h-3 w-3 text-emerald-400" />
-              ) : (
-                <BrushCleaning className="h-3 w-3 text-amber-400" />
-              )}
-            </TooltipTrigger>
+            <TooltipTrigger asChild></TooltipTrigger>
             {tooltipContent && (
               <TooltipContent>
                 <p className="text-xs">{tooltipContent}</p>
@@ -40,8 +39,7 @@ export function RoomCell({ room }: RoomCellProps) {
             )}
           </Tooltip>
         </TooltipProvider>
-
       </div>
     </div>
-  )
+  );
 }

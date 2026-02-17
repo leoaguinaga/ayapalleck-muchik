@@ -1,27 +1,30 @@
-export const bookingsData = [
+import { KpiCardProps } from "@/components/KpiCard/KpiCard.types";
+import { CalendarDays, CheckCircle, Clock, XCircle } from "lucide-react";
+
+export const bookingsData: KpiCardProps[] = [
     {
         title: 'Total Bookings',
-        content: '1,250',
-        tooltipContent: 'Total number of bookings made.'
+        value: '1,250',
+        tooltip: 'Total number of bookings made.',
+        icon: CalendarDays,
+        isPrimary: true
     },
     {
         title: 'Completed Bookings',
-        content: '1,100',
-        tooltipContent: 'Number of bookings that have been completed.'
+        value: '1,100',
+        tooltip: 'Number of bookings that have been completed.',
+        icon: CheckCircle
     },
     {
         title: 'Pending Bookings',
-        content: '100',
-        tooltipContent: 'Number of bookings that are still pending.'
+        value: '100',
+        tooltip: 'Number of bookings that are still pending.',
+        icon: Clock
     },
     {
         title: 'Cancelled Bookings',
-        content: '50',
-        tooltipContent: 'Number of bookings that have been cancelled.'
-    },
-    {
-        title: 'No-Show Bookings',
-        content: '25',
-        tooltipContent: 'Number of bookings where the customer did not show up.'
+        value: '50',
+        tooltip: 'Number of bookings that have been cancelled.',
+        icon: XCircle
     }
 ]

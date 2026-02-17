@@ -57,18 +57,15 @@ export const columns: ColumnDef<Stay>[] = [
   },
   {
     id: "status",
-    header: "Estado",
+    header: "Ultima limpieza",
     cell: ({ row }) => (
-      <StatusCell
-        stayState={row.original.stayState}
-        paymentState={row.original.paymentState}
-      />
+      <p className="font-medium">Hoy 14:20</p>
     ),
     enableSorting: true,
   },
   {
     id: "actions",
-    header: "",
+    header: "Acciones",
     cell: ({ row }) => <RowActions stayId={row.original.id} />,
     size: 200,
     enableHiding: false,

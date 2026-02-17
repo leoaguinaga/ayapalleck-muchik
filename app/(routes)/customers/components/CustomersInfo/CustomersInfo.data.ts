@@ -1,7 +1,30 @@
-export const customersData = [
-  { key: "totalCustomers", title: "Total huéspedes", content: "30", tooltipContent: "Total de registros en la tabla Customer (customerId)" },
-  { key: "activeCustomers", title: "Huéspedes activos", content: "25", tooltipContent: "Clientes con available = true" },
-  { key: "newThisWeek", title: "Huéspedes nuevos", content: "5", tooltipContent: "Registros creados en los últimos 7 días" },
-  { key: "avgStay", title: "Estadía promedio", content: "3 noches", tooltipContent: "Promedio calculado a partir de los bookings relacionados (checkIn/checkOut)" },
-  { key: "avgAge", title: "Edad promedio", content: "34 años", tooltipContent: "Estimado a partir de birthDate cuando está disponible" },
+import { KpiCardProps } from "@/components/KpiCard/KpiCard.types";
+import { Users, UserCheck, UserPlus, Calendar, Cake } from "lucide-react";
+
+export const customersData: KpiCardProps[] = [
+  { 
+    title: "Total huéspedes", 
+    value: "30", 
+    tooltip: "Total de registros en la tabla Customer (customerId)",
+    icon: Users,
+    isPrimary: true
+  },
+  { 
+    title: "Huéspedes activos", 
+    value: "25", 
+    tooltip: "Clientes con available = true",
+    icon: UserCheck
+  },
+  { 
+    title: "Huéspedes nuevos", 
+    value: "5", 
+    tooltip: "Registros creados en los últimos 7 días",
+    icon: UserPlus
+  },
+  { 
+    title: "Estadía promedio", 
+    value: "3 noches", 
+    tooltip: "Promedio calculado a partir de los bookings relacionados (checkIn/checkOut)",
+    icon: Calendar
+  }
 ]

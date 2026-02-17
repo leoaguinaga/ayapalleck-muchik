@@ -4,7 +4,7 @@ export const formCreateCustomerSchema = z.object({
     name: z.string().min(2, {
         message: "El nombre tebe contener por lo menos 2 caracteres.",
     }),
-    documentType: z.enum(["DNI", "CE", "Pasaporte"]),
+    documentType: z.enum(["DNI", "Carnet de Extranjería", "Pasaporte"]),
     documentNumber: z.string().min(8, {
         message: "El número del documento debe contener por lo menos 8 caracteres.",
     }),

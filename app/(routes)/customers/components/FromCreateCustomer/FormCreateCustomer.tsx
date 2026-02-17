@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { formCreateCustomerSchema } from "./FormCreateCustomer.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
+import { useCreateCustomer } from "@/hooks/customers";
 
 import {
     Select,
@@ -32,7 +33,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { CalendarIcon } from "lucide-react"
+import { CalendarIcon, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { es } from "date-fns/locale"
@@ -40,6 +41,7 @@ import { es } from "date-fns/locale"
 export default function FormCreateCustomer(props: FormCreateCustomerProps) {
     const { setOpenModalCreateCustomer } = props;
     const router = useRouter();
+    const { mutate: createCustomer, isPending } = useCreateCustomer();
 
     const defaultBirthDate = new Date();
     defaultBirthDate.setFullYear(defaultBirthDate.getFullYear() - 18);
@@ -60,9 +62,36 @@ export default function FormCreateCustomer(props: FormCreateCustomerProps) {
     const { isValid } = form.formState;
 
     const onSubmit = async (values: z.infer<typeof formCreateCustomerSchema>) => {
-        console.log(values);
-        setOpenModalCreateCustomer(false);
-        router.refresh();
+        const payload = {
+            fullName: values.name,
+            documentType: values.documentType,
+            documentNumber: values.documentNumber,
+            phone: values.phoneNumber,
+            ...(values.email && { email: values.email }),
+            ...(values.ruc && { ruc: values.ruc }),
+            ...(values.birthDate && { birthDate: format(values.birthDate, 'yyyy-MM-dd') }),
+        };
+        
+        console.log('Payload enviado:', JSON.stringify(payload, null, 2));
+        console.log('API URL:', process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3333');
+        
+        createCustomer(payload, {
+            onSuccess: () => {
+                toast.success('Cliente creado exitosamente');
+                setOpenModalCreateCustomer(false);
+                form.reset();
+            },
+            onError: (error: any) => {
+                console.error('Error completo:', error);
+                console.error('Response:', error?.response);
+                console.error('Response data:', error?.response?.data);
+                console.error('Request:', error?.request);
+                console.error('Message:', error?.message);
+                
+                const errorMessage = error?.response?.data?.message || error?.message || 'Error al crear el cliente';
+                toast.error(errorMessage);
+            }
+        });
     }
 
     return (
@@ -205,7 +234,16 @@ export default function FormCreateCustomer(props: FormCreateCustomerProps) {
                     />
 
                 </div>
-                <Button type="submit" disabled={!isValid} className="w-full">Agregar</Button>
+                <Button type="submit" disabled={!isValid || isPending} className="w-full">
+                    {isPending ? (
+                        <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Creando...
+                        </>
+                    ) : (
+                        'Agregar'
+                    )}
+                </Button>
             </form>
         </Form>
     )

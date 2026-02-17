@@ -5,15 +5,18 @@ export const requests = [
         bookingDate: new Date('2024-07-10'),
         customerName: "Juan Pérez",
         customerEmail: "juan.perez@gmail.com",
-        duration: 3
-    }, 
+        duration: 3,
+        state: "Aprobado",
+        roomNumber: "101"
+    },
     {
         roomType: "Suite",
         date: new Date('2024-07-02'),
         bookingDate: new Date('2024-07-11'),
         customerName: "María López",
         customerEmail: "maria.lopez@gmail.com",
-        duration: 2
+        duration: 2,
+        state: "Pendiente"
     },
     {
         roomType: "Individual",
@@ -21,7 +24,8 @@ export const requests = [
         bookingDate: new Date('2024-07-12'),
         customerName: "Carlos Sánchez",
         customerEmail: "carlos.sanchez@gmail.com",
-        duration: 1
+        duration: 1,
+        state: "Rechazado"
     },
     {
         roomType: "Doble",
@@ -29,7 +33,9 @@ export const requests = [
         bookingDate: new Date('2024-07-13'),
         customerName: "Ana Torres",
         customerEmail: "ana.torres@gmail.com",
-        duration: 2
+        duration: 2,
+        state: "Aprobado",
+        roomNumber: "102"
     },
     {
         roomType: "Suite",
@@ -37,7 +43,8 @@ export const requests = [
         bookingDate: new Date('2024-07-14'),
         customerName: "Luis Gómez",
         customerEmail: "luis.gomez@gmail.com",
-        duration: 3
+        duration: 3,
+        state: "Pendiente"
     },
     {
         roomType: "Individual",
@@ -45,7 +52,9 @@ export const requests = [
         bookingDate: new Date('2024-07-15'),
         customerName: "Sofía Ramírez",
         customerEmail: "sofia.ramirez@gmail.com",
-        duration: 1
+        duration: 1,
+        state: "Aprobado",
+        roomNumber: "201"
     },
     {
         roomType: "Doble",
@@ -53,7 +62,8 @@ export const requests = [
         bookingDate: new Date('2024-07-16'),
         customerName: "Miguel Herrera",
         customerEmail: "miguel.herrera@gmail.com",
-        duration: 2
+        duration: 2,
+        state: "Pendiente"
     },
     {
         roomType: "Suite",
@@ -61,7 +71,9 @@ export const requests = [
         bookingDate: new Date('2024-07-17'),
         customerName: "Lucía Castro",
         customerEmail: "lucia.castro@gmail.com",
-        duration: 1
+        duration: 1,
+        state: "Aprobado",
+        roomNumber: "301"
     },
     {
         roomType: "Individual",
@@ -69,7 +81,8 @@ export const requests = [
         bookingDate: new Date('2024-07-18'),
         customerName: "Javier Morales",
         customerEmail: "javier.morales@gmail.com",
-        duration: 3
+        duration: 3,
+        state: "Rechazado"
     },
     {
         roomType: "Doble",
@@ -77,7 +90,8 @@ export const requests = [
         bookingDate: new Date('2024-07-19'),
         customerName: "Elena Ruiz",
         customerEmail: "elena.ruiz@gmail.com",
-        duration: 2
+        duration: 2,
+        state: "Pendiente"
     },
     {
         roomType: "Suite",
@@ -85,7 +99,9 @@ export const requests = [
         bookingDate: new Date('2024-07-20'),
         customerName: "Pedro Vargas",
         customerEmail: "pedro.vargas@gmail.com",
-        duration: 1
+        duration: 1,
+        state: "Aprobado",
+        roomNumber: "302"
     },
     {
         roomType: "Individual",
@@ -93,7 +109,8 @@ export const requests = [
         bookingDate: new Date('2024-07-21'),
         customerName: "Valeria Mendoza",
         customerEmail: "valeria.mendoza@gmail.com",
-        duration: 2
+        duration: 2,
+        state: "Pendiente"
     },
     {
         roomType: "Doble",
@@ -101,7 +118,9 @@ export const requests = [
         bookingDate: new Date('2024-07-22'),
         customerName: "Diego Silva",
         customerEmail: "diego.silva@gmail.com",
-        duration: 3
+        duration: 3,
+        state: "Aprobado",
+        roomNumber: "103"
     },
     {
         roomType: "Suite",
@@ -109,7 +128,8 @@ export const requests = [
         bookingDate: new Date('2024-07-23'),
         customerName: "Camila Ortega",
         customerEmail: "camila.ortega@gmail.com",
-        duration: 2
+        duration: 2,
+        state: "Pendiente"
     },
     {
         roomType: "Individual",
@@ -117,6 +137,8 @@ export const requests = [
         bookingDate: new Date('2024-07-24'),
         customerName: "Andrés Rojas",
         customerEmail: "andres.rojas@gmail.com",
-        duration: 1
+        duration: 1,
+        state: "Aprobado",
+        roomNumber: "202"
     }
 ]

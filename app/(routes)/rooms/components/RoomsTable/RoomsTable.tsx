@@ -22,16 +22,16 @@ export default function RoomsTable() {
 
   if (isLoading) {
     return (
-      <div className='w-full h-full space-y-3'>
-        <Skeleton className="h-12 w-full" />
-        <Skeleton className="h-96 w-full" />
+      <div className='w-full h-full overflow-hidden col-span-3 rounded-xl'>
+        <Skeleton className="h-9.75 border-b border-gray-800 w-full bg-gray-800/80 rounded-b-none" />
+        <Skeleton className="h-160 w-full bg-gray-200/80 rounded-t-none" />
       </div>
     )   
   }
 
   if (isError) {
     return (
-      <div className='w-full h-full flex items-center justify-center'>
+      <div className='w-full h-full flex items-center justify-center col-span-3'>
         <div className="text-center py-8 text-destructive">
           Error al cargar las habitaciones
         </div>
@@ -40,7 +40,7 @@ export default function RoomsTable() {
   }
 
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full col-span-3'>
         <DataTable columns={columns} data={rooms} />
     </div>
   )

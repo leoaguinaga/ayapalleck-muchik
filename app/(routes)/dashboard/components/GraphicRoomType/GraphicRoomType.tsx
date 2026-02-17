@@ -1,73 +1,117 @@
 "use client"
 
-import { Pie, PieChart } from "recharts"
+import * as React from "react"
+import { Label, Pie, PieChart } from "recharts"
 
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import {
-  ChartConfig,
   ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartConfig,
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart"
 
-export const description = "A pie chart with a legend"
-
 const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 90, fill: "var(--color-other)" },
+  { roomType: "simple", reservas: 275, fill: "var(--chart-1)" },
+  { roomType: "matrimonial", reservas: 200, fill: "var(--chart-2)" },
+  { roomType: "doble", reservas: 187, fill: "var(--chart-3)" },
+  { roomType: "king", reservas: 173, fill: "var(--chart-4)" },
+  { roomType: "queen", reservas: 90, fill: "var(--chart-5)" },
 ]
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
+  reservas: {
+    label: "Reservas",
   },
-  chrome: {
+  simple: {
     label: "Simple",
     color: "var(--chart-1)",
   },
-  safari: {
+  matrimonial: {
     label: "Matrimonial",
     color: "var(--chart-2)",
   },
-  firefox: {
+  doble: {
     label: "Doble",
     color: "var(--chart-3)",
   },
-  edge: {
+  king: {
     label: "King",
     color: "var(--chart-4)",
   },
-  other: {
+  queen: {
     label: "Queen",
     color: "var(--chart-5)",
   },
 } satisfies ChartConfig
 
 export function GraphicRoomType() {
+  const totalReservas = React.useMemo(() => {
+    return chartData.reduce((acc, curr) => acc + curr.reservas, 0)
+  }, [])
+
   return (
-    <Card className="pt-5">
+    <Card className="h-full gap-2 p-0 pt-4 dark:bg-black/80">
       <CardHeader className="items-center pb-0">
-        <CardTitle className="text-xl font-semibold">Reservas por tipo de habitación</CardTitle>
+        <CardTitle className="text-lg font-semibold">Reservas por tipo de habitación</CardTitle>
       </CardHeader>
-      <CardContent className="flex-1 p-0 mt-2">
+      <CardContent className="flex-1 p-0">
         <ChartContainer
           id="room-type-chart"
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[320px]"
+          className="mx-auto aspect-square max-h-80"
         >
           <PieChart>
-            <Pie data={chartData} dataKey="visitors" />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <Pie
+              data={chartData}
+              dataKey="reservas"
+              nameKey="roomType"
+              innerRadius={60}
+              strokeWidth={5}
+            >
+              <Label
+                content={({ viewBox }) => {
+                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                    return (
+                      <text
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                      >
+                        <tspan
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          className="fill-foreground text-3xl font-bold"
+                        >
+                          {totalReservas.toLocaleString()}
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 24}
+                          className="fill-muted-foreground"
+                        >
+                          Reservas
+                        </tspan>
+                      </text>
+                    )
+                  }
+                }}
+              />
+            </Pie>
             <ChartLegend
-              content={<ChartLegendContent nameKey="browser" />}
+              content={<ChartLegendContent nameKey="roomType" />}
               className="-translate-y-1 flex-wrap gap-2 *:basis-1/4 *:justify-center"
             />
           </PieChart>

@@ -1,10 +1,26 @@
-import React from 'react'
-import { RoomCardProps } from './RoomCard.types'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { ArrowRight, BadgeCheck, Bed, BookMarked, BrushCleaning, Stars } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import CreateBookingButton from '../CreateBookingButton'
-import Link from 'next/link'
+import React from "react";
+import { RoomCardProps } from "./RoomCard.types";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Bed,
+  BookMarked,
+  BrushCleaning,
+  EllipsisVertical,
+  ShowerHead,
+  Stars,
+  Tv2,
+  Wifi,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import CreateBookingButton from "../CreateBookingButton";
+import Link from "next/link";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 
 export default function RoomCard(props: RoomCardProps) {
   const { room_type, number, available, status } = props;
@@ -12,75 +28,90 @@ export default function RoomCard(props: RoomCardProps) {
   const getAvailability = () => {
     if (available) {
       return (
-        <div className='flex flex-row gap-1 items-center text-green-500'>
-          <BadgeCheck className='size-4' />
+        <div className="flex flex-row gap-1 items-center text-green-500 text-sm font-medium">
+          <BadgeCheck className="size-3.5" />
           Disponible
         </div>
-      )
+      );
     } else {
       return (
-        <div className='flex flex-row gap-1 items-center text-orange-500'>
-          <Bed className='size-4' />
+        <div className="flex flex-row gap-1 items-center text-orange-500 text-sm font-medium">
+          <Bed className="size-3.5" />
           Ocupado
         </div>
-      )
+      );
     }
-  }
+  };
 
   const getStatus = () => {
     if (status === "DIRTY") {
       return (
-        <div className='flex flex-row gap-1 items-center text-yellow-500'>
-          <BrushCleaning className='size-4' />
+        <p className="absolute bottom-2 left-2 text-xs font-medium bg-red-100 text-red-600 rounded-md px-2 py-1">
           Sucio
-        </div>
+        </p>
       );
     } else {
       return (
-        <div className='flex flex-row gap-1 items-center text-blue-500'>
-          <Stars className='size-4' />
-          Limpio
-        </div>
+        <p className="absolute bottom-2 left-2 text-xs font-medium text-muted-foreground bg-gray-100 rounded-md px-2 py-1">
+          Ult. limpieza 20:30
+        </p>
       );
     }
-  }
+  };
 
   const getActionButton = () => {
     if (available) {
       return (
         <Link href={`/check-in/${number}`}>
-          <Button className='w-full flex flex-row gap-2 cursor-pointer'>
+          <Button className="w-full flex flex-row gap-2 cursor-pointer">
             Registrar
-            <ArrowRight className='size-5' />
           </Button>
         </Link>
-      )
+      );
     } else {
       return (
         <Link href={`/check-out/${number}`}>
-          <Button className='w-full flex flex-row gap-2 bg-orange-500 hover:bg-orange-600 cursor-pointer'>
+          <Button className="w-full flex flex-row gap-2 bg-orange-500 hover:bg-orange-600 cursor-pointer">
             Administrar
-            <BookMarked className='size-4.5' />
           </Button>
         </Link>
-      )
+      );
     }
-  }
+  };
 
   return (
-    <Card className={`flex flex-col gap-2.5 p-4 px-0 m-0 items-center justify-center w-full text-center ${available ? 'bg-card' : 'border-orange-500 bg-orange-50  dark:bg-orange-900/25'}`}>
-      <CardHeader className='w-full text-center flex flex-row items-center gap-1'>
-        <h1 className='font-semibold text-xl'>{number} <span className='font-semilight'>-</span></h1>
-        <p className='text-semilight'>{room_type}</p>
-      </CardHeader>
-      <CardContent className='w-full flex lg:flex-col gap-3 h-full'>
-        <img src="/room-simple.webp" alt="" className='h-25 w-full rounded-lg border' />
-        <div className='text-xs flex-row gap-3 flex w-fit'>
+    <div className="flex flex-col rounded-xl overflow-hidden bg-white shadow-md">
+      <div className="relative h-38 w-full overflow-hidden">
+        <img
+          src="/room-simple.webp"
+          className="object-cover scale-110"
+          alt=""
+        />
+        {/* <EllipsisVertical className="absolute top-2 right-2 size-5.5 p-1 bg-white rounded-full text-muted-foreground cursor-pointer hover:shadow-md transition-shadow" /> */}
+        <p className="absolute top-2 left-2 text-sm px-2 py-0.5 bg-black text-white rounded-md font-semibold">
+          {number}
+        </p>
+        {getStatus()}
+      </div>
+      <div className="flex flex-col gap-1 p-2">
+        <div className="flex items-center justify-between">
+          <p className="font-semibold">{room_type}</p>
           {getAvailability()}
-          {getStatus()}
         </div>
-        {getActionButton()}
-      </CardContent>
-    </Card >
-  )
+        <div className="flex flex-wrap gap-1.5">
+          <Tooltip>
+            <TooltipTrigger>
+              <Tv2 className="size-4 text-muted-foreground" />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Televisor</p>
+            </TooltipContent>
+          </Tooltip>
+          <ShowerHead className="size-4 text-muted-foreground" />
+          <Wifi className="size-4 text-muted-foreground" />
+        </div>
+        <div className="mt-2">{getActionButton()}</div>
+      </div>
+    </div>
+  );
 }

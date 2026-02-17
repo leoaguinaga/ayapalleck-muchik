@@ -9,7 +9,7 @@ import { TabFilter } from './types'
 import { startOfDay, endOfDay, addDays } from 'date-fns'
 
 export default function CheckOutPage() {
-  const [selectedTab, setSelectedTab] = useState<TabFilter>('today')
+  const [selectedTab, setSelectedTab] = useState<TabFilter>('all')
   const [searchValue, setSearchValue] = useState('')
   const [selectedRows, setSelectedRows] = useState(0)
 

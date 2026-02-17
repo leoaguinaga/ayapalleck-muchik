@@ -1,29 +1,30 @@
-'use client';
+"use client";
 
-import { useState, useMemo } from 'react';
-import { Request, RequestStatus, RequestStatusColumn } from './types';
-import { Room } from './room-types';
-import { mockRequests } from './data';
-import { KanbanColumn } from '@/components/KanbanColumn';
-import { RequestDetailsModal } from '@/components/RequestDetailsModal';
-import { RoomAvailabilityModal } from '@/components/RoomAvailabilityModal';
-import { Button } from '@/components/ui/button';
-import { ChevronsLeft, ChevronsRight } from 'lucide-react';
+import { useState, useMemo } from "react";
+import { Request, RequestStatus, RequestStatusColumn } from "./types";
+import { Room } from "./room-types";
+import { mockRequests } from "./data";
+import { KanbanColumn } from "@/components/KanbanColumn";
+import { RequestDetailsModal } from "@/components/RequestDetailsModal";
+import { RoomAvailabilityModal } from "@/components/RoomAvailabilityModal";
+import RequestNavbar from "./components/Navbar/RequestNavbar";
 
 export default function RequestsPage() {
   const [requests, setRequests] = useState<Request[]>(mockRequests);
   const [selectedRequest, setSelectedRequest] = useState<Request | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAvailabilityModalOpen, setIsAvailabilityModalOpen] = useState(false);
-  const [collapsedColumns, setCollapsedColumns] = useState<Set<RequestStatus>>(new Set());
+  const [collapsedColumns, setCollapsedColumns] = useState<Set<RequestStatus>>(
+    new Set()
+  );
 
   const statusColumns: { id: RequestStatus; title: string }[] = [
-    { id: 'in-review', title: 'En revisión' },
-    { id: 'approved', title: 'Aprobada' },
-    { id: 'confirmed', title: 'Confirmadas' },
-    { id: 'rejected', title: 'Rechazadas' },
-    { id: 'expired', title: 'Expiradas' },
-    { id: 'cancelled', title: 'Canceladas' },
+    { id: "in-review", title: "En revisión" },
+    { id: "approved", title: "Aprobada" },
+    { id: "confirmed", title: "Confirmadas" },
+    { id: "rejected", title: "Rechazadas" },
+    { id: "expired", title: "Expiradas" },
+    { id: "cancelled", title: "Canceladas" },
   ];
 
   const columns: RequestStatusColumn[] = useMemo(() => {
@@ -41,8 +42,7 @@ export default function RequestsPage() {
   const handleRequestClick = (request: Request) => {
     setSelectedRequest(request);
 
-    // Si es "En revisión", mostrar modal de disponibilidad
-    if (request.status === 'in-review') {
+    if (request.status === "in-review") {
       setIsAvailabilityModalOpen(true);
     } else {
       setIsModalOpen(true);
@@ -62,7 +62,7 @@ export default function RequestsPage() {
   };
 
   const handleCollapseAll = () => {
-    setCollapsedColumns(new Set(statusColumns.map(s => s.id)));
+    setCollapsedColumns(new Set(statusColumns.map((s) => s.id)));
   };
 
   const handleExpandAll = () => {
@@ -72,7 +72,9 @@ export default function RequestsPage() {
   const handleApprove = (request: Request) => {
     setRequests((prev) =>
       prev.map((req) =>
-        req.id === request.id ? { ...req, status: 'approved' as RequestStatus } : req
+        req.id === request.id
+          ? { ...req, status: "approved" as RequestStatus }
+          : req
       )
     );
   };
@@ -80,7 +82,9 @@ export default function RequestsPage() {
   const handleReject = (request: Request) => {
     setRequests((prev) =>
       prev.map((req) =>
-        req.id === request.id ? { ...req, status: 'rejected' as RequestStatus } : req
+        req.id === request.id
+          ? { ...req, status: "rejected" as RequestStatus }
+          : req
       )
     );
   };
@@ -88,7 +92,9 @@ export default function RequestsPage() {
   const handleConfirm = (request: Request) => {
     setRequests((prev) =>
       prev.map((req) =>
-        req.id === request.id ? { ...req, status: 'confirmed' as RequestStatus } : req
+        req.id === request.id
+          ? { ...req, status: "confirmed" as RequestStatus }
+          : req
       )
     );
   };
@@ -96,44 +102,29 @@ export default function RequestsPage() {
   const handleCancel = (request: Request) => {
     setRequests((prev) =>
       prev.map((req) =>
-        req.id === request.id ? { ...req, status: 'cancelled' as RequestStatus } : req
+        req.id === request.id
+          ? { ...req, status: "cancelled" as RequestStatus }
+          : req
       )
     );
   };
 
   const handleAssignRoom = (request: Request, room: Room) => {
-    // Asignar habitación y cambiar estado a "aprobada"
     setRequests((prev) =>
       prev.map((req) =>
-        req.id === request.id ? { ...req, status: 'approved' as RequestStatus } : req
+        req.id === request.id
+          ? { ...req, status: "approved" as RequestStatus }
+          : req
       )
     );
   };
 
   return (
-    <div className="flex flex-col w-full h-full">
-      {/* <div className="flex-shrink-0 pb-4">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleCollapseAll}
-            >
-              <ChevronsLeft className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleExpandAll}
-            >
-              <ChevronsRight className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
-      </div> */}
+    <div className="flex flex-col w-full h-full gap-4">
+      <RequestNavbar onExpandAll={handleExpandAll} onCollapseAll={handleCollapseAll} />
+
       <div className="flex-1 min-h-0">
-        <div className="h-full overflow-x-auto overflow-y-hidden kanban-scroll">
+        <div className="h-full overflow-x-auto overflow-y-hidden p-4 bg-white rounded-xl">
           <div className="inline-flex gap-4 h-full pb-4">
             {columns.map((column) => (
               <KanbanColumn

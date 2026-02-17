@@ -59,7 +59,7 @@ export function LoginForm() {
 
   return (
     <Form {...form}>
-      <form className="flex flex-col gap-6" onSubmit={form.handleSubmit(onSubmit)} >
+      <form className="flex flex-col gap-6 w-full" onSubmit={form.handleSubmit(onSubmit)} >
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="text-2xl font-bold">Inicia sesión con tu cuenta</h1>
           <p className="text-muted-foreground text-sm text-balance">

@@ -1,5 +1,5 @@
+import { Room } from '@/lib/api/rooms/rooms.types';
+
 export type RoomDetailsProps = {
-    roomNumber: string;
-    roomType: string;
-    pricePerNight: number;
+    room: Room;
 }

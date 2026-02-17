@@ -25,7 +25,7 @@ export default function ButtonCreateRoom() {
                     Agregar Habitación
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[625px]">
+            <DialogContent className="sm:max-w-156">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-1 font-bold">
                         <p>Habitaciones</p>

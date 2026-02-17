@@ -33,11 +33,11 @@ export function CustomerSelector({
 
   return (
     <Select onValueChange={onChange} value={value}>
-      <SelectTrigger className={className}>
-        <SelectValue placeholder={placeholder} />
+      <SelectTrigger className={className} hideChevron>
+        <SelectValue placeholder={placeholder} className='max-w-40 text-ellipsis overflow-hidden whitespace-nowrap'/>
       </SelectTrigger>
       <SelectContent className="max-h-80">
-        <div className="px-2 pb-2" onPointerDown={(e) => e.stopPropagation()}>
+        <div className="px-2 pb-2 pt-2" onPointerDown={(e) => e.stopPropagation()}>
           <Input
             placeholder={searchPlaceholder}
             value={customerSearch}

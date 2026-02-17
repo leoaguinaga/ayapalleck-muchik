@@ -2,6 +2,7 @@ export const bookings = [
     {
         customer: "Juan Pérez",
         room: "101",
+        roomType: "double",
         checkIn: "2023-10-01",
         checkOut: "2023-10-05",
         status: "late",
@@ -11,6 +12,7 @@ export const bookings = [
     {
         customer: "María Gómez",
         room: "102",
+        roomType: "suite",
         checkIn: "2023-10-02",
         checkOut: "2023-10-06",
         status: "punctual",
@@ -20,6 +22,7 @@ export const bookings = [
     {
         customer: "Carlos López",
         room: "103",
+        roomType: "individual",
         checkIn: "2023-10-03",
         checkOut: "2023-10-07",
         status: "late",
@@ -29,6 +32,7 @@ export const bookings = [
     {
         customer: "Ana Torres",
         room: "104",
+        roomType: "matrimonial",
         checkIn: "2023-10-04",
         checkOut: "2023-10-08",
         status: "punctual",
@@ -38,6 +42,7 @@ export const bookings = [
     {
         customer: "Luis Martínez",
         room: "105",
+        roomType: "double",
         checkIn: "2023-10-05",
         checkOut: "2023-10-09",
         status: "late",

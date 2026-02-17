@@ -1,27 +1,30 @@
-export const requestsData = [
+import { Database, Clock, CheckCircle, Zap } from "lucide-react";
+import { KpiCardProps } from "@/components/KpiCard/KpiCard.types";
+
+export const requestsData: KpiCardProps[] = [
     {
         title: 'Total Requests',
-        content: '1,250',
-        tooltipContent: 'Total number of requests made in the system.'
+        value: '1,250',
+        tooltip: 'Total number of requests made in the system.',
+        icon: Database,
+        isPrimary: true
     },
     {
         title: 'Pending Requests',
-        content: '300',
-        tooltipContent: 'Number of requests that are currently pending.'
+        value: '300',
+        tooltip: 'Number of requests that are currently pending.',
+        icon: Clock
     },
     {
         title: 'Completed Requests',
-        content: '900',
-        tooltipContent: 'Number of requests that have been completed successfully.'
-    },
-    {
-        title: 'Cancelled Requests',
-        content: '50',
-        tooltipContent: 'Number of requests that have been cancelled.'
+        value: '900',
+        tooltip: 'Number of requests that have been completed successfully.',
+        icon: CheckCircle
     },
     {
         title: 'Average Response Time',
-        content: '2 hrs',
-        tooltipContent: 'Average time taken to respond to requests.'
+        value: '2 hrs',
+        tooltip: 'Average time taken to respond to requests.',
+        icon: Zap
     }
-]
+];

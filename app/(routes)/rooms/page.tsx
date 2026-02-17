@@ -1,16 +1,18 @@
-import React from 'react'
-import RoomsTable from './components/RoomsTable/RoomsTable'
-import RoomsInfo from './components/RoomsInfo'
-import UpcomingBookingsTable from './components/UpcomingBookingsTable'
+import React from "react";
+import RoomsTable from "./components/RoomsTable/RoomsTable";
+import RoomsInfo from "./components/RoomsInfo";
+import UpcomingBookingsTable from "./components/UpcomingBookingsTable";
+import RoomNavbar from "./[roomId]/components/RoomNavbar/RoomNavbar";
 
 export default function page() {
   return (
-    <div className='flex flex-col-reverse lg:flex-row gap-5 w-full h-full'>
-      <div className='flex flex-col gap-5 w-full lg:w-3/4 h-full'>
-        <RoomsInfo />
+    <div className="flex flex-col gap-4 w-full h-full">
+      <RoomNavbar />
+      <RoomsInfo />
+      <div className="flex flex-col lg:flex-row gap-4 w-full h-full">
         <RoomsTable />
+        <UpcomingBookingsTable />
       </div>
-      <UpcomingBookingsTable />
     </div>
-  )
+  );
 }

@@ -64,7 +64,7 @@ export default function SettingsTab() {
                     </Button>
                 ) : null}
             </div>
-            <Separator className="border-1 border-b-0" />
+            <Separator className="border border-b-0" />
             <div className="flex items-center justify-between w-full p-2.5">
                 <p className="font-medium">Nombre</p>
                 {isEditingName ? (
@@ -92,7 +92,7 @@ export default function SettingsTab() {
                     </div>
                 )}
             </div>
-            <Separator className="border-1 border-b-0" />
+            <Separator className="border border-b-0" />
             <div className="flex items-center justify-between w-full p-2.5">
                 <p className="font-medium">Número</p>
                 {isEditingPhone ? (
@@ -120,7 +120,7 @@ export default function SettingsTab() {
                     </div>
                 )}
             </div>
-            <Separator className="border-1 border-b-0" />
+            <Separator className="border border-b-0" />
             <div className="flex items-center justify-between w-full p-2.5">
                 <p className="font-medium">Correo</p>
                 {isEditingEmail ? (

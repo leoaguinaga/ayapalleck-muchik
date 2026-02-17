@@ -4,8 +4,8 @@ import TopCustomersTable from "../TopCustomersTable"
 
 export default function CustomersTabs() {
   return (
-    <Tabs defaultValue="activeCustomers" className="w-full">
-      <TabsList className="gap-1">
+    <Tabs defaultValue="activeCustomers" className="w-ful">
+      <TabsList className="p-1 py-1">
         <TabsTrigger value="activeCustomers">Huéspedes ingresados</TabsTrigger>
         <TabsTrigger value="topCustomers">Huéspedes más frecuentes</TabsTrigger>
       </TabsList>

@@ -1,71 +1,59 @@
-
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from "@/components/ui/dropdown-menu";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { 
-  CheckCircle2, 
-  ArrowLeftRight, 
-  Receipt, 
-  Mail, 
+} from "@/components/ui/tooltip";
+import {
+  CheckCircle2,
+  ArrowLeftRight,
+  Receipt,
+  Mail,
   MoreVertical,
   Eye,
   Printer,
-  MessageSquare
-} from 'lucide-react'
-import toast from 'react-hot-toast'
+  MessageSquare,
+  BrushCleaning,
+} from "lucide-react";
+import toast from "react-hot-toast";
+import AssignCleaningButton from "../AssignCleaningButton/AssignCleaningButton";
+import GenerateReceiptButton from "../GenerateReceiptButton/GenerateReceiptButton";
 
 interface RowActionsProps {
-  stayId: string
+  stayId: string;
 }
 
 export function RowActions({ stayId }: RowActionsProps) {
   const handleCheckout = () => {
-    toast.success('Checkout realizado')
-  }
+    toast.success("Checkout realizado");
+  };
 
   const handleExtend = () => {
-    toast.success('Estadía extendida')
-  }
+    toast.success("Estadía extendida");
+  };
 
   const handleReceipt = () => {
-    toast.success('Recibo generado')
-  }
+    toast.success("Recibo generado");
+  };
 
   const handleReminder = () => {
-    toast.success('Recordatorio enviado')
-  }
+    toast.success("Recordatorio enviado");
+  };
 
   return (
     <div className="flex items-center gap-1">
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8"
-              onClick={handleCheckout}
-            >
-              <CheckCircle2 className="h-4 w-4" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Checkout</p>
-          </TooltipContent>
-        </Tooltip>
+      <AssignCleaningButton />
+      <GenerateReceiptButton />
 
-        <Tooltip>
+      {/* <Tooltip>
           <TooltipTrigger asChild>
             <Button
               variant="ghost"
@@ -81,21 +69,7 @@ export function RowActions({ stayId }: RowActionsProps) {
           </TooltipContent>
         </Tooltip>
 
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8"
-              onClick={handleReceipt}
-            >
-              <Receipt className="h-4 w-4" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Recibo</p>
-          </TooltipContent>
-        </Tooltip>
+        
 
         <Tooltip>
           <TooltipTrigger asChild>
@@ -138,7 +112,7 @@ export function RowActions({ stayId }: RowActionsProps) {
             Cancelar estadía
           </DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu> */}
     </div>
-  )
+  );
 }

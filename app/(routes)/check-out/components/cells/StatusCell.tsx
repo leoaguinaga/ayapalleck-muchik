@@ -11,7 +11,6 @@ interface StatusCellProps {
 
 export function StatusCell({ stayState, paymentState }: StatusCellProps) {
   const stayConfig = stayStateConfig[stayState]
-  const payConfig = paymentStateConfig[paymentState]
 
   return (
     <div className="flex flex-col gap-1.5">

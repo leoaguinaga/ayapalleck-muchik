@@ -4,5 +4,7 @@ export type RequestsTableProps = {
     bookingDate: Date,
     customerName: string,
     customerEmail: string,
-    duration: number
+    duration: number,
+    state: string,
+    roomNumber?: string
 }

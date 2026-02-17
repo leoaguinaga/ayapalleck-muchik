@@ -1,12 +1,16 @@
 import React from 'react'
 import DataTable from './data-table'
 import { columns } from './columns'
-import { movementHistoryData } from './MovementHistoryTable.data'
+import { MovementHistoryTableProps } from './MovementHistoryTable.types'
 
-export default function MovementHistoryTable() {
+interface MovementHistoryTableComponentProps {
+  data: MovementHistoryTableProps[];
+}
+
+export default function MovementHistoryTable({ data }: MovementHistoryTableComponentProps) {
   return (
     <div className='w-full'>
-        <DataTable columns={columns} data={movementHistoryData} />
+        <DataTable columns={columns} data={data} />
     </div>
   )
 }

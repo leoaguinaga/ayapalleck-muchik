@@ -1,15 +1,13 @@
 import {
-    PanelsTopLeft,
-    CalendarClock,
-    DoorOpen,
-    ClipboardList,
-    BedDouble,
-    Users,
-    History,
     LayoutDashboard,
-    ShieldUser,
+    DoorOpen,
+    CalendarClock,
     BookMarked,
-    Boxes
+    ClipboardList,
+    Bed,
+    Boxes,
+    Users2,
+    Settings
 
 } from 'lucide-react';
 
@@ -18,11 +16,6 @@ export const dataAdminSidebar = [
         icon: LayoutDashboard,
         label: "Panel",
         href: "/dashboard"
-    },
-    {
-        icon: ShieldUser,
-        label: "Usuarios",
-        href: "/users"
     },
 ]
 
@@ -60,12 +53,12 @@ export const dataToolsSidebar = [
 
 export const dataSupportSidebar = [
     {
-        icon: BedDouble,
+        icon: Bed,
         label: "Habitaciones",
         href: "/rooms"
     },
     {
-        icon: Users,
+        icon: Users2,
         label: "Huéspedes",
         href: "/customers"
     },

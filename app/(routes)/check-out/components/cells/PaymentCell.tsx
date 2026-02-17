@@ -21,20 +21,18 @@ export function PaymentCell({ total, paid }: PaymentCellProps) {
 
   const tooltipContent = [
     `Total: ${formatCurrency(total)}`,
-    `Pagado: ${formatCurrency(paid)}`,
-    due > 0 && `Pendiente: ${formatCurrency(due)}`,
   ].filter(Boolean).join(' · ')
 
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div className="flex flex-col gap-2 min-w-[180px]">
+          <div className="flex flex-col gap-1.25 min-w-45">
             <div className="flex items-center gap-2">
               <Progress value={percentage} className="h-2 flex-1" />
-              {isPaidInFull && (
+              {/* {isPaidInFull && (
                 <Check className="h-4 w-4 text-emerald-400" />
-              )}
+              )} */}
             </div>
             <div className="text-xs text-muted-foreground">
               <span className="font-medium text-foreground">{formatCurrency(paid)}</span> pagado

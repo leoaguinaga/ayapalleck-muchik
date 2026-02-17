@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import React from 'react'
-import Sidebar from '@/components/Sidebar/Sidebar'
-import Navbar from '@/components/Navbar/Navbar'
+import React from "react";
+import Sidebar from "@/components/Sidebar/Sidebar";
+import Navbar from "@/components/Navbar/Navbar";
 
-export default function LayoutDashboard({ children }: { children: React.ReactNode }) {
-    return (
-        <div className='flex w-full h-screen overflow-x-hidden'>
-            <div className='hidden xl:block w-70 h-full xl:fixed'>
-                <Sidebar />
-            </div>
-            <div className="w-full xl:ml-70 h-full flex flex-col overflow-x-hidden">
-                <Navbar />
-                <div className='flex-1 p-5 bg-background overflow-x-hidden'>
-                    {children}
-                </div>
-            </div>
-        </div>
-    )
+export default function LayoutDashboard({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="min-h-screen w-full bg-gray-100 p-4">
+      <Sidebar />
+      <div className="ml-0 lg:ml-64 flex flex-col gap-4">
+        <Navbar />
+        <div className="w-full">{children}</div>
+      </div>
+    </div>
+  );
 }

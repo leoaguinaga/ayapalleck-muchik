@@ -65,7 +65,7 @@ export default function DataTable<TData, TValue>({
     if (!isMounted) { return null }
     return (
         <div className='w-full flex flex-col gap-5'>
-            <div className='flex flex-col sm:flex-row gap-2.5 sm:items-center justify-between'>
+            {/* <div className='flex flex-col sm:flex-row gap-2.5 sm:items-center justify-between'>
                 <Input
                     placeholder="Buscar por número de habitación..."
                     value={(table.getColumn("roomNumber")?.getFilterValue() as string) ?? ""}
@@ -75,15 +75,15 @@ export default function DataTable<TData, TValue>({
                     className="w-full"
                 />
                 <ButtonCreateRoom />
-            </div>
-            <div className='rounded-md border px-2'>
+            </div> */}
+            <div className='rounded-xl bg-white overflow-hidden'>
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id}>
+                                        <TableHead key={header.id} className='px-3 bg-gray-200/80'>
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -104,7 +104,7 @@ export default function DataTable<TData, TValue>({
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell key={cell.id} className="px-3 py-2 cursor-pointer">
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext()
@@ -126,7 +126,7 @@ export default function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-            <div className='flex items-center justify-end space-x-2'>
+            <div className='flex items-center justify-end space-x-2 z-1'>
                 <Button variant="outline" size='sm' onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>Previo</Button>
                 <Button variant="outline" size='sm' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>Siguiente</Button>
             </div>

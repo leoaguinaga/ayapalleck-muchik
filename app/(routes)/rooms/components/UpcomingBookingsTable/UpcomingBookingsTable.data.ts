@@ -25,15 +25,5 @@ export const upcomingBookingsData: UpcomingBookingItemProps[] = [
         roomNumber: "105",
         customerName: "Jane Smith",
         checkInDate: "5 Oct 12:30 PM"
-    },
-    {
-        roomNumber: "106",
-        customerName: "Alice Johnson",
-        checkInDate: "5 Oct 1:00 PM"
-    },
-    {
-        roomNumber: "107",
-        customerName: "Bob Brown",
-        checkInDate: "5 Oct 1:30 PM"
-    },
+    }
 ]

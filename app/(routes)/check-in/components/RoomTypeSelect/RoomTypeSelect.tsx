@@ -14,12 +14,11 @@ import { RoomTypeSelectProps } from "./RoomTypeSelect.types"
 export default function RoomTypeSelect({ onValueChange, value }: RoomTypeSelectProps) {
     return (
         <Select onValueChange={onValueChange} value={value}>
-            <SelectTrigger className="w-full sm:w-[240px]">
+            <SelectTrigger className="w-full sm:w-35 bg-white">
                 <SelectValue placeholder="Filtrar por tipo" />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    <SelectLabel>Tipos de Habitación</SelectLabel>
                     <SelectItem value="all">Todas</SelectItem>
                     <SelectItem value="Matrimonial">Matrimonial</SelectItem>
                     <SelectItem value="Simple">Simple</SelectItem>

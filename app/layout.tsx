@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/components/auth-provider";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -7,11 +7,19 @@ import { QueryProvider } from "@/components/query-provider";
 import React from "react";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: "Ayapalleck Muchik",
-  description: "Sistema de gestión del hotel Ayapalleck Muchik",
+  title: "FoxRooms",
+  description: "",
 };
 
 export default function RootLayout({
@@ -24,7 +32,9 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.webp" type="image/webp" />
       </head>
-      <body className="text-inter" style={inter.style}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen w-full bg-gray-100`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

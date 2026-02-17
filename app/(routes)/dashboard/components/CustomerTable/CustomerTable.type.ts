@@ -1,7 +1,10 @@
 export type CustomerTableProps = {
     customer: string,
-    room: string,
+    room: {
+        number: string
+        type: string
+    },
+    checkIn: string,
     checkOut: string,
-    status: string,
     amount: number
 }

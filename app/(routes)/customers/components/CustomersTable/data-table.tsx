@@ -27,11 +27,13 @@ import CreateCustomerButton from '../CreateCustomerButton'
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
+    searchQuery: string;
 }
 
 export default function DataTable<TData, TValue>({
     columns,
-    data
+    data,
+    searchQuery
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
@@ -40,6 +42,13 @@ export default function DataTable<TData, TValue>({
     React.useEffect(() => {
         setIsMounted(true)
     }, [])
+
+    // Actualizar el filtro cuando cambie searchQuery
+    React.useEffect(() => {
+        if (table) {
+            table.getColumn("name")?.setFilterValue(searchQuery)
+        }
+    }, [searchQuery])
 
     const table = useReactTable({
         data,
@@ -64,7 +73,7 @@ export default function DataTable<TData, TValue>({
     if (!isMounted) { return null }
     return (
         <div className='w-full flex flex-col gap-5'>
-            <div className='flex flex-col sm:flex-row gap-2.5 sm:items-center justify-between'>
+            {/* <div className='flex flex-col sm:flex-row gap-2.5 sm:items-center justify-between'>
                 <Input
                     placeholder="Buscar por nombre..."
                     value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -74,15 +83,15 @@ export default function DataTable<TData, TValue>({
                     className="w-full"
                 />
                 <CreateCustomerButton />
-            </div>
-            <div className='rounded-md border px-2'>
+            </div> */}
+            <div className='rounded-xl bg-white overflow-hidden'>
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id}>
+                                        <TableHead key={header.id} className='bg-gray-200/80 px-3'>
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -103,7 +112,7 @@ export default function DataTable<TData, TValue>({
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell key={cell.id} className='px-3 cursor-pointer'>
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext()

@@ -95,7 +95,7 @@ export function RequestCard({ request, onClick, status }: RequestCardProps) {
 
   return (
     <Card 
-      className={`p-3 mb-2 cursor-pointer hover:shadow-md transition-all hover:border-primary/50 group border-l-4 ${config.borderColor}`}
+      className={`p-3 mb-2 cursor-pointer hover:shadow-md transition-all hover:border-primary/50 group shadow-sm ${config.borderColor}`}
       onClick={onClick}
     >
       <div className="space-y-2">
