@@ -47,7 +47,7 @@ export default function FormForgotPassword(props: FormCreateRoomProps) {
     const onSubmit = async (values: z.infer<typeof formForgotPasswordSchema>) => {
         try {
             console.log(values);
-            await authClient.forgetPassword({ email: values.email });
+            await authClient.requestPasswordReset({ email: values.email });
             
             toast.success('Se envió el correo para reestablecer la contraseña');
             setOpenForgotPasswordModal(false);
