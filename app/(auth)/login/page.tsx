@@ -22,7 +22,7 @@ export default function LoginPage() {
                     <img
                         src="/check-in.webp"
                         alt="Image"
-                        className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.8] dark:grayscale"
+                        className="absolute inset-0 h-full w-full object-cover dark:grayscale-50"
                     />
                 </div>
                 <div className="flex flex-col gap-8 p-6 md:p-15 bg-card z-2">

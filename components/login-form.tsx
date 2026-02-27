@@ -120,7 +120,7 @@ export function LoginForm() {
             {isSubmitting ? <LoaderCircle className="animate-spin size-5" /> : "Iniciar sesión"}
           </Button>
         </div>
-        <div className="w-full flex justify-end text-sm">
+        <div className="w-full flex justify-end text-sm font-medium">
           <p>¿No tienes una cuenta? <Link href="/register" className="text-primary underline">Regístrate</Link></p>
         </div>
       </form>

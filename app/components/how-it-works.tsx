@@ -26,32 +26,32 @@ const steps = [
 export default function HowItWorks() {
     return (
         <section className='w-full'>
-            <div className='max-w-6xl mx-auto flex flex-col gap-8 items-center py-24 scroll-my-20' id="how-it-works">
-                <div className="gap-2 flex flex-col w-full">
+            <div className='max-w-6xl mx-auto flex flex-col gap-8 lg:gap-10 items-center lg:items-start py-16 md:py-24 px-4 xl:px-0 scroll-my-20' id="how-it-works">
+                <div className="gap-2 flex flex-col w-full text-center lg:text-left">
                     <h2 className='font-bebas-neue text-3xl font-black'>¿Cómo funciona FoxRooms?</h2>
-                    <p className='text-muted-foreground'>Empieza a gestionar tu hotel en minutos, no en meses.</p>
+                    <p className='text-muted-foreground text-sm md:text-base'>Empieza a gestionar tu hotel en minutos, no en meses.</p>
                 </div>
-                <div className="h-full w-full flex flex-row gap-10">
+                <div className="h-full w-full flex flex-col lg:flex-row gap-8 lg:gap-10">
                     <img
-                        src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                        src="https://images.pexels.com/photos/16376256/pexels-photo-16376256.jpeg"
                         alt="Cómo funciona el onboarding"
-                        className="rounded-2xl w-[50%] max-h-[600px] object-cover"
+                        className="rounded-2xl w-full lg:w-[50%] h-[250px] sm:h-[350px] lg:h-auto lg:max-h-[600px] object-cover"
                     />
-                    <div className="w-full flex flex-col">
+                    <div className="w-full flex flex-col justify-center">
                         <div className="flex flex-col">
                             {steps.map((step, index) => (
-                                <div key={index} className="flex gap-6 relative">
+                                <div key={index} className="flex gap-4 md:gap-6 relative">
                                     <div className="flex flex-col items-center">
-                                        <div className="w-8 h-8 rounded-full border border-blue-100 text-blue-600 bg-transparent flex items-center justify-center font-medium text-xs z-10 shrink-0">
+                                        <div className="w-8 h-8 rounded-full border border-blue-100 text-blue-600 dark:text-blue-100 dark:border-blue-700 bg-transparent flex items-center justify-center font-medium text-sm z-10 shrink-0">
                                             {index + 1}
                                         </div>
                                         {index !== steps.length - 1 && (
-                                            <div className="w-px h-full bg-blue-100" />
+                                            <div className="w-px h-full bg-blue-100 dark:bg-blue-700" />
                                         )}
                                     </div>
-                                    <div className="pb-8 pt-1.25 flex-1">
-                                        <p className="text-foreground text-[15px] leading-relaxed">
-                                            <strong className="font-semibold mr-1 text-blue-800">
+                                    <div className="pb-8 pt-1 flex-1">
+                                        <p className="text-foreground text-[14px] md:text-[15px] leading-relaxed dark:text-foreground">
+                                            <strong className="font-semibold block sm:inline sm:mr-1 text-blue-800 dark:text-blue-300">
                                                 {step.title}:
                                             </strong>
                                             {step.description}
@@ -61,14 +61,13 @@ export default function HowItWorks() {
                             ))}
 
                         </div>
-                        <div className="flex items-center gap-2 text-[15px] font-semibold text-foreground hover:text-blue-600 cursor-pointer transition-colors w-max">
-                            <span className="underline underline-offset-4 decoration-border hover:decoration-blue-600 transition-colors">
+                        <div className="flex items-center gap-2 text-[14px] md:text-[15px] font-semibold text-foreground hover:text-blue-600 cursor-pointer transition-colors w-max mt-2">
+                            <span className="underline underline-offset-4 decoration-border hover:decoration-blue-600 transition-colors dark:text-blue-100">
                                 Prueba una demo!
                             </span>
                         </div>
                     </div>
                 </div>
-
 
             </div>
         </section>

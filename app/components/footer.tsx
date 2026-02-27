@@ -1,18 +1,18 @@
 export default function Footer() {
     return (
-        <div className="w-full py-10 border-t bg-card">
-            <div className="max-w-6xl mx-auto flex flex-col gap-8">
-                <div className="flex flex-col md:flex-row justify-between gap-12">
+        <div className="w-full py-10 border-t bg-card px-4 xl:px-0">
+            <div className="max-w-6xl mx-auto flex flex-col gap-8 md:gap-12">
+                <div className="flex flex-col md:flex-row justify-between gap-10 md:gap-12 w-full">
                     <div className="flex flex-col gap-4 max-w-sm">
                         <div className="flex items-center gap-2">
                             <span className="font-bebas-neue text-3xl font-black">FoxRooms</span>
                         </div>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
                             El PMS que convierte tu operación en precisión. Optimiza la gestión de reservas, limpieza y facturación de tu hotel.
                         </p>
                     </div>
 
-                    <div className="flex gap-16 md:gap-24">
+                    <div className="flex gap-12 md:gap-24">
                         <div className="flex flex-col gap-3">
                             <h4 className="font-semibold text-foreground">Producto</h4>
                             <a href="#features" className="text-sm text-muted-foreground hover:text-blue-600 transition-colors">Características</a>
@@ -29,11 +29,11 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="pt-4 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+                <div className="pt-6 md:pt-4 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground border-t md:border-none">
                     <p>© {new Date().getFullYear()} FoxCode. Todos los derechos reservados.</p>
                     <div className="flex gap-4">
-                        <a href="#" className="hover:text-foreground transition-colors">Políticas de Privacidad</a>
-                        <a href="#" className="hover:text-foreground transition-colors">Términos de Servicio</a>
+                        <a href="#" className="hover:text-foreground transition-colors">Privacidad</a>
+                        <a href="#" className="hover:text-foreground transition-colors">Términos</a>
                     </div>
                 </div>
             </div>
