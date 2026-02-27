@@ -7,9 +7,9 @@ export default function Header() {
         <div className='w-full fixed top-0 z-50 backdrop-blur-2xl bg-card/80'>
             <section className='max-w-6xl mx-auto flex justify-between py-2 px-4 xl:px-0 font-medium'>
                 <nav className='flex gap-6 items-center'>
-                    <div className='flex gap-2 items-center'>
+                    <Link href="/" className='flex gap-2 items-center'>
                         <p className='font-bebas-neue text-2xl font-black'>FoxRooms</p>
-                    </div>
+                    </Link>
                     <div className='hidden md:flex gap-6 items-center'>
                         <a href="#features" className='hover:underline underline-offset-4'>Características</a>
                         <a href="#how-it-works" className='hover:underline underline-offset-4'>Cómo funciona</a>

@@ -1,3 +1,6 @@
+import { ToggleTheme } from "@/components/ToggleTheme";
+import Link from "next/link";
+
 export default function Footer() {
     return (
         <div className="w-full py-10 border-t bg-card px-4 xl:px-0">
@@ -15,16 +18,16 @@ export default function Footer() {
                     <div className="flex gap-12 md:gap-24">
                         <div className="flex flex-col gap-3">
                             <h4 className="font-semibold text-foreground">Producto</h4>
-                            <a href="#features" className="text-sm text-muted-foreground hover:text-blue-600 transition-colors">Características</a>
-                            <a href="#how-it-works" className="text-sm text-muted-foreground hover:text-blue-600 transition-colors">Cómo funciona</a>
-                            <a href="#modules" className="text-sm text-muted-foreground hover:text-blue-600 transition-colors">Módulos</a>
-                            <a href="#pricing" className="text-sm text-muted-foreground hover:text-blue-600 transition-colors">Precios</a>
+                            <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Características</a>
+                            <a href="#how-it-works" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Cómo funciona</a>
+                            <a href="#modules" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Módulos</a>
+                            <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Precios</a>
                         </div>
                         <div className="flex flex-col gap-3">
                             <h4 className="font-semibold text-foreground">Soporte</h4>
-                            <a href="#" className="text-sm text-muted-foreground hover:text-blue-600 transition-colors">Centro de ayuda</a>
-                            <a href="#" className="text-sm text-muted-foreground hover:text-blue-600 transition-colors">Contacto</a>
-                            <a href="#" className="text-sm text-muted-foreground hover:text-blue-600 transition-colors">Estado del sistema</a>
+                            <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Centro de ayuda</Link>
+                            <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Contacto</Link>
+                            <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Estado del sistema</Link>
                         </div>
                     </div>
                 </div>
@@ -32,8 +35,8 @@ export default function Footer() {
                 <div className="pt-6 md:pt-4 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground border-t md:border-none">
                     <p>© {new Date().getFullYear()} FoxCode. Todos los derechos reservados.</p>
                     <div className="flex gap-4">
-                        <a href="#" className="hover:text-foreground transition-colors">Privacidad</a>
-                        <a href="#" className="hover:text-foreground transition-colors">Términos</a>
+                        <ToggleTheme />
+                        <Link href="/legal" className="hover:text-foreground transition-colors">Legal & Soporte</Link>
                     </div>
                 </div>
             </div>
