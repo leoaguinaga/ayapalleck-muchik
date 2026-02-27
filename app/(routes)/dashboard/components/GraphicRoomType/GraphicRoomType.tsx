@@ -58,7 +58,7 @@ export function GraphicRoomType() {
   }, [])
 
   return (
-    <Card className="h-full gap-2 p-0 pt-4 dark:bg-black/80">
+    <Card className="h-full gap-2 p-0 pt-4">
       <CardHeader className="items-center pb-0">
         <CardTitle className="text-lg font-semibold">Reservas por tipo de habitación</CardTitle>
       </CardHeader>

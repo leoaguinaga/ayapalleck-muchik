@@ -24,7 +24,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="w-full bg-white rounded-xl p-1.5 flex flex-row justify-between items-center z-10 h-13.5">
+    <nav className="w-full bg-card rounded-xl p-1.5 flex flex-row justify-between items-center z-10 h-13.5">
       <div className="flex flex-row items-center gap-2 text-lg font-semibold pl-1">
         {isMounted ? (
           <Sheet>

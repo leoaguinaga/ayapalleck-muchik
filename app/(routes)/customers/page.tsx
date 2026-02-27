@@ -17,12 +17,12 @@ export default function CustomersPage() {
       />
       <CustomersInfo />
       <div className='grid grid-cols-1 xl:grid-cols-5 gap-4 w-full h-full'>
-        <div className='w-full h-full col-span-3'>
+        <div className='w-full h-full col-span-5'>
           <CustomersTable searchQuery={searchQuery} />
         </div>
-        <div className='border rounded-xl p-4 min-h-full bg-card col-span-2 flex flex-col'>
+        {/* <div className='border rounded-xl p-4 min-h-full bg-card col-span-2 flex flex-col'>
           <CustomersTabs />
-        </div>
+        </div> */}
       </div>
     </div>
   )

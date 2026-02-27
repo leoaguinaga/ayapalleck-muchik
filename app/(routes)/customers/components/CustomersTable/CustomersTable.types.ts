@@ -1,8 +1,3 @@
-export type CustomersTableProps = {
-    name: string;
-    documentType: string;
-    documentNumber: string;
-    email: string;
-    phone: string;
-    birthDate: Date;   
-}
+import { Customer } from "@/lib/api/customers";
+
+export type CustomersTableProps = Customer;

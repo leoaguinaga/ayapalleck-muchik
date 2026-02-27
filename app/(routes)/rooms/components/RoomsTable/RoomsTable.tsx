@@ -3,22 +3,16 @@
 import React from 'react'
 import DataTable from './data-table'
 import { columns } from './columns'
-import { useRooms } from '@/hooks/rooms/useRooms'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Room } from '@/lib/api/rooms'
 
-export default function RoomsTable() {
-  const { data: roomsResponse, isLoading, isError } = useRooms()
+type RoomsTableProps = {
+  rooms: Room[]
+  isLoading: boolean
+  isError: boolean
+}
 
-  // Extraer el array de habitaciones de la respuesta
-  const rooms = React.useMemo(() => {
-    if (!roomsResponse) return [];
-    // Si la respuesta tiene una propiedad 'value', extraerla
-    if (typeof roomsResponse === 'object' && 'value' in roomsResponse) {
-      return Array.isArray(roomsResponse.value) ? roomsResponse.value : [];
-    }
-    // Si ya es un array, devolverlo directamente
-    return Array.isArray(roomsResponse) ? roomsResponse : [];
-  }, [roomsResponse]);
+export default function RoomsTable({ rooms, isLoading, isError }: RoomsTableProps) {
 
   if (isLoading) {
     return (

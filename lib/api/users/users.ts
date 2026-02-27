@@ -1,5 +1,27 @@
 import api from '../../api';
-import { User, UpdateUserInput } from './users.types';
+import { CreateUserInput, CreateUserResponse, User, UpdateUserInput } from './users.types';
+
+export const createUser = async (data: CreateUserInput): Promise<CreateUserResponse> => {
+    const response = await api.post('/user/sign-up', {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+    });
+
+    if (data.role || data.phone || data.shift || data.image) {
+        const userId = response.data?.user?.id;
+        if (userId) {
+            await api.patch(`/user/${userId}`, {
+                role: data.role,
+                phone: data.phone,
+                shift: data.shift,
+                image: data.image,
+            });
+        }
+    }
+
+    return response.data;
+};
 
 export const getUsers = async (): Promise<User[]> => {
     const response = await api.get('/user');

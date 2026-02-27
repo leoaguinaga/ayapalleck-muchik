@@ -41,7 +41,7 @@ export default function RoomCleanup() {
     )
 
     return (
-        <Card className="h-full gap-2 p-0 bg-gray-100 dark:bg-black/80">
+        <Card className="h-full gap-2 p-0 bg-background">
             <CardHeader className="p-0">
                 <h2 className="text-lg font-semibold">Limpieza de habitaciones</h2>
             </CardHeader>

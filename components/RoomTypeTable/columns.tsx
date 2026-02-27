@@ -2,9 +2,15 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { RoomTypeTableProps } from "./RoomTypeTable.types"
-import { EllipsisVertical, Pencil } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
+import { EllipsisVertical, Pencil, Power } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Badge } from "@/components/ui/badge"
 
 // Helper para extraer valores que pueden venir envueltos en {value: ...}
 const extractValue = (field: any): any => {
@@ -14,46 +20,86 @@ const extractValue = (field: any): any => {
     return field;
 };
 
-export const columns: ColumnDef<RoomTypeTableProps>[] = [
-    {
-        accessorKey: "name",
-        header: "Nombre",
-        cell: ({ row }) => {
-            const name = extractValue(row.original.name);
-            return name ?? "N/A";
-        }
-    },
-    {
-        accessorKey: "price",
-        header: "Precio",
-        cell: ({ row }) => {
-            const price = extractValue(row.original.price);
-            return price ? `S/${Number(price).toFixed(2)}` : "N/A";
-        }
-    },
-    {
-        accessorKey: "actions",
-        header: "",
-        cell: ({ row }) => {
+type CreateColumnsProps = {
+    onEdit: (roomType: RoomTypeTableProps) => void
+    onDeactivate: (roomType: RoomTypeTableProps) => void
+}
 
-            return (
-                <div className="justify-self-end">
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                <span className="sr-only">Open menu</span>
-                                <EllipsisVertical className="size-5 justify-self-end" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuItem className="flex items-center gap-2 p-2 border bg-card rounded-lg cursor-pointer">
-                                Editar
-                                <Pencil className="size-4" />
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </div>
-            )
+export function createColumns({ onEdit, onDeactivate }: CreateColumnsProps): ColumnDef<RoomTypeTableProps>[] {
+    return [
+        {
+            accessorKey: "name",
+            header: "Nombre",
+            cell: ({ row }) => {
+                const name = extractValue(row.original.name)
+                return <p className="font-medium">{name ?? "N/A"}</p>
+            },
+        },
+        {
+            accessorKey: "description",
+            header: "Descripción",
+            cell: ({ row }) => {
+                const description = extractValue(row.original.description)
+                return (
+                    <p className="max-w-[320px] truncate text-muted-foreground">
+                        {description || "Sin descripción"}
+                    </p>
+                )
+            },
+        },
+        {
+            accessorKey: "price",
+            header: "Precio",
+            cell: ({ row }) => {
+                const price = extractValue(row.original.price)
+                return <p className="font-medium tabular-nums">S/{Number(price ?? 0).toFixed(2)}</p>
+            },
+        },
+        {
+            accessorKey: "available",
+            header: "Estado",
+            cell: ({ row }) => {
+                const available = Boolean(extractValue(row.original.available))
+                return available ? (
+                    <Badge className="bg-emerald-600 text-white">Activo</Badge>
+                ) : (
+                    <Badge variant="secondary">Inactivo</Badge>
+                )
+            },
+        },
+        {
+            id: "actions",
+            header: "",
+            cell: ({ row }) => {
+                const roomType = row.original
+                const available = Boolean(extractValue(roomType.available))
+
+                return (
+                    <div className="flex justify-end">
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                    <span className="sr-only">Open menu</span>
+                                    <EllipsisVertical className="size-5" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem className="flex items-center gap-2" onClick={() => onEdit(roomType)}>
+                                    Editar
+                                </DropdownMenuItem>
+                                {available && (
+                                    <DropdownMenuItem
+                                        className="flex items-center gap-2 text-destructive"
+                                        onClick={() => onDeactivate(roomType)}
+                                    >
+                                        Desactivar
+                                    </DropdownMenuItem>
+                                )}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
+                )
+            },
         }
-    }
-]
+    ]
+}

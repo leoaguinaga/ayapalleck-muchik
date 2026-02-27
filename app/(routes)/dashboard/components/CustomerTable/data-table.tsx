@@ -62,14 +62,14 @@ export default function DataTable<TData, TValue>({
     if (!isMounted) { return null }
     return (
         <div className='w-full'>
-            <div className='rounded-xl bg-white overflow-hidden'>
+            <div className='rounded-xl bg-card overflow-hidden'>
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id} className='px-3 bg-gray-200/80'>
+                                        <TableHead key={header.id} className='px-3 bg-input/50'>
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(

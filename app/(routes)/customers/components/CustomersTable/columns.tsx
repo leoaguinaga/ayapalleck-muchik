@@ -16,17 +16,17 @@ import { getInitials } from "@/lib/utils";
 
 export const columns: ColumnDef<CustomersTableProps>[] = [
   {
-    accessorKey: "name",
+    accessorKey: "fullName",
     header: "Nombre",
     cell: ({ row }) => (
       <div className="flex items-center gap-1.5">
         <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-gray-600">
-          {getInitials(row.getValue("name") as string)}
+          {getInitials(row.original.fullName)}
         </div>
         <div className="flex flex-col">
-          <span className="font-medium">{row.getValue("name") as string}</span>
+          <span className="font-medium">{row.original.fullName}</span>
           <span className="text-xs text-muted-foreground">
-            example@outlook.com
+            {row.original.email ?? "Sin correo"}
           </span>
         </div>
       </div>
@@ -49,7 +49,7 @@ export const columns: ColumnDef<CustomersTableProps>[] = [
       return (
         <p>
           {"+51 "}
-          <span>{phone?.replace(/(\d{3})(?=\d)/g, "$1 ")}</span>
+          <span>{(phone ?? "").replace(/(\d{3})(?=\d)/g, "$1 ") || "-"}</span>
         </p>
       );
     },
@@ -57,15 +57,13 @@ export const columns: ColumnDef<CustomersTableProps>[] = [
   {
     accessorKey: "state",
     header: "Estado",
-    cell: ({ row }) => {
-      return <Tag text="Activo" color="green" />;
-    },
+    cell: ({ row }) => <Tag text={row.original.available ? "Activo" : "Inactivo"} color={row.original.available ? "green" : "gray"} />,
   },
   {
     accessorKey: "actions",
     header: "",
     cell: ({ row }) => {
-      const { documentNumber } = row.original;
+      const { id } = row.original;
 
       return (
         <div className="justify-self-end">
@@ -77,7 +75,7 @@ export const columns: ColumnDef<CustomersTableProps>[] = [
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <Link href={`/customers/${documentNumber}`}>
+              <Link href={`/customers/${id}`}>
                 <DropdownMenuItem className="flex items-center gap-2 p-2 px-3 border bg-card rounded-lg cursor-pointer">
                   Editar
                   <Pencil className="size-4" />

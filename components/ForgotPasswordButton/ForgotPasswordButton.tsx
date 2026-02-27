@@ -13,8 +13,8 @@ import FormForgotPassword from "../FormForgotPassword"
 export default function ForgotPasswordButton() {
     const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState(false)
 
-  return (
-    <Dialog open={openForgotPasswordModal} onOpenChange={setOpenForgotPasswordModal}>
+    return (
+        <Dialog open={openForgotPasswordModal} onOpenChange={setOpenForgotPasswordModal}>
             <DialogTrigger asChild>
                 <p className="text-sm underline-offset-4 hover:underline cursor-pointer">
                     Olvidaste tu contraseña?
@@ -32,5 +32,5 @@ export default function ForgotPasswordButton() {
                 </DialogHeader>
             </DialogContent>
         </Dialog>
-  )
+    )
 }

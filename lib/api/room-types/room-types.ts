@@ -17,7 +17,7 @@ export const getRoomTypeById = async (id: string): Promise<RoomType> => {
 }
 
 export const updateRoomType = async (id: string, data: UpdateRoomTypeInput): Promise<RoomType> => {
-    const response = await api.put(`/room-type/${id}`, data);
+    const response = await api.patch(`/room-type/${id}`, data);
     return response.data;
 }
 

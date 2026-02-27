@@ -19,8 +19,9 @@ import { authClient } from "@/lib/auth-client"
 import { toast } from "react-hot-toast"
 import { useState } from "react"
 import { Eye, EyeClosed, LoaderCircle } from "lucide-react"
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 import ForgotPasswordButton from "./ForgotPasswordButton"
+import Link from "next/link"
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -30,6 +31,7 @@ const formSchema = z.object({
 export function LoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -46,7 +48,8 @@ export function LoginForm() {
       const res = await authClient.signIn.email(values);
       if (res.data?.user) {
         toast.success("Bienvenido de nuevo!");
-        redirect("/dashboard");
+        router.push("/dashboard");
+        router.refresh();
       } else {
         toast.error("Credenciales inválidas");
       }
@@ -74,7 +77,7 @@ export function LoginForm() {
               <FormItem className="grid gap-3">
                 <FormLabel>Correo</FormLabel>
                 <FormControl>
-                  <Input placeholder="ayapalleck@outlook.com" id="email" type="email" {...field} />
+                  <Input placeholder="usuario@foxrooms.com" id="email" type="email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -85,7 +88,12 @@ export function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem className="grid gap-3">
-                <FormLabel>Contraseña</FormLabel>
+                <FormLabel className="flex justify-between">
+                  <p>Contraseña</p>
+                  <div onClick={(e) => e.stopPropagation()}>
+                    <ForgotPasswordButton />
+                  </div>
+                </FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input
@@ -113,9 +121,7 @@ export function LoginForm() {
           </Button>
         </div>
         <div className="w-full flex justify-end text-sm">
-          <div onClick={(e) => e.stopPropagation()}>
-            <ForgotPasswordButton />
-          </div>
+          <p>¿No tienes una cuenta? <Link href="/register" className="text-primary underline">Regístrate</Link></p>
         </div>
       </form>
     </Form>

@@ -10,13 +10,13 @@ export default function KpiCard(props: KpiCardProps) {
   const { title, value, icon: IconComponent, tooltip, isPrimary } = props;
 
   return (
-    <div className="p-4 rounded-xl bg-white flex items-center gap-2.5 relative group">
+    <div className="p-4 rounded-xl bg-card flex items-center gap-2.5 relative group">
       <IconComponent
-        className={`size-11 p-2.5 transition-all duration-300 group-hover:p-2 overflow-visible ${isPrimary ? "bg-black text-white" : "bg-gray-100"} rounded-full`}
+        className={`size-11 p-2.5 transition-all duration-300 group-hover:p-2 overflow-visible ${isPrimary ? "bg-black text-white dark:bg-white dark:text-black" : "bg-background"} rounded-full`}
         strokeWidth={1.5}
       />
       <div className="flex flex-col">
-        <h2 className="text-sm text-gray-500 font-medium">{title}</h2>
+        <h2 className="text-sm text-gray-500 dark:text-gray-300 font-medium">{title}</h2>
         <p className="text-2xl font-semibold">{value}</p>
       </div>
       <Tooltip>
@@ -27,7 +27,7 @@ export default function KpiCard(props: KpiCardProps) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="size-4.5 text-gray-700"
+            className="size-4.5 text-muted-foreground"
           >
             <path
               strokeLinecap="round"

@@ -1,6 +1,5 @@
 "use client"
 
-import { useRouter } from "next/navigation";
 import { FormCreateCustomerProps } from "./FormCreateCustomer.types"
 import { useForm } from "react-hook-form";
 import { formCreateCustomerSchema } from "./FormCreateCustomer.schema";
@@ -40,7 +39,6 @@ import { es } from "date-fns/locale"
 
 export default function FormCreateCustomer(props: FormCreateCustomerProps) {
     const { setOpenModalCreateCustomer } = props;
-    const router = useRouter();
     const { mutate: createCustomer, isPending } = useCreateCustomer();
 
     const defaultBirthDate = new Date();
@@ -48,6 +46,7 @@ export default function FormCreateCustomer(props: FormCreateCustomerProps) {
 
     const form = useForm<z.infer<typeof formCreateCustomerSchema>>({
         resolver: zodResolver(formCreateCustomerSchema),
+        mode: "onChange",
         defaultValues: {
             name: '',
             email: '',
@@ -72,9 +71,6 @@ export default function FormCreateCustomer(props: FormCreateCustomerProps) {
             ...(values.birthDate && { birthDate: format(values.birthDate, 'yyyy-MM-dd') }),
         };
         
-        console.log('Payload enviado:', JSON.stringify(payload, null, 2));
-        console.log('API URL:', process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3333');
-        
         createCustomer(payload, {
             onSuccess: () => {
                 toast.success('Cliente creado exitosamente');
@@ -82,12 +78,6 @@ export default function FormCreateCustomer(props: FormCreateCustomerProps) {
                 form.reset();
             },
             onError: (error: any) => {
-                console.error('Error completo:', error);
-                console.error('Response:', error?.response);
-                console.error('Response data:', error?.response?.data);
-                console.error('Request:', error?.request);
-                console.error('Message:', error?.message);
-                
                 const errorMessage = error?.response?.data?.message || error?.message || 'Error al crear el cliente';
                 toast.error(errorMessage);
             }

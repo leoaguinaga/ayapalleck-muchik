@@ -28,11 +28,11 @@ const statusConfig: Record<
 > = {
   booked: {
     label: "Reservada",
-    className: "border-amber-200 bg-amber-50 text-amber-700",
+    className: "border-amber-200 text-amber-700 dark:border-amber-700/40 dark:text-amber-300",
   },
   "not booked": {
     label: "No reservada",
-    className: "border-slate-200 bg-slate-50 text-slate-600",
+    className: "border-slate-200 text-slate-600 dark:border-slate-700/40 dark:text-slate-300",
   },
 };
 
@@ -42,11 +42,11 @@ const taskConfig: Record<
 > = {
   clean: {
     label: "Limpia",
-    className: "border-emerald-200 bg-emerald-50 text-emerald-700",
+    className: "border-emerald-200 text-emerald-700 dark:border-emerald-700/40 dark:text-emerald-300",
   },
   dirty: {
     label: "Sucia",
-    className: "border-red-200 bg-red-50 text-red-700",
+    className: "border-red-200 text-red-700 dark:border-red-700/40 dark:text-red-300 ",
   },
 };
 
@@ -73,7 +73,7 @@ export function createColumns({
         return (
           <Badge
             variant="outline"
-            className={cn(config.className, " bg-white")}
+            className={cn(config.className, " bg-card")}
           >
             {config.label}
           </Badge>
@@ -90,7 +90,7 @@ export function createColumns({
         return (
           <Badge
             variant="outline"
-            className={cn(config.className, " bg-white")}
+            className={cn(config.className, " bg-background")}
           >
             {config.label}
           </Badge>

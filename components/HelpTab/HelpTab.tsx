@@ -1,6 +1,5 @@
 import { Separator } from "@radix-ui/react-select";
-import { Button } from "../ui/button";
-import { Flag, TriangleAlert } from "lucide-react";
+import CreateReportButton from "./CreateReportButton";
 
 
 export default function HelpTab() {
@@ -23,10 +22,7 @@ export default function HelpTab() {
             <div className="p-2.5 flex flex-col items-start justify-between gap-1">
                 <h3 className="font-medium">Reportes</h3>
                 <p className="text-muted-foreground mb-1">Si tienes algún inconveniente con el uso o rendimiento de la plataforma, siéntete libre de enviarnos un reporte, nosotros generaremos un ticket y antenderemos tu caso lo más pronto posible. Agradecemos tu feedback!</p>
-                <Button className="w-full h-8 flex items-center gap-1.5">
-                    <TriangleAlert className="size-3.5" />
-                    <p>Reportar problema</p>
-                </Button>
+                <CreateReportButton />
             </div>
         </div>
     )

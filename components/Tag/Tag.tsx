@@ -1,4 +1,3 @@
-import React from 'react'
 import { TagProps } from './Tag.types'
 import { cn } from '@/lib/utils'
 
@@ -17,7 +16,7 @@ export default function Tag(props: TagProps) {
 
     return (
         <span className={cn(
-            "font-medium py-0.75 text-xs px-2 rounded-lg w-fit capitalize bg-white",
+            "font-medium py-0.5 text-xs px-1.75 rounded-lg w-fit capitalize bg-card",
             colorClasses[color as keyof typeof colorClasses] || colorClasses.gray
         )}>
             {text}

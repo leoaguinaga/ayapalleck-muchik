@@ -53,7 +53,7 @@ export default function UserButton() {
       />
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger
-          className={`flex flex-row items-center cursor-pointer hover:bg-gray-100 p-1.5 rounded-lg gap-1 sm:gap-2 text-left ${
+          className={`flex flex-row items-center cursor-pointer hover:bg-gray-300/20 p-1.5 rounded-lg gap-1 sm:gap-2 text-left ${
             isOpen ? "bg-gray-300/20" : ""
           }`}
         >
@@ -63,7 +63,7 @@ export default function UserButton() {
               <div className="font-semibold">
                 {session?.user.name ? session.user.name : "Cargando nombre..."}
               </div>
-              <div className="text-xs text-gray-500 font-medium">
+              <div className="text-xs text-gray-500 dark:text-gray-300 font-medium">
                 Administrador
               </div>
             </div>

@@ -17,10 +17,22 @@ export interface User {
 export interface CreateUserInput {
     name: string;
     email: string;
+    password: string;
     phone?: string;
     shift?: Shift;
     image?: string;
     role?: UserRole;
+}
+
+export interface CreateUserResponse {
+    success: boolean;
+    message: string;
+    token?: string;
+    user?: {
+        id: string;
+        name: string;
+        email: string;
+    };
 }
 
 export interface UpdateUserInput {

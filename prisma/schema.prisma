@@ -1,0 +1,430 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum RoomStatus {
+  AVAILABLE
+  OCCUPIED
+  DIRTY
+}
+
+enum BookingMethod {
+  PER_NIGHT
+  PER_HOUR
+}
+
+enum BookingStatus {
+  PENDING
+  CHECK_IN
+  CHECK_OUT
+  CANCELED
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  CANCELED
+}
+
+enum Shift {
+  MORNING
+  AFTERNOON
+  NIGHT
+}
+
+enum UserRole {
+  ADMIN
+  RECEPTIONIST
+  HOUSEKEEPING
+}
+
+enum MovementType {
+  SALE
+  STORAGE
+}
+
+enum ProductUnit {
+  UNIT
+  PACKAGE
+  BOX
+  SET
+  ROLL
+  LITER
+  KILOGRAM
+}
+
+enum ProductCategory {
+  SALE
+  STORAGE
+}
+
+enum UserAction {
+  LOG_IN
+  LOG_OUT
+  CHECK_IN
+  CHECK_OUT
+  UPDATE_BOOKING
+  CREATE_ROOM
+  UPDATE_ROOM
+}
+
+model RoomType {
+  roomTypeId  String  @id @default(uuid()) @map("roomtypeid")
+  name        String
+  description String?
+  price       Float
+  available   Boolean @default(true)
+
+  rooms    Room[]
+  requests Request[]
+
+  @@map("roomtype")
+}
+
+model Room {
+  roomId     String     @id @default(uuid()) @map("roomid")
+  roomNumber String
+  roomTypeId String
+  status     RoomStatus
+  available  Boolean    @default(true)
+
+  roomType   RoomType       @relation(fields: [roomTypeId], references: [roomTypeId])
+  bookings   Booking[]
+  activities RoomActivity[]
+  requests   Request[]
+
+  @@unique([roomNumber])
+  @@map("room")
+}
+
+model Customer {
+  customerId     String    @id @default(uuid()) @map("customerid")
+  fullName       String
+  documentType   String
+  documentNumber String
+  ruc            String?
+  email          String?
+  phone          String?
+  birthDate      DateTime?
+  available      Boolean   @default(true)
+
+  bookings Booking[]
+
+  @@unique([documentNumber])
+  @@map("customer")
+}
+
+model User {
+  id            String   @id @default(uuid()) @map("userid")
+  name          String
+  email         String
+  phone         String?
+  shift         Shift?
+  image         String?
+  role          UserRole @default(RECEPTIONIST)
+  available     Boolean  @default(true)
+  emailVerified Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
+
+  bookings          Booking[]
+  movements         Movement[]
+  requests          Request[]
+  activities        UserActivity[]
+  roomActivity      RoomActivity[]
+  taxDebts          TaxDebt[]
+  bookingMovements  BookingMovement[]
+  bookingPayments   BookingPayment[]
+  paymentActivities BookingPaymentActivity[]
+  sessions          Session[]
+  accounts          Account[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@map("verification")
+}
+
+model Booking {
+  bookingId   String        @id @default(uuid()) @map("bookingid")
+  customerId  String
+  roomId      String
+  userId      String
+  method      BookingMethod
+  checkIn     DateTime
+  checkOut    DateTime
+  totalAmount Float
+  discount    Float?
+  advance     Float?
+  taxDebt     Float?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now()) @updatedAt
+  status      BookingStatus
+  available   Boolean       @default(true)
+
+  customer Customer @relation(fields: [customerId], references: [customerId])
+  room     Room     @relation(fields: [roomId], references: [roomId])
+  user     User     @relation(fields: [userId], references: [id])
+
+  movements         BookingMovement[]
+  payments          BookingPayment[]
+  paymentActivities BookingPaymentActivity[]
+  chargeActivities  ChargesActivity[]
+  taxiDebts         TaxDebt[]
+
+  @@map("booking")
+}
+
+model Request {
+  requestId   String        @id @default(uuid()) @map("requestid")
+  roomTypeId  String
+  userId      String
+  roomId      String?
+  email       String
+  name        String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now()) @updatedAt
+  totalAmount Float
+  checkIn     DateTime
+  checkOut    DateTime
+  reason      String?
+  status      RequestStatus
+  available   Boolean       @default(true)
+
+  roomType RoomType @relation(fields: [roomTypeId], references: [roomTypeId])
+  user     User     @relation(fields: [userId], references: [id])
+  room     Room?    @relation(fields: [roomId], references: [roomId])
+
+  activities RequestActivity[]
+  payments   RequestPayment[]
+
+  @@map("request")
+}
+
+model RequestActivity {
+  requestActivityId String        @id @default(uuid()) @map("requestactivityid")
+  requestId         String
+  action            String
+  createdAt         DateTime
+  totalAmount       Float?
+  checkIn           DateTime?
+  checkOut          DateTime?
+  status            RequestStatus
+  available         Boolean       @default(true)
+
+  request Request @relation(fields: [requestId], references: [requestId])
+
+  @@map("requestactivity")
+}
+
+model RequestPayment {
+  requestPaymentId String    @id @default(uuid()) @map("requestpaymentid")
+  requestId        String
+  amount           Float
+  expirationDate   DateTime?
+  wasPaid          Boolean   @default(false)
+  paymentDate      DateTime?
+  updatedAt        DateTime  @default(now()) @updatedAt
+
+  request Request @relation(fields: [requestId], references: [requestId])
+
+  @@map("requestpayment")
+}
+
+model Product {
+  productId    String          @id @default(uuid()) @map("productid")
+  name         String
+  category     ProductCategory
+  unit         ProductUnit
+  unitPrice    Float
+  description  String?
+  stock        Int
+  minimumStock Int
+
+  movements Movement[]
+
+  @@map("product")
+}
+
+model Movement {
+  movementId String       @id @default(uuid()) @map("movementid")
+  productId  String
+  userId     String
+  type       MovementType
+  quantity   Int
+  reason     String?
+  notes      String?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @default(now()) @updatedAt
+  available  Boolean      @default(true)
+
+  product Product @relation(fields: [productId], references: [productId])
+  user    User    @relation(fields: [userId], references: [id])
+
+  bookingMovements BookingMovement[]
+
+  @@map("movement")
+}
+
+model RoomActivity {
+  roomActivityId String   @id @default(uuid()) @map("roomactivityid")
+  roomId         String
+  userId         String
+  action         String
+  createdAt      DateTime
+
+  room Room @relation(fields: [roomId], references: [roomId])
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("roomactivity")
+}
+
+model UserActivity {
+  userActivityId String     @id @default(uuid()) @map("useractivityid")
+  userId         String
+  action         UserAction
+  title          String?
+  description    String?
+  createdAt      DateTime
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("useractivity")
+}
+
+model Charges {
+  chargeId     String      @id @default(uuid()) @map("chargeid")
+  name         String
+  unit         ProductUnit
+  unitPrice    Float
+  description  String?
+  stock        Int
+  minimumStock Int
+
+  chargeActivities ChargesActivity[]
+
+  @@map("charges")
+}
+
+model ChargesActivity {
+  chargeActivityId String @id @default(uuid()) @map("chargeactivityid")
+  chargeId         String
+  bookingId        String
+  amount           Float
+
+  charge  Charges @relation(fields: [chargeId], references: [chargeId])
+  booking Booking @relation(fields: [bookingId], references: [bookingId])
+
+  @@map("chargesactivity")
+}
+
+model BookingMovement {
+  bookingMovementId String    @id @default(uuid()) @map("bookingmovementid")
+  bookingId         String
+  userId            String
+  movementId        String
+  wasPaid           Boolean   @default(false)
+  createdAt         DateTime
+  updatedAt         DateTime?
+  available         Boolean   @default(true)
+
+  booking  Booking  @relation(fields: [bookingId], references: [bookingId])
+  user     User     @relation(fields: [userId], references: [id])
+  movement Movement @relation(fields: [movementId], references: [movementId])
+
+  @@map("bookingmovement")
+}
+
+model BookingPayment {
+  bookingPaymentId String    @id @default(uuid()) @map("bookingpaymentid")
+  bookingId        String
+  userId           String
+  wasPaid          Boolean   @default(false)
+  createdAt        DateTime
+  updatedAt        DateTime?
+
+  booking Booking @relation(fields: [bookingId], references: [bookingId])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@map("bookingpayment")
+}
+
+model BookingPaymentActivity {
+  bookingPaymentActivityId String    @id @default(uuid()) @map("bookingpaymentactivityid")
+  bookingId                String
+  userId                   String
+  type                     String?
+  amount                   Float
+  wasPaid                  Boolean   @default(false)
+  createdAt                DateTime
+  updatedAt                DateTime?
+
+  booking Booking @relation(fields: [bookingId], references: [bookingId])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@map("bookingpaymentactivity")
+}
+
+model TaxDebt {
+  taxiDebtId String    @id @default(uuid()) @map("taxidebtid")
+  bookingId  String
+  userId     String
+  amount     Float
+  wasPaid    Boolean   @default(false)
+  available  Boolean   @default(true)
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @default(now()) @updatedAt
+
+  booking Booking @relation(fields: [bookingId], references: [bookingId])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@map("taxidebt")
+}

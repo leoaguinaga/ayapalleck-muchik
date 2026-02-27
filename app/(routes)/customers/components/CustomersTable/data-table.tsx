@@ -46,7 +46,7 @@ export default function DataTable<TData, TValue>({
     // Actualizar el filtro cuando cambie searchQuery
     React.useEffect(() => {
         if (table) {
-            table.getColumn("name")?.setFilterValue(searchQuery)
+            table.getColumn("fullName")?.setFilterValue(searchQuery)
         }
     }, [searchQuery])
 

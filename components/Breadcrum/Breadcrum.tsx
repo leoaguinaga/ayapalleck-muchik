@@ -28,6 +28,8 @@ function translate(route: string) {
       return "Usuarios";
     case "inventary":
       return "Inventario";
+    case "management":
+      return "Gestión";
     default:
       return route;
   }

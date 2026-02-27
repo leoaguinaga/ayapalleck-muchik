@@ -5,7 +5,7 @@ import { updateRoomType } from '@/lib/api/room-types/room-types';
 
 type UpdateRoomTypeParams = {
     id: string;
-    data: { name?: string; price?: number; description?: string };
+    data: { name?: string; price?: number; description?: string; available?: boolean };
 };
 
 export function useUpdateRoomType() {
