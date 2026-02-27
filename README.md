@@ -1,155 +1,148 @@
-# Back Office - Ayapalleck Muchik
+# Ayapalleck Muchik Back Office
 
-Sistema de gestión hotelera con Next.js, Prisma y PostgreSQL.
+Sistema de gestión operativa para hospedaje, diseñado para centralizar la operación diaria del hotel en una sola plataforma: ingresos, estadías, reservas, solicitudes, habitaciones, huéspedes, usuarios e inventario.
 
-## 🏗️ Arquitectura de Datos
+## Resumen Comercial
 
-### Stack
-- **ORM**: Prisma 5.x
-- **Database**: PostgreSQL 15+
-- **TypeScript**: 5.x
+Este sistema permite que recepción, administración y operación trabajen con una vista unificada del negocio, reduciendo tiempos de atención, errores manuales y pérdida de control en procesos críticos como check-in, check-out y cobros.
 
-### Políticas de Datos
+### Qué problema resuelve
 
-#### Tipos Monetarios
-- Todos los campos de dinero usan `Decimal(10,2)` para evitar errores de redondeo.
-- Campos afectados: `RoomType.pricePerNight`, `Extra.price`, `Booking.totalAmount`.
+- Información dispersa entre cuadernos, chats y hojas de cálculo.
+- Procesos lentos en recepción (ingresos, salidas, asignación de habitaciones).
+- Falta de visibilidad sobre ocupación, pendientes y caja.
+- Control débil de inventario y consumos durante la estadía.
 
-#### Enums
-Los enums están sincronizados 1:1 con la UI:
-- `RoomStatus`: `AVAILABLE | OCCUPIED | DIRTY`
-- `BookingStatus`: `PENDING | CHECK_IN | CHECK_OUT | CANCELED`
-- `PaymentMethod`: `CASH | CARD | TRANSFER`
-- `RequestStatus`: `PENDING | ACCEPTED | CANCELED`
-- `UserRole`: `ADMIN | RECEPTIONIST | HOUSEKEEPING`
+### Propuesta de valor
 
-#### Auditoría
-Modelos operativos incluyen:
-- `createdAt`: Timestamp de creación (auto).
-- `updatedAt`: Timestamp de última modificación (auto).
+- `1 sola plataforma` para la operación diaria.
+- `Atención más rápida` en recepción.
+- `Mayor control` de cobros, cargos y pagos por estadía.
+- `Visibilidad operativa` con panel y KPIs.
+- `Mejor coordinación` entre recepción, limpieza y administración.
 
-#### Relaciones y OnDelete
-- `Booking → User`: `onDelete: SetNull` (permite borrar usuarios sin perder historial).
-- `Session/Account → User`: `onDelete: Cascade` (borra sesiones al borrar usuario).
+## Módulos Principales
 
-## 🚀 Setup Local
+### Panel de control (Dashboard)
+
+- KPIs operativos y resumen visual.
+- Gráficos de actividad y distribución.
+- Vista de clientes y seguimiento de limpieza.
+
+### Ingresos (Check-in)
+
+- Búsqueda y filtrado de habitaciones.
+- Filtros por tipo, ocupación y estado de limpieza.
+- Flujo pensado para acelerar la asignación de habitaciones.
+
+### Estadías / Salidas (Check-out)
+
+- Gestión de estadías activas y próximas salidas.
+- Filtros por hoy, mañana, atrasadas y búsqueda rápida.
+- Detalle de estadía con:
+  - cargos
+  - productos consumidos
+  - pagos
+  - saldo pendiente
+  - extensión de estadía
+  - línea de tiempo de actividad
+  - cierre de check-out y generación de recibo
+
+### Reservas y Solicitudes
+
+- Gestión de reservas e historial.
+- Módulo de solicitudes con vista `Kanban` para seguimiento comercial/operativo.
+- Revisión, aprobación, rechazo y confirmación de solicitudes.
+- Validación de disponibilidad de habitaciones durante el proceso.
+
+### Habitaciones
+
+- Catálogo de habitaciones y detalle por habitación.
+- Estado operativo (`disponible`, `ocupada`, `sucia`).
+- Historial/actividad reciente por habitación.
+- Acciones de creación, actualización y baja lógica.
+
+### Huéspedes (Clientes)
+
+- Registro y gestión de huéspedes.
+- Datos de identificación y contacto.
+- Historial de reservas/estadías por cliente.
+
+### Usuarios y Gestión
+
+- Gestión de usuarios internos.
+- Roles operativos (administración, recepción, housekeeping).
+- Organización por turnos.
+
+### Inventario
+
+- Catálogo de productos.
+- Movimientos de inventario.
+- Historial de movimientos.
+- Alertas de stock bajo.
+- Soporte para productos de venta y almacenamiento.
+
+## Beneficios para el negocio
+
+- Mejora la experiencia del huésped al reducir tiempos de espera.
+- Aumenta el control del ingreso por estadía (cargos + pagos).
+- Facilita la supervisión de la operación en tiempo real.
+- Reduce errores de registro y duplicidad de información.
+- Estandariza procesos entre turnos y áreas.
+
+## Flujo Operativo (Ejemplo)
+
+1. Llega una `solicitud` o `reserva`.
+2. Se valida disponibilidad y se asigna habitación.
+3. Se realiza el `check-in`.
+4. Durante la estadía se registran `cargos`, `productos` y `pagos`.
+5. Se ejecuta el `check-out` con validación de saldo.
+6. Se envía a limpieza y la habitación vuelve a disponibilidad.
+
+## Stack Tecnológico
+
+- `Next.js 16` + `React 19`
+- `TypeScript`
+- `Prisma` + `PostgreSQL`
+- `Better Auth` (autenticación)
+- `TanStack Query` / `TanStack Table`
+- `Tailwind CSS` + `Radix UI`
+
+## Estado del Proyecto
+
+El repositorio contiene una base sólida de back-office con módulos operativos y de gestión. Algunas vistas están en evolución/prototipo y usan datos de ejemplo para validar UX y flujo antes de integrarlas completamente con API/base de datos.
+
+## Puesta en Marcha (Equipo Técnico)
 
 ### Requisitos
-- Node.js 20+
-- PostgreSQL 15+
-- pnpm 8+
 
-### Variables de Entorno
-Crea `.env` con:
+- Node.js 20+
+- PostgreSQL
+- pnpm
+
+### Variables de entorno
+
+Crear `.env` con la conexión a PostgreSQL:
+
 ```env
 DATABASE_URL="postgresql://user:password@localhost:5432/ayapalleck_db?schema=public"
 ```
 
 ### Instalación
+
 ```bash
-# Instalar dependencias
 pnpm install
-
-# Generar cliente Prisma
 pnpm prisma generate
-
-# Ejecutar migraciones
 pnpm prisma migrate dev
-
-# Sembrar datos (opcional)
-pnpm prisma db seed
-
-# Iniciar desarrollo
 pnpm dev
 ```
 
-## 🔄 Migraciones
+## Scripts disponibles
 
-### En Desarrollo
-```bash
-# Crear migración después de cambiar schema.prisma
-pnpm prisma migrate dev --name descripcion-del-cambio
+- `pnpm dev` -> entorno local
+- `pnpm build` -> compilación de producción
+- `pnpm start` -> ejecutar build
 
-# Ver estado
-pnpm prisma migrate status
+## Enfoque de uso recomendado
 
-# Abrir Prisma Studio
-pnpm prisma studio
-```
-
-### En CI/Producción
-```bash
-# Aplicar migraciones pendientes (sin prompt)
-pnpm prisma migrate deploy
-
-# Verificar integridad
-pnpm prisma validate
-```
-
-### Rollback
-Prisma no soporta rollback automático. Para revertir:
-1. Identificar la migración a revertir en `prisma/migrations/`.
-2. Crear migración manual con `ALTER TABLE` inverso.
-3. Aplicar con `prisma migrate dev`.
-
-## 📊 Índices y Rendimiento
-
-Índices creados para optimizar consultas frecuentes:
-- `customer(firstName, lastName)`: Búsquedas de clientes.
-- `booking(checkIn, checkOut)`: Consultas de disponibilidad por rango.
-- `booking(customerId, roomId, userId)`: Joins frecuentes.
-
-## ⚠️ Breaking Changes (última migración)
-
-### Cambios de Tipos
-1. **Booking.status**: `String` → `BookingStatus` (enum)
-   - **Migración**: Valores mapeados automáticamente en SQL.
-   - **Acción requerida**: Actualizar código que usaba strings literales.
-
-2. **Booking.paymentMethod**: `String` → `PaymentMethod` (enum)
-   - **Migración**: Mapeo a `CASH`, `CARD`, `TRANSFER`.
-   - **Acción requerida**: Usar enum en formularios y validaciones.
-
-3. **Campos monetarios**: `Float` → `Decimal(10,2)`
-   - **Migración**: Conversión automática sin pérdida de datos.
-   - **Acción requerida**: Usar `toNumber()` al leer de Prisma si es necesario.
-
-4. **Booking.userId**: `String` → `String?` (nullable)
-   - **Migración**: Se permite NULL ahora.
-   - **Acción requerida**: Manejar casos donde `booking.user` sea `null`.
-
-### Mitigación
-```typescript
-// Antes
-const booking = await prisma.booking.findUnique({
-  where: { bookingId },
-  include: { user: true }
-});
-console.log(booking.user.name); // ❌ Puede fallar si user es null
-
-// Después
-const booking = await prisma.booking.findUnique({
-  where: { bookingId },
-  include: { user: true }
-});
-console.log(booking.user?.name ?? 'Usuario eliminado'); // ✅
-```
-
-## 🛠️ Troubleshooting
-
-### Error: "Enum value not found"
-- **Causa**: Datos existentes no coinciden con valores del enum.
-- **Solución**: Revisar la migración SQL y ajustar el `CASE` statement.
-
-### Error: "Column does not exist"
-- **Causa**: Migración no aplicada o schema desincronizado.
-- **Solución**: `pnpm prisma migrate dev` o `prisma db push` en desarrollo.
-
-### Inconsistencia de tipos en TypeScript
-- **Causa**: Cliente Prisma no regenerado.
-- **Solución**: `pnpm prisma generate`
-
-## 📚 Referencias
-- [Prisma Docs](https://www.prisma.io/docs)
-- [PostgreSQL Decimal Types](https://www.postgresql.org/docs/current/datatype-numeric.html)
-- [Better Auth Integration](https://www.better-auth.com/docs/integrations/prisma)
+Este README está orientado a presentación comercial del sistema. Si necesitas documentación técnica más detallada (arquitectura, migraciones, modelo de datos o plan de despliegue), conviene mantener un documento separado para el equipo de desarrollo.
