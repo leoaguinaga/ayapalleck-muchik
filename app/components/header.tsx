@@ -10,16 +10,17 @@ export default function Header() {
                     <Link href="/" className='flex gap-2 items-center'>
                         <p className='font-bebas-neue text-2xl font-black'>FoxRooms</p>
                     </Link>
-                    <div className='hidden md:flex gap-6 items-center'>
-                        <a href="#features" className='hover:underline underline-offset-4'>Características</a>
-                        <a href="#how-it-works" className='hover:underline underline-offset-4'>Cómo funciona</a>
-                        <a href="#modules" className='hover:underline underline-offset-4'>Módulos</a>
-                        <a href="#pricing" className='hover:underline underline-offset-4'>Precios</a>
+                    <div className='hidden lg:flex gap-6 items-center'>
+                        <a href="/#features" className='hover:underline underline-offset-4'>Características</a>
+                        <a href="/#how-it-works" className='hover:underline underline-offset-4'>Cómo funciona</a>
+                        <a href="/#modules" className='hover:underline underline-offset-4'>Módulos</a>
+                        <a href="/#pricing" className='hover:underline underline-offset-4'>Precios</a>
+                        <a href="/#testimonials" className='hover:underline underline-offset-4'>Testimonios</a>
                     </div>
                 </nav>
                 <div className='gap-4 flex items-center'>
-                    <Link href="/login" className='hidden sm:flex hover:underline underline-offset-4'>Iniciar sesión</Link>
-                    <Button className='font-bold'>Obtén una demo</Button>
+                    <Link href="/demo" className='hidden sm:flex hover:underline underline-offset-4'>Prueba gratis</Link>
+                    <Link href="/login"><Button className='font-bold'>Inicia sesión</Button></Link>
                 </div>
             </section>
         </div>

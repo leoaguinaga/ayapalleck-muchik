@@ -48,7 +48,7 @@ export default function CheckInPage() {
         cleanlinessFilter={cleanlinessFilter}
         onCleanlinessChange={setCleanlinessFilter}
       />
-      <div className="grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 p-4 rounded-xl bg-white">
+      <div className="grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 p-4 rounded-xl bg-card">
         {filteredRooms.length > 0 ? (
           filteredRooms.map((room, index) => (
             <RoomCard

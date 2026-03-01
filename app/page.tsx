@@ -6,6 +6,7 @@ import CTA from "./components/cta"
 import Modules from "./components/modules"
 import Pricing from "./components/pricing"
 import Footer from "./components/footer"
+import Testimonials from "./components/testimonials"
 
 export default function LandingPage() {
 
@@ -17,6 +18,7 @@ export default function LandingPage() {
       <HowItWorks />
       <Modules />
       <Pricing />
+      <Testimonials />
       <CTA />
       <Footer />
     </div>

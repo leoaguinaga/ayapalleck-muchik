@@ -23,7 +23,8 @@ export default function Modules() {
                     <div className="w-full md:w-1/2 p-4 md:p-6 border rounded-2xl bg-card flex flex-col gap-2 text-left">
                         <h3 className="font-extrabold font-bebas-neue text-xl">Dashboard Ejecutivo</h3>
                         <p className="text-muted-foreground text-sm flex-1">Visualiza la ocupación actual, próximas llegadas y el estado de limpieza en una sola vista.</p>
-                        <img src="/hero.png" alt="" className="mt-2 rounded-lg w-full h-auto object-cover max-h-[250px]" />
+                        <img src="/dashboard-light.png" alt="" className="mt-2 rounded-lg w-full h-auto object-cover max-h-[250px] dark:hidden" />
+                        <img src="/dashboard-dark.png" alt="" className="mt-2 rounded-lg w-full h-auto object-cover max-h-[250px] dark:block hidden" />
                         <div className="flex flex-wrap gap-2 mt-3">
                             <Tag text="Indicadores clave" color="blue" />
                             <Tag text="Tiempo real" color="blue" />
@@ -32,7 +33,8 @@ export default function Modules() {
                     <div className="w-full md:w-1/2 p-4 md:p-6 border rounded-2xl bg-card flex flex-col gap-2 text-left">
                         <h3 className="font-extrabold font-bebas-neue text-xl">Gestión de Reservas</h3>
                         <p className="text-muted-foreground text-sm flex-1">Calendario interactivo tipo drag-and-drop para mover reservas y asignar habitaciones rápidamente.</p>
-                        <img src="/hero.png" alt="" className="mt-2 rounded-lg w-full h-auto object-cover max-h-[250px]" />
+                        <img src="/check-in-light.png" alt="" className="mt-2 rounded-lg w-full h-auto object-cover max-h-[250px] dark:hidden" />
+                        <img src="/check-in-dark.png" alt="" className="mt-2 rounded-lg w-full h-auto object-cover max-h-[250px] dark:block hidden" />
                         <div className="flex flex-wrap gap-2 mt-3">
                             <Tag text="Sistema de arrastre" color="blue" />
                             <Tag text="Calendario" color="blue" />

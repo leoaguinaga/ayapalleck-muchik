@@ -8,8 +8,6 @@ export default function BookingPage() {
   const [weekOffset, setWeekOffset] = useState(0);
 
   const handlePrevWeek = () => {
-    // if (weekOffset > 0) {
-    // }
     setWeekOffset((prev) => prev - 1);
   };
 

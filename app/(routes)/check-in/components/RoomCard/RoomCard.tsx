@@ -28,14 +28,14 @@ export default function RoomCard(props: RoomCardProps) {
   const getAvailability = () => {
     if (available) {
       return (
-        <div className="flex flex-row gap-1 items-center text-green-500 text-sm font-medium">
+        <div className="flex flex-row gap-1 items-center text-green-500 dark:text-green-400 text-sm font-medium">
           <BadgeCheck className="size-3.5" />
           Disponible
         </div>
       );
     } else {
       return (
-        <div className="flex flex-row gap-1 items-center text-orange-500 text-sm font-medium">
+        <div className="flex flex-row gap-1 items-center text-orange-500 dark:text-orange-400 text-sm font-medium">
           <Bed className="size-3.5" />
           Ocupado
         </div>
@@ -46,13 +46,13 @@ export default function RoomCard(props: RoomCardProps) {
   const getStatus = () => {
     if (status === "DIRTY") {
       return (
-        <p className="absolute bottom-2 left-2 text-xs font-medium bg-red-100 text-red-600 rounded-md px-2 py-1">
+        <p className="absolute bottom-2 left-2 text-xs font-medium bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-400 rounded-md px-2 py-1">
           Sucio
         </p>
       );
     } else {
       return (
-        <p className="absolute bottom-2 left-2 text-xs font-medium text-muted-foreground bg-gray-100 rounded-md px-2 py-1">
+        <p className="absolute bottom-2 left-2 text-xs font-medium text-muted-foreground bg-gray-100 dark:bg-gray-900 rounded-md px-2 py-1">
           Ult. limpieza 20:30
         </p>
       );
@@ -71,7 +71,7 @@ export default function RoomCard(props: RoomCardProps) {
     } else {
       return (
         <Link href={`/check-out/${number}`}>
-          <Button className="w-full flex flex-row gap-2 bg-orange-500 hover:bg-orange-600 cursor-pointer">
+          <Button className="w-full flex flex-row gap-2 bg-orange-500 hover:bg-orange-600 dark:bg-orange-400 dark:hover:bg-orange-500 cursor-pointer">
             Administrar
           </Button>
         </Link>
@@ -80,7 +80,7 @@ export default function RoomCard(props: RoomCardProps) {
   };
 
   return (
-    <div className="flex flex-col rounded-xl overflow-hidden bg-white shadow-md">
+    <div className="flex flex-col rounded-xl overflow-hidden bg-white dark:bg-muted shadow-md">
       <div className="relative h-38 w-full overflow-hidden">
         <img
           src="/room-simple.webp"
@@ -88,7 +88,7 @@ export default function RoomCard(props: RoomCardProps) {
           alt=""
         />
         {/* <EllipsisVertical className="absolute top-2 right-2 size-5.5 p-1 bg-white rounded-full text-muted-foreground cursor-pointer hover:shadow-md transition-shadow" /> */}
-        <p className="absolute top-2 left-2 text-sm px-2 py-0.5 bg-black text-white rounded-md font-semibold">
+        <p className="absolute top-2 left-2 text-sm px-2 py-0.5 bg-black dark:bg-white text-white dark:text-black rounded-md font-semibold">
           {number}
         </p>
         {getStatus()}

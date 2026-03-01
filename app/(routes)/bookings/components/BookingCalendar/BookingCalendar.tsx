@@ -110,12 +110,12 @@ export default function BookingCalendar({ weekOffset }: BookingCalendarProps) {
   return (
     <div className="flex flex-col gap-4">
       {/* Calendario */}
-      <div className="rounded-xl bg-white overflow-hidden">
+      <div className="rounded-xl bg-card overflow-hidden">
         <div className="overflow-x-auto">
           <div className="min-w-255">
             {/* Header de fechas */}
             <div className="grid grid-cols-9 border-b bg-muted/50">
-              <div className="p-3 border-r flex items-center justify-center gap-2 bg-white">
+              <div className="p-3 border-r flex items-center justify-center gap-2 bg-card">
                 <p className="text-sm font-semibold">Número / Tipo</p>
               </div>
               {dates.map((date, index) => (
@@ -123,7 +123,7 @@ export default function BookingCalendar({ weekOffset }: BookingCalendarProps) {
                   key={index}
                   className={cn(
                     "p-3 text-center border-r text-sm font-medium",
-                    isSameDay(date, new Date()) && "bg-primary/10"
+                    isSameDay(date, new Date()) && "bg-blue-700/25 dark:bg-blue-900/25"
                   )}
                 >
                   {formatDateSpanish(date)}
@@ -168,23 +168,22 @@ export default function BookingCalendar({ weekOffset }: BookingCalendarProps) {
                       key={dateIndex}
                       className={cn(
                         "relative p-2 border-r h-15.5 transition-colors",
-                        isToday && "bg-primary/5",
+                        isToday && "bg-blue-500/10 dark:bg-blue-700/10",
                         !isPastDate &&
-                          !mainBooking &&
-                          "cursor-pointer hover:bg-muted/50",
+                        !mainBooking &&
+                        "cursor-pointer hover:bg-muted/50",
                         isPastDate &&
-                          !mainBooking &&
-                          "bg-muted/20 cursor-not-allowed"
+                        !mainBooking &&
+                        "bg-muted/20 cursor-not-allowed"
                       )}
                       onClick={(e) => handleCellClick(room.number, date, e)}
                     >
                       {mainBooking && isFirst && (
                         <div
-                          className="absolute inset-y-1 left-1 rounded-lg bg-white text-black px-3.5 py-1.5 text-sm font-semibold border overflow-hidden whitespace-nowrap text-ellipsis z-10 cursor-pointer hover:opacity-90 transition-opacity flex flex-col justify-between"
+                          className="absolute inset-y-1 left-1 rounded-lg bg-white dark:bg-muted px-3.5 py-1.5 text-sm font-semibold border overflow-hidden whitespace-nowrap text-ellipsis z-10 cursor-pointer hover:opacity-90 transition-opacity flex flex-col justify-between"
                           style={{
-                            width: `calc(${width * 100}% + ${
-                              (width - 5) * 8
-                            }px)`,
+                            width: `calc(${width * 100}% + ${(width - 5) * 8
+                              }px)`,
                           }}
                           onClick={(e) => handleBookingClick(mainBooking, e)}
                         >
@@ -195,7 +194,7 @@ export default function BookingCalendar({ weekOffset }: BookingCalendarProps) {
                             }}
                           />
                           {mainBooking.guestName}
-                          <p className="text-xs text-gray-600">
+                          <p className="text-xs text-muted-foreground">
                             Check Out 20:30
                           </p>
                         </div>

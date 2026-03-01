@@ -58,7 +58,7 @@ export default function pricing() {
                             </div>
                             <div className='flex flex-col border rounded-xl lg:rounded-none lg:border-0'>
                                 <h3 className='p-2.5 text-lg font-medium bg-muted/50 lg:bg-transparent rounded-t-xl lg:rounded-none border-b lg:border-b-0'>Multi-Sede</h3>
-                                <h2 className='lg:border lg:border-l-0 py-5 px-8 text-2xl font-bold border-b lg:border-b-0'>$199 <span className='text-base text-muted-foreground font-medium'>/mes</span></h2>
+                                <h2 className='lg:border lg:border-l-0 py-5 px-8 text-2xl font-bold border-b lg:border-b-0 lg:border-r-0'>$199 <span className='text-base text-muted-foreground font-medium'>/mes</span></h2>
                                 <ul className='text-sm py-5 px-8 gap-2 flex flex-col h-full'>
                                     <li>Trabajadores ilimitados</li>
                                     <li>Todo lo del plan profesional</li>
@@ -110,7 +110,7 @@ export default function pricing() {
                             </div>
                             <div className='flex flex-col border rounded-xl lg:rounded-none lg:border-0'>
                                 <h3 className='p-2.5 text-lg font-medium bg-muted/50 lg:bg-transparent rounded-t-xl lg:rounded-none border-b lg:border-b-0'>Multi-Sede</h3>
-                                <h2 className='lg:border lg:border-l-0 py-5 px-8 text-2xl font-bold border-b lg:border-b-0'>$1990 <span className='text-base text-muted-foreground font-medium'>/año</span></h2>
+                                <h2 className='lg:border lg:border-l-0 py-5 px-8 text-2xl font-bold border-b lg:border-b-0 lg:border-r-0'>$1990 <span className='text-base text-muted-foreground font-medium'>/año</span></h2>
                                 <ul className='text-sm py-5 px-8 gap-2 flex flex-col h-full'>
                                     <li>Trabajadores ilimitados</li>
                                     <li>Todo lo del plan profesional</li>

@@ -44,7 +44,7 @@ export default function CheckInFilters({
   onCleanlinessChange,
 }: CheckInFiltersProps) {
   return (
-    <div className="flex flex-col xl:flex-row gap-2.5 justify-between w-full p-4 rounded-xl bg-white">
+    <div className="flex flex-col xl:flex-row gap-2.5 justify-between w-full p-4 rounded-xl bg-card">
       <div className="relative flex flex-col gap-1 w-full place-content-end">
         <Input
           placeholder="Buscar por número de habitación..."
@@ -151,8 +151,8 @@ export default function CheckInFilters({
 
         {/* Botones de vista */}
         <div className="flex gap-1.5 items-end">
-          <LayoutGrid className="size-9 p-2 text-white bg-black border rounded-lg" />
-          <Table className="size-9 p-2 text-muted-foreground border rounded-lg" />
+          <LayoutGrid className="size-9 p-2 text-white bg-black dark:bg-white dark:text-black border rounded-lg" />
+          <Table className="size-9 p-2 text-muted-foreground dark:text-muted-foreground/70 border rounded-lg" />
         </div>
       </div>
     </div>

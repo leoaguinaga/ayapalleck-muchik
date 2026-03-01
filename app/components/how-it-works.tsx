@@ -40,7 +40,7 @@ export default function HowItWorks() {
                     <div className="w-full flex flex-col justify-center">
                         <div className="flex flex-col">
                             {steps.map((step, index) => (
-                                <div key={index} className="flex gap-4 md:gap-6 relative">
+                                <div key={index} className={`flex gap-4 md:gap-6 relative`}>
                                     <div className="flex flex-col items-center">
                                         <div className="w-8 h-8 rounded-full border border-blue-100 text-blue-600 dark:text-blue-100 dark:border-blue-700 bg-transparent flex items-center justify-center font-medium text-sm z-10 shrink-0">
                                             {index + 1}

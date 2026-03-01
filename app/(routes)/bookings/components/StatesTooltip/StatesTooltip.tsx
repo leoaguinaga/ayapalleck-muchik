@@ -11,11 +11,11 @@ export default function StatesTooltip() {
       <TooltipTrigger>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          fill="#f3f4f6"
+          fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="size-7 text-gray-600 xs:relative xs:top-0 xs:right-0 absolute top-4 right-4"
+          className="size-7 text-muted-foreground xs:relative xs:top-0 xs:right-0 absolute top-4 right-4"
         >
           <path
             strokeLinecap="round"
@@ -26,16 +26,16 @@ export default function StatesTooltip() {
       </TooltipTrigger>
       <TooltipContent align="end" side="bottom" className="flex flex-col gap-1 font-semibold">
         <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-blue-500"></div>
-            <p>Confirmada</p>
+          <div className="w-2.5 h-2.5 rounded-full bg-blue-500"></div>
+          <p>Confirmada</p>
         </div>
         <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>
-            <p>En curso</p>
+          <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+          <p>En curso</p>
         </div>
         <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
-            <p>Tarde</p>
+          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+          <p>Tarde</p>
         </div>
       </TooltipContent>
     </Tooltip>
