@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Footer() {
     return (
         <div className="w-full py-10 border-t bg-card px-4 xl:px-0">
-            <div className="max-w-6xl mx-auto flex flex-col gap-8 md:gap-12">
+            <div className="max-w-6xl mx-auto flex flex-col gap-8 md:gap-6">
                 <div className="flex flex-col md:flex-row justify-between gap-10 md:gap-12 w-full">
                     <div className="flex flex-col gap-4 max-w-sm">
                         <div className="flex items-center gap-2">
@@ -32,7 +32,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="pt-6 md:pt-4 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground border-t md:border-none">
+                <div className="pt-4 md:pt-0 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground border-t md:border-none">
                     <p>© {new Date().getFullYear()} FoxCode. Todos los derechos reservados.</p>
                     <div className="flex gap-4">
                         <ToggleTheme />
