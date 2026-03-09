@@ -39,6 +39,16 @@ export default function LegalPage() {
 
     return (
         <div className="flex flex-col min-h-screen bg-card pt-15">
+            <style dangerouslySetInnerHTML={{
+                __html: `
+        body, html {
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        body::-webkit-scrollbar {
+          display: none;
+        }
+      `}} />
             <Header />
 
             <main className="flex-1 w-full max-w-6xl mx-auto px-4 xl:px-0 py-12 md:py-20 flex flex-col md:flex-row gap-8">

@@ -9,32 +9,32 @@ export default function Features() {
                     <p className='text-muted-foreground text-sm md:text-base'>Herramientas diseñadas específicamente para resolver los problemas reales de la hotelería moderna en una sola plataforma integrada.</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 gap-4">
-                    <div className="lg:col-span-2 p-5 border rounded-2xl bg-card flex flex-col gap-2 text-left">
+                    <div className="lg:col-span-2 p-5 border rounded-2xl flex flex-col gap-2 text-left bg-linear-to-b from-card to-blue-50/40 dark:to-blue-950/15 shadow-md shadow-blue-50/25 dark:shadow-blue-950/40">
                         <Grid2X2 className="bg-blue-100 text-blue-500 p-2 rounded-lg size-10 dark:bg-blue-900 dark:text-blue-100" />
                         <h3 className="font-bebas-neue text-lg font-bold mt-2">Centralización Operativa</h3>
                         <p className="text-muted-foreground text-sm">Gestiona reservas, check-ins y limpieza desde un solo panel de control unificado y accesible desde cualquier dispositivo.</p>
                     </div>
-                    <div className="lg:col-start-3 p-5 border rounded-2xl bg-card flex flex-col gap-2 text-left">
+                    <div className="lg:col-start-3 p-5 border rounded-2xl flex flex-col gap-2 text-left bg-linear-to-b from-card to-blue-50/40 dark:to-blue-950/15 shadow-md shadow-blue-50/25 dark:shadow-blue-950/40">
                         <ShieldCheck className="bg-blue-100 text-blue-500 p-2 rounded-lg size-10 dark:bg-blue-900 dark:text-blue-100" />
                         <h3 className="font-bebas-neue text-lg font-bold mt-2">Cero Errores</h3>
                         <p className="text-muted-foreground text-sm">Automatiza asignaciones y facturación para eliminar fallos humanos críticos.</p>
                     </div>
-                    <div className="lg:col-start-4 p-5 border rounded-2xl bg-card flex flex-col gap-2 text-left">
+                    <div className="lg:col-start-4 p-5 border rounded-2xl flex flex-col gap-2 text-left bg-linear-to-b from-card to-blue-50/40 dark:to-blue-950/15 shadow-md shadow-blue-50/25 dark:shadow-blue-950/40">
                         <Users2 className="bg-blue-100 text-blue-500 p-2 rounded-lg size-10 dark:bg-blue-900 dark:text-blue-100" />
                         <h3 className="font-bebas-neue text-lg font-bold mt-2">Gestión de Personal</h3>
                         <p className="text-muted-foreground text-sm">Sincronización total entre recepción y limpieza en tiempo real.</p>
                     </div>
-                    <div className="lg:row-start-2 p-5 border rounded-2xl bg-card flex flex-col gap-2 text-left">
+                    <div className="lg:row-start-2 p-5 border rounded-2xl bg-linear-to-b from-card to-blue-50/40 dark:to-blue-950/15 shadow-md shadow-blue-50/25 dark:shadow-blue-950/40 flex flex-col gap-2 text-left">
                         <ChartArea className="bg-blue-100 text-blue-500 p-2 rounded-lg size-10 dark:bg-blue-900 dark:text-blue-100" />
                         <h3 className="font-bebas-neue text-lg font-bold mt-2">Trazabilidad</h3>
                         <p className="text-muted-foreground text-sm">Auditoría completa de cada cambio de tarifa o cancelación.</p>
                     </div>
-                    <div className="lg:col-span-2 lg:row-start-2 p-5 border rounded-2xl bg-card flex flex-col gap-2 text-left">
+                    <div className="lg:col-span-2 lg:row-start-2 p-5 border rounded-2xl bg-linear-to-b from-card to-blue-50/40 dark:to-blue-950/15 shadow-md shadow-blue-50/25 dark:shadow-blue-950/40 flex flex-col gap-2 text-left">
                         <Clock className="bg-blue-100 text-blue-500 p-2 rounded-lg size-10 dark:bg-blue-900 dark:text-blue-100" />
                         <h3 className="font-bebas-neue text-lg font-bold mt-2">Atención Ágil</h3>
                         <p className="text-muted-foreground text-sm">Optimiza los tiempos de espera con flujos de trabajo diseñados para la máxima rapidez en el mostrador.</p>
                     </div>
-                    <div className="lg:col-start-4 lg:row-start-2 p-5 border rounded-2xl bg-card flex flex-col gap-2 text-left">
+                    <div className="lg:col-start-4 lg:row-start-2 p-5 border rounded-2xl bg-linear-to-b from-card to-blue-50/40 dark:to-blue-950/15 shadow-md shadow-blue-50/25 dark:shadow-blue-950/40 flex flex-col gap-2 text-left">
                         <CircleDollarSign className="bg-blue-100 text-blue-500 p-2 rounded-lg size-10 dark:bg-blue-900 dark:text-blue-100" />
                         <h3 className="font-bebas-neue text-lg font-bold mt-2">Control Caja</h3>
                         <p className="text-muted-foreground text-sm">Cierres diarios sin descuadres y gestión de gastos inteligente.</p>

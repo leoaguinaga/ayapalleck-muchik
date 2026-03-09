@@ -43,8 +43,8 @@ export default function ComplaintsBook() {
     return (
         <div className="flex flex-col gap-6 w-full">
             <div>
-                <h2 className="text-2xl font-bold mb-2 flex items-center gap-2 text-foreground">
-                    <BookOpenIcon /> Libro de Reclamaciones
+                <h2 className="text-2xl font-bold mb-2 text-foreground">
+                    Libro de Reclamaciones
                 </h2>
                 <p className="text-sm text-muted-foreground">
                     Conforme a la normativa vigente, ponemos a su disposición nuestro libro virtual de reclamaciones para atender sus quejas o reclamos.

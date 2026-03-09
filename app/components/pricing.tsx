@@ -13,9 +13,11 @@ export default function pricing() {
 
                 </div>
                 <Tabs defaultValue="mensual">
-                    <TabsList className='place-self-center px-1 py-5 gap-1'>
+                    <TabsList className='place-self-center px-1 py-5 gap-1 relative'>
                         <TabsTrigger value='mensual' className='px-4 py-1 transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md'>Mensual</TabsTrigger>
-                        <TabsTrigger value='anual' className='px-4 py-1 transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md'>Anual</TabsTrigger>
+                        <TabsTrigger value='anual' className='px-4 py-1 transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md relative'>Anual
+                        </TabsTrigger>
+                        <span className='absolute top-0.5 -right-8 text-xs bg-blue-100 text-blue-600 font-semibold px-2 py-1 rounded-lg -mt-3 flex justify-center'>-17%</span>
                     </TabsList>
                     <TabsContent value='mensual'>
                         <div className='flex flex-col lg:flex-row justify-center mt-7.5 gap-6 lg:gap-0'>

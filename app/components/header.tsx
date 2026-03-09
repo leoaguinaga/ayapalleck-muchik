@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import React from 'react'
 
 export default function Header() {
     return (
@@ -11,10 +10,10 @@ export default function Header() {
                         <p className='font-bebas-neue text-2xl font-black'>FoxRooms</p>
                     </Link>
                     <div className='hidden lg:flex gap-6 items-center'>
-                        <a href="/#features" className='hover:underline underline-offset-4'>Características</a>
                         <a href="/#how-it-works" className='hover:underline underline-offset-4'>Cómo funciona</a>
-                        <a href="/#modules" className='hover:underline underline-offset-4'>Módulos</a>
+                        <a href="/#features" className='hover:underline underline-offset-4'>Características</a>
                         <a href="/#pricing" className='hover:underline underline-offset-4'>Precios</a>
+                        <a href="/#modules" className='hover:underline underline-offset-4'>Módulos</a>
                         <a href="/#testimonials" className='hover:underline underline-offset-4'>Testimonios</a>
                     </div>
                 </nav>

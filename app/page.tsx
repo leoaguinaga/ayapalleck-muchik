@@ -11,13 +11,23 @@ import Testimonials from "./components/testimonials"
 export default function LandingPage() {
 
   return (
-    <div className="flex flex-col bg-card">
+    <div className="flex flex-col bg-card scrollbar-hide">
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        body, html {
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        body::-webkit-scrollbar {
+          display: none;
+        }
+      `}} />
       <Header />
       <Hero />
-      <Features />
       <HowItWorks />
-      <Modules />
+      <Features />
       <Pricing />
+      <Modules />
       <Testimonials />
       <CTA />
       <Footer />

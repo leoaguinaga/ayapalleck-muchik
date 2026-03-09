@@ -36,7 +36,7 @@ export default function FAQ() {
     return (
         <div className="flex flex-col gap-6 w-full text-foreground/90">
             <div>
-                <h2 className="text-2xl font-bold mb-2 text-foreground">Preguntas Frecuentes (FAQ)</h2>
+                <h2 className="text-2xl font-bold mb-2 text-foreground">Preguntas Frecuentes</h2>
                 <p className="text-sm text-muted-foreground">Encuentra respuestas rápidas a las dudas más comunes sobre la plataforma.</p>
             </div>
 

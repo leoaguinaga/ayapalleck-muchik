@@ -3,9 +3,27 @@ import { Star } from "lucide-react";
 export default function Testimonials() {
     const testimonials = [
         {
-            name: "Carlos Mendoza",
-            role: "Gerente General, Hotel Ayapalleck Muchik",
-            content: "Desde que implementamos FoxRooms, nuestro equipo de recepción redujo los errores de reservas duplicadas a cero. La interfaz es tan intuitiva que el nuevo personal aprende a usarla en su primer día.",
+            name: "Elena Torres",
+            role: "Recepcionista, Hostal Sol y Luna",
+            content: "El proceso de check-in ahora es mucho más rápido. Puedo ver la disponibilidad de todas las habitaciones en una sola pantalla y asignar huéspedes en segundos. Nos ha cambiado la vida.",
+            rating: 5,
+        },
+        {
+            name: "Javier Vargas",
+            role: "Dueño, EcoLodge Selva Alta",
+            content: "Nuestra principal preocupación era el control de la caja y los cierres de turno descuadrados. Gracias a este sistema todo es transparente y puedo monitorear mis ingresos desde mi casa sin estrés.",
+            rating: 5,
+        },
+        {
+            name: "Valeria Ríos",
+            role: "Jefa de Housekeeping, Hotel Plaza Central",
+            content: "La sincronización instantánea con recepción nos permite saber exactamente qué habitaciones necesitan limpieza urgente. Ahora nuestro personal siempre está un paso adelante, lo cual ha subido nuestra calificación.",
+            rating: 5,
+        },
+        {
+            name: "Elena Torres",
+            role: "Recepcionista, Hostal Sol y Luna",
+            content: "El proceso de check-in ahora es mucho más rápido. Puedo ver la disponibilidad de todas las habitaciones en una sola pantalla y asignar huéspedes en segundos. Nos ha cambiado la vida.",
             rating: 5,
         },
         {
@@ -19,11 +37,11 @@ export default function Testimonials() {
             role: "Administrador, Hotel Vista Mar",
             content: "Las actualizaciones en tiempo real nos han salvado de muchas confusiones. El soporte al cliente es fenomenal, siempre responden rápido a cualquier duda por WhatsApp. Totalmente recomendado.",
             rating: 5,
-        }
+        },
     ];
 
     return (
-        <section className='w-full bg-background py-16 md:py-24 mb-20' id="testimonials">
+        <section className='w-full py-16 md:py-24' id="testimonials">
             <div className='max-w-6xl mx-auto flex flex-col gap-10 px-4 xl:px-0 scroll-my-20'>
                 <div className="gap-2 flex flex-col w-full text-center items-center">
                     <h2 className='font-bebas-neue text-3xl md:text-4xl font-black'>Lo que dicen nuestros clientes</h2>

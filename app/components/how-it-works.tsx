@@ -26,10 +26,12 @@ const steps = [
 export default function HowItWorks() {
     return (
         <section className='w-full'>
-            <div className='max-w-6xl mx-auto flex flex-col gap-8 lg:gap-10 items-center lg:items-start py-16 md:py-24 px-4 xl:px-0 scroll-my-20' id="how-it-works">
+            <div className='max-w-6xl mx-auto flex flex-col gap-8 lg:gap-10 items-center lg:items-start py-16 md:py-24 px-4 xl:px-0' id="how-it-works">
                 <div className="gap-2 flex flex-col w-full text-center lg:text-left">
                     <h2 className='font-bebas-neue text-3xl font-black'>¿Cómo funciona FoxRooms?</h2>
-                    <p className='text-muted-foreground text-sm md:text-base'>Empieza a gestionar tu hotel en minutos, no en meses.</p>
+                    <h3 className='text-muted-foreground text-sm md:text-base max-w-lg'>
+                        Descubre cómo en 5 simples pasos puedes tomar el control total de tu operación hotelera.
+                    </h3>
                 </div>
                 <div className="h-full w-full flex flex-col lg:flex-row gap-8 lg:gap-10">
                     <img
